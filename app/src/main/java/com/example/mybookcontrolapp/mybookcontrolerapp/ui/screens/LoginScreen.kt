@@ -24,7 +24,6 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -46,32 +45,35 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.mybookcontrolapp.R
+import com.example.mybookcontrolapp.Routes
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
+import okhttp3.Route
 
 @Composable
-fun LoginScreen(loginViewModel: LoginViewModel) {
+fun LoginScreen(loginViewModel: LoginViewModel, navigationController: NavHostController) {
     Box(
         Modifier
             .fillMaxSize()
             .padding(8.dp)
     ) {
-        val isLoading:Boolean by loginViewModel.isLoading.observeAsState(false)
+        val isLoading: Boolean by loginViewModel.isLoading.observeAsState(false)
         if (isLoading) {
-            Box(modifier = Modifier
-                .fillMaxSize()
-                .align(Alignment.Center)) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .align(Alignment.Center)
+            ) {
                 CircularProgressIndicator()
             }
         } else {
             Header(Modifier.align(Alignment.TopEnd))
-            Body(Modifier.align(Alignment.Center), loginViewModel)
-        Footer(Modifier.align(Alignment.BottomCenter))
+            Body(Modifier.align(Alignment.Center), loginViewModel, navigationController)
+            Footer(Modifier.align(Alignment.BottomCenter))
         }
     }
 }
-
-
 
 
 /*HEADER*/
@@ -90,7 +92,11 @@ fun Header(modifier: Modifier) {
 /*BODY*/
 
 @Composable
-fun Body(modifier: Modifier, loginViewModel: LoginViewModel) {
+fun Body(
+    modifier: Modifier,
+    loginViewModel: LoginViewModel,
+    navigationController: NavHostController
+) {
     val email: String by loginViewModel.email.observeAsState(initial = "")
     val password: String by loginViewModel.password.observeAsState(initial = "")
     val isLoginEnable: Boolean by loginViewModel.isLoginEnable.observeAsState(initial = false)
@@ -108,7 +114,7 @@ fun Body(modifier: Modifier, loginViewModel: LoginViewModel) {
         Spacer(modifier = Modifier.size(8.dp))
         ForgotPassword(Modifier.align(Alignment.End))
         Spacer(modifier = Modifier.size(16.dp))
-        LoginButton(isLoginEnable, loginViewModel)
+        LoginButton(isLoginEnable, loginViewModel, navigationController)
         Spacer(modifier = Modifier.size(16.dp))
         LoginDivider()
     }
@@ -195,10 +201,19 @@ fun ForgotPassword(modifier: Modifier) {
 
 
 @Composable
-fun LoginButton(loginEnable: Boolean, loginViewModel: LoginViewModel) {
+fun LoginButton(
+    loginEnable: Boolean,
+    loginViewModel: LoginViewModel,
+    navigationController: NavHostController
+) {
     Button(
-        onClick = { loginViewModel.onLoginSelected() },
-        enabled = loginEnable,
+        onClick = {
+            loginViewModel.login(
+                loginViewModel.email.toString(),
+                loginViewModel.password.toString()
+            )
+        },
+        enabled = true,
         modifier = Modifier.fillMaxWidth(),
         colors = ButtonDefaults.buttonColors(
             containerColor = Color(0xFF036392),

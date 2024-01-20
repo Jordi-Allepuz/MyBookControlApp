@@ -6,10 +6,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mybookcontrolapp.mybookcontrolerapp.data.sources.remote.AuthService
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class LoginViewModel : ViewModel() {
 
+@HiltViewModel
+class LoginViewModel @Inject constructor(private val authService:AuthService) : ViewModel() {
 
     private val _email = MutableLiveData<String>()
     val email: LiveData<String> = _email
@@ -34,14 +43,32 @@ class LoginViewModel : ViewModel() {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches() && password.length > 6
     }
 
-    fun onLoginSelected() {
+
+    fun login (email: String, password: String){
         viewModelScope.launch {
             _isLoading.value = true
-//            val result = loginUseCase(email.value!!, password.value!!)
-//            if (result) {
-//                //Navegar a la siguiente pantalla
-//            }
-//            _isLoading.value = false
+
+            val result = withContext(Dispatchers.IO){
+                authService.login(email, password)
+            }
+
+            if (result != null ){
+
+            }else{
+                //error
+            }
+
+            _isLoading.value = false
+
         }
     }
+
+
+
+
+
+
+
+
+
 }

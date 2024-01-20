@@ -12,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.LoginScreen
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.UserBooksScreen
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
 import com.example.mybookcontrolapp.ui.theme.MyBookControlAppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,14 +37,14 @@ class MainActivity : ComponentActivity() {
                         startDestination = Routes.LoginScreen.route
                     ) {
                         composable(Routes.LoginScreen.route) {
-                            LoginScreen(loginViewModel)
-                        }
-                        composable(Routes.SignUpScreen.route) {
-
+                            LoginScreen(loginViewModel, navigationController)
                         }
                         composable(Routes.UserBooksScreen.route) {
-
+                            UserBooksScreen(navigationController)
                         }
+//                        composable(Routes.UserBooksScreen.route) {
+//
+//                        }
                     }
                 }
             }
