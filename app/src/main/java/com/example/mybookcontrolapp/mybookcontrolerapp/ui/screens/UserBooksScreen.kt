@@ -12,9 +12,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
+import com.example.mybookcontrolapp.Routes
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
 
 @Composable
-fun UserBooksScreen(navigationController: NavHostController) {
+fun UserBooksScreen(loginViewModel: LoginViewModel, navigationController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -22,7 +24,10 @@ fun UserBooksScreen(navigationController: NavHostController) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Button(onClick = { /*TODO*/ }) {
+        Button(onClick = {
+            loginViewModel.logOut()
+            navigationController.navigate(Routes.LoginScreen.route)
+        }) {
             Text(text = "LOG OUT")
         }
     }

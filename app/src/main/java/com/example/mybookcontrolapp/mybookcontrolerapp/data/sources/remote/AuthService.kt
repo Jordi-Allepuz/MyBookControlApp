@@ -16,6 +16,10 @@ class AuthService @Inject constructor( private val firebaseAuth: FirebaseAuth) {
         return firebaseAuth.createUserWithEmailAndPassword(email, password).await().user
     }
 
+    suspend fun logOut(){
+        return firebaseAuth.signOut()
+    }
+
     fun isUserLogged():Boolean{
         return firebaseAuth.currentUser != null
     }

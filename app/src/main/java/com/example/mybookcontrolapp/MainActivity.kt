@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
                             LoginScreen(loginViewModel, navigationController)
                         }
                         composable(Routes.UserBooksScreen.route) {
-                            UserBooksScreen(navigationController)
+                            UserBooksScreen( loginViewModel ,navigationController)
                         }
                     }
                 }
