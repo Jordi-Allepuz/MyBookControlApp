@@ -75,20 +75,20 @@ class LoginViewModel @Inject constructor(private val authService: AuthService) :
     }
 
 
-    private fun isUserLogged():Boolean{
-        return authService.isUserLogged()
-    }
-
-
-    fun checkDestination(){
-        val isUserLogged: Boolean = isUserLogged()
-        if (isUserLogged){
-            Routes.UserBooksScreen.route
-        }else{
-            Routes.LoginScreen.route
-        }
-    }
-
+//    private fun isUserLogged():Boolean{
+//        return authService.isUserLogged()
+//    }
+//
+//
+//    fun checkDestination(){
+//        val isUserLogged: Boolean = isUserLogged()
+//        if (isUserLogged){
+//            Routes.UserBooksScreen.route
+//        }else{
+//            Routes.LoginScreen.route
+//        }
+//    }
+//
 
 
 

@@ -18,12 +18,15 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -113,7 +116,7 @@ fun Body(
         Spacer(modifier = Modifier.size(8.dp))
         ForgotPassword(Modifier.align(Alignment.End))
         Spacer(modifier = Modifier.size(16.dp))
-        LoginButton(isLoginEnable, loginViewModel, navigationController)
+        LoginButton(isLoginEnable, loginViewModel, navigationController, email, password)
         Spacer(modifier = Modifier.size(16.dp))
         LoginDivider()
     }
@@ -168,16 +171,16 @@ fun Password(password: String, onTextChanged: (String) -> Unit) {
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Red
         ),
-//        trailingIcon = {
-//            val imagen = if (passwordVisibility) {
-//                Icons.Filled.VisibilityOff
-//            } else {
-//                Icons.Filled.Visibility
-//            }
-//            IconButton(onClick = { passwordVisibility = !passwordVisibility }) {
-//                Icon(imageVector = imagen, contentDescription = "show password")
-//            }
-//        },
+        trailingIcon = {
+            val imagen = if (passwordVisibility) {
+                Icons.Filled.VisibilityOff
+            } else {
+                Icons.Filled.Visibility
+            }
+            IconButton(onClick = { passwordVisibility = !passwordVisibility }) {
+                Icon(imageVector = imagen, contentDescription = "show password")
+            }
+        },
         visualTransformation = if (!passwordVisibility) {
             VisualTransformation.None
         } else {
@@ -203,17 +206,17 @@ fun ForgotPassword(modifier: Modifier) {
 fun LoginButton(
     loginEnable: Boolean,
     loginViewModel: LoginViewModel,
-    navigationController: NavHostController
+    navigationController: NavHostController,
+    email:String,
+    password: String
 ) {
-    val email: String by loginViewModel.email.observeAsState(initial = "")
-    val password: String by loginViewModel.password.observeAsState(initial = "")
     Button(
         onClick = {
             loginViewModel.login(
                 email, password, { navigationController.navigate(Routes.UserBooksScreen.route) }
             )
         },
-        enabled = true,
+        enabled = loginEnable,
         modifier = Modifier.fillMaxWidth(),
         colors = ButtonDefaults.buttonColors(
             containerColor = Color(0xFF036392),
