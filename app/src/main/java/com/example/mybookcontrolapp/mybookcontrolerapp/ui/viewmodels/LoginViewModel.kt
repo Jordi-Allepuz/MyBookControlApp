@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mybookcontrolapp.Routes
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.sources.remote.AuthService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +16,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val authService:AuthService) : ViewModel() {
+class LoginViewModel @Inject constructor(private val authService: AuthService) : ViewModel() {
 
     private val _email = MutableLiveData<String>()
     val email: LiveData<String> = _email
@@ -41,39 +42,52 @@ class LoginViewModel @Inject constructor(private val authService:AuthService) : 
     }
 
 
-    fun login (email: String, password: String){
+    fun login(email: String, password: String, toUserScreen: () -> Unit) {
         viewModelScope.launch {
             _isLoading.value = true
 
-            val result = withContext(Dispatchers.IO){
+            val result = withContext(Dispatchers.IO) {
                 authService.login(email, password)
             }
-
-            if (result != null ){
-
-            }else{
+            if (result != null) {
+                toUserScreen()
+            } else {
                 //error
             }
-
             _isLoading.value = false
-
         }
     }
 
 
-    fun signUp(email:String, password:String){
+    fun signUp(email: String, password: String, toUserScreen: () -> Unit) {
         viewModelScope.launch {
-            _isLoading.value= true
-            val result= withContext(Dispatchers.IO){
+            _isLoading.value = true
+            val result = withContext(Dispatchers.IO) {
                 authService.signUp(email, password)
             }
-            _isLoading.value= false
+            if (result != null) {
+                toUserScreen()
+            } else {
+                //error
+            }
+            _isLoading.value = false
         }
-
     }
 
 
+    private fun isUserLogged():Boolean{
+        return authService.isUserLogged()
+    }
 
+
+    fun checkDestination(){
+        val isUserLogged: Boolean = isUserLogged()
+        if (isUserLogged){
+            Routes.UserBooksScreen.route
+        }else{
+            Routes.LoginScreen.route
+        }
+    }
 
 
 
@@ -81,3 +95,4 @@ class LoginViewModel @Inject constructor(private val authService:AuthService) : 
 
 
 }
+

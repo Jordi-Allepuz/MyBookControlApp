@@ -47,6 +47,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.mybookcontrolapp.R
+import com.example.mybookcontrolapp.Routes
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
 
 @Composable
@@ -67,8 +68,8 @@ fun LoginScreen(loginViewModel: LoginViewModel, navigationController: NavHostCon
             }
         } else {
             Header(Modifier.align(Alignment.TopEnd))
-            Body(Modifier.align(Alignment.Center), loginViewModel, navigationController, )
-            Footer(Modifier.align(Alignment.BottomCenter),loginViewModel )
+            Body(Modifier.align(Alignment.Center), loginViewModel, navigationController)
+            Footer(Modifier.align(Alignment.BottomCenter), loginViewModel, navigationController)
         }
     }
 }
@@ -112,7 +113,7 @@ fun Body(
         Spacer(modifier = Modifier.size(8.dp))
         ForgotPassword(Modifier.align(Alignment.End))
         Spacer(modifier = Modifier.size(16.dp))
-        LoginButton(isLoginEnable, loginViewModel)
+        LoginButton(isLoginEnable, loginViewModel, navigationController)
         Spacer(modifier = Modifier.size(16.dp))
         LoginDivider()
     }
@@ -201,14 +202,15 @@ fun ForgotPassword(modifier: Modifier) {
 @Composable
 fun LoginButton(
     loginEnable: Boolean,
-    loginViewModel: LoginViewModel
+    loginViewModel: LoginViewModel,
+    navigationController: NavHostController
 ) {
     val email: String by loginViewModel.email.observeAsState(initial = "")
     val password: String by loginViewModel.password.observeAsState(initial = "")
     Button(
         onClick = {
             loginViewModel.login(
-                email, password
+                email, password, { navigationController.navigate(Routes.UserBooksScreen.route) }
             )
         },
         enabled = true,
@@ -254,7 +256,11 @@ fun LoginDivider() {
 /*FOOTER*/
 
 @Composable
-fun Footer(modifier: Modifier, loginViewModel: LoginViewModel) {
+fun Footer(
+    modifier: Modifier,
+    loginViewModel: LoginViewModel,
+    navigationController: NavHostController
+) {
     Column(modifier = modifier.fillMaxWidth()) {
         Divider(
             Modifier
@@ -263,14 +269,14 @@ fun Footer(modifier: Modifier, loginViewModel: LoginViewModel) {
                 .fillMaxWidth()
         )
         Spacer(modifier = Modifier.size(24.dp))
-        SingUp(loginViewModel)
+        SingUp(loginViewModel, navigationController)
         Spacer(modifier = Modifier.size(24.dp))
     }
 
 }
 
 @Composable
-fun SingUp(loginViewModel: LoginViewModel) {
+fun SingUp(loginViewModel: LoginViewModel, navigationController: NavHostController ) {
 
     val email: String by loginViewModel.email.observeAsState(initial = "")
     val password: String by loginViewModel.password.observeAsState(initial = "")
@@ -279,7 +285,14 @@ fun SingUp(loginViewModel: LoginViewModel) {
         Text(text = "No tienes una cuenta?", fontSize = 12.sp, color = Color.Gray)
         Text(
             text = "Regístrate",
-            Modifier.padding(horizontal = 8.dp).clickable { loginViewModel.signUp(email, password)  },
+            Modifier
+                .padding(horizontal = 8.dp)
+                .clickable {
+                    loginViewModel.signUp(
+                        email,
+                        password,
+                        { navigationController.navigate(Routes.UserBooksScreen.route) })
+                },
             fontSize = 12.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Blue
