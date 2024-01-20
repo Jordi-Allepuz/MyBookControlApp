@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mybookcontrolapp.Routes
+import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.User
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.sources.remote.AuthService
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -88,6 +89,12 @@ class LoginViewModel @Inject constructor(private val authService: AuthService) :
             }else{
 
             }
+        }
+    }
+
+    fun registredUserData(name:String, age:Int, email:String, favoriteGenere:String){
+        viewModelScope.launch {
+            authService.registredUserData(User(name, age, email, favoriteGenere))
         }
     }
 
