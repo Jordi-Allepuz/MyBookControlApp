@@ -12,8 +12,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.LoginScreen
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.SignUpScreen
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.UserBooksScreen
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.SignUpViewModel
 import com.example.mybookcontrolapp.ui.theme.MyBookControlAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,6 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val loginViewModel: LoginViewModel by viewModels()
+    private val signUpViewModel: SignUpViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +41,9 @@ class MainActivity : ComponentActivity() {
                     ) {
                         composable(Routes.LoginScreen.route) {
                             LoginScreen(loginViewModel, navigationController)
+                        }
+                        composable(Routes.SignUpScreen.route) {
+                            SignUpScreen( signUpViewModel ,navigationController)
                         }
                         composable(Routes.UserBooksScreen.route) {
                             UserBooksScreen( loginViewModel ,navigationController)

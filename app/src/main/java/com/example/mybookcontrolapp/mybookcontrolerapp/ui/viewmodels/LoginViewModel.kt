@@ -25,9 +25,9 @@ class LoginViewModel @Inject constructor(private val authService: AuthService) :
     private val _email = MutableLiveData<String>()
     val email: LiveData<String> = _email
 
-
     private val _password = MutableLiveData<String>()
     val password: LiveData<String> = _password
+
 
     private val _isLoginEnable = MutableLiveData<Boolean>()
     val isLoginEnable: LiveData<Boolean> = _isLoginEnable
@@ -40,6 +40,8 @@ class LoginViewModel @Inject constructor(private val authService: AuthService) :
         _password.value = password
         _isLoginEnable.value = enableLogin(email, password)
     }
+
+
 
     fun enableLogin(email: String, password: String): Boolean {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches() && password.length > 6

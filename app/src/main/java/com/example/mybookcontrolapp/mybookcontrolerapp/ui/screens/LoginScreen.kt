@@ -172,13 +172,13 @@ fun Password(password: String, onTextChanged: (String) -> Unit) {
             unfocusedIndicatorColor = Color.Red
         ),
         trailingIcon = {
-            val imagen = if (passwordVisibility) {
+            val passwordImagen = if (passwordVisibility) {
                 Icons.Filled.VisibilityOff
             } else {
                 Icons.Filled.Visibility
             }
             IconButton(onClick = { passwordVisibility = !passwordVisibility }) {
-                Icon(imageVector = imagen, contentDescription = "show password")
+                Icon(imageVector = passwordImagen, contentDescription = "visibility")
             }
         },
         visualTransformation = if (!passwordVisibility) {
