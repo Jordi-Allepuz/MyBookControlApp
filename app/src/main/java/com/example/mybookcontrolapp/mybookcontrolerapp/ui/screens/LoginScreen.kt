@@ -67,8 +67,8 @@ fun LoginScreen(loginViewModel: LoginViewModel, navigationController: NavHostCon
             }
         } else {
             Header(Modifier.align(Alignment.TopEnd))
-            Body(Modifier.align(Alignment.Center), loginViewModel, navigationController)
-            Footer(Modifier.align(Alignment.BottomCenter))
+            Body(Modifier.align(Alignment.Center), loginViewModel, navigationController, )
+            Footer(Modifier.align(Alignment.BottomCenter),loginViewModel )
         }
     }
 }
@@ -112,7 +112,7 @@ fun Body(
         Spacer(modifier = Modifier.size(8.dp))
         ForgotPassword(Modifier.align(Alignment.End))
         Spacer(modifier = Modifier.size(16.dp))
-        LoginButton(isLoginEnable, loginViewModel, email, password)
+        LoginButton(isLoginEnable, loginViewModel)
         Spacer(modifier = Modifier.size(16.dp))
         LoginDivider()
     }
@@ -201,10 +201,10 @@ fun ForgotPassword(modifier: Modifier) {
 @Composable
 fun LoginButton(
     loginEnable: Boolean,
-    loginViewModel: LoginViewModel,
-    email: String,
-    password: String
+    loginViewModel: LoginViewModel
 ) {
+    val email: String by loginViewModel.email.observeAsState(initial = "")
+    val password: String by loginViewModel.password.observeAsState(initial = "")
     Button(
         onClick = {
             loginViewModel.login(
@@ -254,7 +254,7 @@ fun LoginDivider() {
 /*FOOTER*/
 
 @Composable
-fun Footer(modifier: Modifier) {
+fun Footer(modifier: Modifier, loginViewModel: LoginViewModel) {
     Column(modifier = modifier.fillMaxWidth()) {
         Divider(
             Modifier
@@ -263,19 +263,23 @@ fun Footer(modifier: Modifier) {
                 .fillMaxWidth()
         )
         Spacer(modifier = Modifier.size(24.dp))
-        SingUp()
+        SingUp(loginViewModel)
         Spacer(modifier = Modifier.size(24.dp))
     }
 
 }
 
 @Composable
-fun SingUp() {
+fun SingUp(loginViewModel: LoginViewModel) {
+
+    val email: String by loginViewModel.email.observeAsState(initial = "")
+    val password: String by loginViewModel.password.observeAsState(initial = "")
+
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
         Text(text = "No tienes una cuenta?", fontSize = 12.sp, color = Color.Gray)
         Text(
             text = "Regístrate",
-            Modifier.padding(horizontal = 8.dp),
+            Modifier.padding(horizontal = 8.dp).clickable { loginViewModel.signUp(email, password)  },
             fontSize = 12.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Blue

@@ -42,9 +42,9 @@ class MainActivity : ComponentActivity() {
                         composable(Routes.UserBooksScreen.route) {
                             UserBooksScreen(navigationController)
                         }
-//                        composable(Routes.UserBooksScreen.route) {
-//
-//                        }
+                        composable(Routes.SignUpScreen.route) {
+
+                        }
                     }
                 }
             }

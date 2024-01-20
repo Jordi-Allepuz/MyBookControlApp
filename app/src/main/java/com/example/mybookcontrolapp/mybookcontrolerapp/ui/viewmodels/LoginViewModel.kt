@@ -1,15 +1,12 @@
 package com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels
 
-import android.util.Log
+
 import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.sources.remote.AuthService
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -61,6 +58,18 @@ class LoginViewModel @Inject constructor(private val authService:AuthService) : 
             _isLoading.value = false
 
         }
+    }
+
+
+    fun signUp(email:String, password:String){
+        viewModelScope.launch {
+            _isLoading.value= true
+            val result= withContext(Dispatchers.IO){
+                authService.signUp(email, password)
+            }
+            _isLoading.value= false
+        }
+
     }
 
 
