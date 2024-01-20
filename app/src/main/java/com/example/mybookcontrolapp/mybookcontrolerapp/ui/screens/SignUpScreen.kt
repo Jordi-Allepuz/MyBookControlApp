@@ -19,10 +19,12 @@ import androidx.compose.material.icons.rounded.Email
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material.icons.rounded.Person2
 import androidx.compose.material.icons.rounded.SwipeDown
+import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
@@ -43,17 +45,18 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.mybookcontrolapp.Routes
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.SignUpViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun SignUpScreen(signUpViewModel: SignUpViewModel,navController: NavHostController) {
+fun SignUpScreen(signUpViewModel: SignUpViewModel, navController: NavHostController) {
 
 
     Scaffold(
 //        topBar = { TopBarNewUser(navController) },
-        content = { ContentNewUSer(signUpViewModel,navController) },
+        content = { ContentNewUSer(signUpViewModel, navController) },
 //        bottomBar = { BottomBarNewUser(navController) },
         floatingActionButton = { FabNewUser(navController) },
         floatingActionButtonPosition = FabPosition.End,
@@ -64,7 +67,7 @@ fun SignUpScreen(signUpViewModel: SignUpViewModel,navController: NavHostControll
 @Composable
 fun FabNewUser(navController: NavHostController) {
     val contentToast = LocalContext.current.applicationContext
-    SmallFloatingActionButton(onClick = {
+    FloatingActionButton(onClick = {
         Toast.makeText(
             contentToast,
             "Rellena todos los campos para registrarte",
@@ -78,7 +81,7 @@ fun FabNewUser(navController: NavHostController) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ContentNewUSer(singUpViewModel: SignUpViewModel,navController: NavHostController) {
+fun ContentNewUSer(singUpViewModel: SignUpViewModel, navController: NavHostController) {
 
     val email: String by singUpViewModel.email.observeAsState(initial = "")
     val userName: String by singUpViewModel.userName.observeAsState(initial = "")
@@ -115,7 +118,16 @@ fun ContentNewUSer(singUpViewModel: SignUpViewModel,navController: NavHostContro
                 ) {
                     OutlinedTextField(
                         value = userName,
-                        onValueChange = { singUpViewModel.onLoginChange(email,it,password1,password2,age,favoriteGenere)  },
+                        onValueChange = {
+                            singUpViewModel.onLoginChange(
+                                email,
+                                it,
+                                password1,
+                                password2,
+                                age,
+                                favoriteGenere
+                            )
+                        },
                         label = { Text(text = "Nombre Usuario") },
                         leadingIcon = {
                             Icon(
@@ -128,7 +140,16 @@ fun ContentNewUSer(singUpViewModel: SignUpViewModel,navController: NavHostContro
                     )
                     OutlinedTextField(
                         value = age,
-                        onValueChange = { singUpViewModel.onLoginChange(email,userName,password1,password2,it,favoriteGenere) },
+                        onValueChange = {
+                            singUpViewModel.onLoginChange(
+                                email,
+                                userName,
+                                password1,
+                                password2,
+                                it,
+                                favoriteGenere
+                            )
+                        },
                         label = { Text(text = "Edad") },
                         leadingIcon = {
                             Icon(
@@ -141,7 +162,16 @@ fun ContentNewUSer(singUpViewModel: SignUpViewModel,navController: NavHostContro
                     )
                     OutlinedTextField(
                         value = email,
-                        onValueChange = { singUpViewModel.onLoginChange(it,userName,password1,password2,age,favoriteGenere)  },
+                        onValueChange = {
+                            singUpViewModel.onLoginChange(
+                                it,
+                                userName,
+                                password1,
+                                password2,
+                                age,
+                                favoriteGenere
+                            )
+                        },
                         label = { Text(text = "Correo electronico") },
                         leadingIcon = {
                             Icon(
@@ -156,7 +186,16 @@ fun ContentNewUSer(singUpViewModel: SignUpViewModel,navController: NavHostContro
                     )
                     OutlinedTextField(
                         value = password1,
-                        onValueChange = {singUpViewModel.onLoginChange(email,userName,it,password2,age,favoriteGenere) },
+                        onValueChange = {
+                            singUpViewModel.onLoginChange(
+                                email,
+                                userName,
+                                it,
+                                password2,
+                                age,
+                                favoriteGenere
+                            )
+                        },
                         label = { Text(text = "Contraseña") },
                         trailingIcon = {
                             val passwordImagen = if (passwordVisibility) {
@@ -183,7 +222,16 @@ fun ContentNewUSer(singUpViewModel: SignUpViewModel,navController: NavHostContro
                     )
                     OutlinedTextField(
                         value = password2,
-                        onValueChange = {singUpViewModel.onLoginChange(email,userName,password1,it,age,favoriteGenere) },
+                        onValueChange = {
+                            singUpViewModel.onLoginChange(
+                                email,
+                                userName,
+                                password1,
+                                it,
+                                age,
+                                favoriteGenere
+                            )
+                        },
                         label = { Text(text = "Contraseña") },
                         trailingIcon = {
                             val passwordImagen = if (passwordVisibility) {
@@ -210,7 +258,16 @@ fun ContentNewUSer(singUpViewModel: SignUpViewModel,navController: NavHostContro
                     )
                     OutlinedTextField(
                         value = favoriteGenere,
-                        onValueChange = { singUpViewModel.onLoginChange(email,userName,password1,password2,age,it) },
+                        onValueChange = {
+                            singUpViewModel.onLoginChange(
+                                email,
+                                userName,
+                                password1,
+                                password2,
+                                age,
+                                it
+                            )
+                        },
                         label = { Text(text = "Genero favorito") },
                         leadingIcon = {
                             Icon(
@@ -221,6 +278,17 @@ fun ContentNewUSer(singUpViewModel: SignUpViewModel,navController: NavHostContro
                         modifier = Modifier.size(300.dp, 60.dp),
                         singleLine = true
                     )
+                    Button(onClick = {
+                        singUpViewModel.signUp(
+                            userName,
+                            email,
+                            password1,
+                            age,
+                            favoriteGenere
+                        ) { navController.navigate(Routes.UserBooksScreen.route) }
+                    }) {
+                        Text(text = "SIGN UP")
+                    }
                 }
             }
         }

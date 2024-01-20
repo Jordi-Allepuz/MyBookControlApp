@@ -72,7 +72,7 @@ fun LoginScreen(loginViewModel: LoginViewModel, navigationController: NavHostCon
         } else {
             Header(Modifier.align(Alignment.TopEnd))
             Body(Modifier.align(Alignment.Center), loginViewModel, navigationController)
-            Footer(Modifier.align(Alignment.BottomCenter), loginViewModel, navigationController)
+            Footer(Modifier.align(Alignment.BottomCenter), navigationController)
         }
     }
 }
@@ -261,7 +261,6 @@ fun LoginDivider() {
 @Composable
 fun Footer(
     modifier: Modifier,
-    loginViewModel: LoginViewModel,
     navigationController: NavHostController
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
@@ -272,17 +271,14 @@ fun Footer(
                 .fillMaxWidth()
         )
         Spacer(modifier = Modifier.size(24.dp))
-        SingUp(loginViewModel, navigationController)
+        SingUp( navigationController)
         Spacer(modifier = Modifier.size(24.dp))
     }
 
 }
 
 @Composable
-fun SingUp(loginViewModel: LoginViewModel, navigationController: NavHostController ) {
-
-    val email: String by loginViewModel.email.observeAsState(initial = "")
-    val password: String by loginViewModel.password.observeAsState(initial = "")
+fun SingUp( navigationController: NavHostController ) {
 
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
         Text(text = "No tienes una cuenta?", fontSize = 12.sp, color = Color.Gray)
@@ -290,12 +286,7 @@ fun SingUp(loginViewModel: LoginViewModel, navigationController: NavHostControll
             text = "Regístrate",
             Modifier
                 .padding(horizontal = 8.dp)
-                .clickable {
-                    loginViewModel.signUp(
-                        email,
-                        password,
-                        { navigationController.navigate(Routes.UserBooksScreen.route) })
-                },
+                .clickable { navigationController.navigate(Routes.SignUpScreen.route) },
             fontSize = 12.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Blue

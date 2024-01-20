@@ -65,23 +65,6 @@ class LoginViewModel @Inject constructor(private val authService: AuthService) :
     }
 
 
-    fun signUp(email: String, password: String, toUserScreen: () -> Unit) {
-        viewModelScope.launch {
-            _isLoading.value = true
-            val result = withContext(Dispatchers.IO) {
-                authService.signUp(email, password)
-            }
-            if (result != null) {
-                toUserScreen()
-            } else {
-                //error
-            }
-            _isLoading.value = false
-        }
-    }
-
-
-
     fun logOut(){
         viewModelScope.launch {
            val result= authService.logOut()
@@ -91,12 +74,6 @@ class LoginViewModel @Inject constructor(private val authService: AuthService) :
             }else{
 
             }
-        }
-    }
-
-    fun registredUserData(name:String, age:Int, email:String, favoriteGenere:String){
-        viewModelScope.launch {
-            authService.registredUserData(User(name, age, email, favoriteGenere))
         }
     }
 

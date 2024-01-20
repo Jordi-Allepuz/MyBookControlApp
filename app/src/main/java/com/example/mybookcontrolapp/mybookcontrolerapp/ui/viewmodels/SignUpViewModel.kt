@@ -79,7 +79,7 @@ class SignUpViewModel @Inject constructor(private val authService: AuthService) 
         userName: String,
         email: String,
         password: String,
-        age: Int,
+        age: String,
         favoriteGenere: String,
         toUserScreen: () -> Unit
     ) {
@@ -87,10 +87,11 @@ class SignUpViewModel @Inject constructor(private val authService: AuthService) 
             _isLoading.value = true
             val result = withContext(Dispatchers.IO) {
                 authService.signUp(email, password)
-                authService.registredUserData(User(userName, age, email, favoriteGenere))
+
 
             }
             if (result != null) {
+                authService.registredUserData(User(userName, age, email, favoriteGenere))
                 toUserScreen()
             } else {
                 //error
