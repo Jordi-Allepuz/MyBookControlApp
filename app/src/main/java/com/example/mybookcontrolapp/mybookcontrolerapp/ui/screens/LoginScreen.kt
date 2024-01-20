@@ -47,9 +47,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.mybookcontrolapp.R
-import com.example.mybookcontrolapp.Routes
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
-import okhttp3.Route
 
 @Composable
 fun LoginScreen(loginViewModel: LoginViewModel, navigationController: NavHostController) {
@@ -114,7 +112,7 @@ fun Body(
         Spacer(modifier = Modifier.size(8.dp))
         ForgotPassword(Modifier.align(Alignment.End))
         Spacer(modifier = Modifier.size(16.dp))
-        LoginButton(isLoginEnable, loginViewModel, navigationController)
+        LoginButton(isLoginEnable, loginViewModel, email, password)
         Spacer(modifier = Modifier.size(16.dp))
         LoginDivider()
     }
@@ -204,13 +202,13 @@ fun ForgotPassword(modifier: Modifier) {
 fun LoginButton(
     loginEnable: Boolean,
     loginViewModel: LoginViewModel,
-    navigationController: NavHostController
+    email: String,
+    password: String
 ) {
     Button(
         onClick = {
             loginViewModel.login(
-                loginViewModel.email.toString(),
-                loginViewModel.password.toString()
+                email, password
             )
         },
         enabled = true,
