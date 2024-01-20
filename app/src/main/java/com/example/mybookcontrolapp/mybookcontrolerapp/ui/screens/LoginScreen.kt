@@ -4,6 +4,7 @@ import android.app.Activity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,6 +30,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -64,7 +66,7 @@ fun LoginScreen(loginViewModel: LoginViewModel) {
         } else {
             Header(Modifier.align(Alignment.TopEnd))
             Body(Modifier.align(Alignment.Center), loginViewModel)
-//        Footer(Modifier.align(Alignment.BottomCenter))
+        Footer(Modifier.align(Alignment.BottomCenter))
         }
     }
 }
@@ -95,7 +97,7 @@ fun Body(modifier: Modifier, loginViewModel: LoginViewModel) {
 
     Column(modifier = modifier) {
         ImageLogo(Modifier.align(Alignment.CenterHorizontally))
-        Spacer(modifier = Modifier.size(20.dp))
+        Spacer(modifier = Modifier.size(50.dp))
         Email(email) {
             loginViewModel.onLoginChange(email = it, password = password)
         }
@@ -115,7 +117,7 @@ fun Body(modifier: Modifier, loginViewModel: LoginViewModel) {
 @Composable
 fun ImageLogo(modifier: Modifier) {
     Image(
-        painter = painterResource(id = R.drawable."logoEmpresa"),
+        painter = painterResource(id = R.drawable.logoapp),
         contentDescription = "logo", modifier = modifier
             .clip(CircleShape)
             .size(100.dp)
@@ -161,16 +163,16 @@ fun Password(password: String, onTextChanged: (String) -> Unit) {
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Red
         ),
-        trailingIcon = {
-            val imagen = if (passwordVisibility) {
-                Icons.Filled.VisibilityOff
-            } else {
-                Icons.Filled.Visibility
-            }
-            IconButton(onClick = { passwordVisibility = !passwordVisibility }) {
-                Icon(imageVector = imagen, contentDescription = "show password")
-            }
-        },
+//        trailingIcon = {
+//            val imagen = if (passwordVisibility) {
+//                Icons.Filled.VisibilityOff
+//            } else {
+//                Icons.Filled.Visibility
+//            }
+//            IconButton(onClick = { passwordVisibility = !passwordVisibility }) {
+//                Icon(imageVector = imagen, contentDescription = "show password")
+//            }
+//        },
         visualTransformation = if (!passwordVisibility) {
             VisualTransformation.None
         } else {
@@ -238,34 +240,34 @@ fun LoginDivider() {
 
 /*FOOTER*/
 
-//@Composable
-//fun Footer(modifier: Modifier) {
-//    Column(modifier = modifier.fillMaxWidth()) {
-//        Divider(
-//            Modifier
-//                .background(Color.Gray)
-//                .height(1.dp)
-//                .fillMaxWidth()
-//        )
-//        Spacer(modifier = Modifier.size(24.dp))
-//        SingUp()
-//        Spacer(modifier = Modifier.size(24.dp))
-//    }
-//
-//}
-//
-//@Composable
-//fun SingUp() {
-//    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-//        Text(text = "No tienes una cuenta?", fontSize = 12.sp, color = Color.Gray)
-//        Text(
-//            text = "Regístrate",
-//            Modifier.padding(horizontal = 8.dp),
-//            fontSize = 12.sp,
-//            fontWeight = FontWeight.Bold,
-//            color = Color.Blue
-//        )
-//    }
-//}
+@Composable
+fun Footer(modifier: Modifier) {
+    Column(modifier = modifier.fillMaxWidth()) {
+        Divider(
+            Modifier
+                .background(Color.Gray)
+                .height(1.dp)
+                .fillMaxWidth()
+        )
+        Spacer(modifier = Modifier.size(24.dp))
+        SingUp()
+        Spacer(modifier = Modifier.size(24.dp))
+    }
+
+}
+
+@Composable
+fun SingUp() {
+    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+        Text(text = "No tienes una cuenta?", fontSize = 12.sp, color = Color.Gray)
+        Text(
+            text = "Regístrate",
+            Modifier.padding(horizontal = 8.dp),
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.Blue
+        )
+    }
+}
 
 
