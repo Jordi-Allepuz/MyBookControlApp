@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "261700354002",
+    "project_id": "mybookcontrollerapp",
+    "storage_bucket": "mybookcontrollerapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:261700354002:android:92f765864445d06f04d20b",
+        "android_client_info": {
+          "package_name": "com.example.mybookcontrolapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZ9H1d7YftjEl8a3qNG4G-11zWcmZePSk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
