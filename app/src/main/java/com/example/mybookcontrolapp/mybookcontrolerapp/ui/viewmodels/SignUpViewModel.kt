@@ -15,7 +15,10 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class SignUpViewModel @Inject constructor(private val authService: AuthService, private val storageService: StorageService) : ViewModel() {
+class SignUpViewModel @Inject constructor(
+    private val authService: AuthService,
+    private val storageService: StorageService
+) : ViewModel() {
 
 
     private val _email = MutableLiveData<String>()
@@ -72,12 +75,9 @@ class SignUpViewModel @Inject constructor(private val authService: AuthService, 
 
 
     fun signUp(
-        userName: String,
         email: String,
         password: String,
-        age: String,
-        favoriteGenere: String,
-        toUserScreen: () -> Unit
+
     ) {
         viewModelScope.launch {
             _isLoading.value = true
@@ -85,10 +85,24 @@ class SignUpViewModel @Inject constructor(private val authService: AuthService, 
                 authService.signUp(email, password)
             }
             if (result != null) {
-                storageService.registredUserData(User(userName, age, email, favoriteGenere))
-                toUserScreen()
+                //
             } else {
                 //error
+            }
+            _isLoading.value = false
+        }
+    }
+
+    fun registerUser(
+        userName: String,
+        email: String,
+        age: String,
+        favoriteGenere: String
+    ) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            val result = withContext(Dispatchers.IO) {
+                storageService.registredUserData(User(userName, age, email, favoriteGenere))
             }
             _isLoading.value = false
         }

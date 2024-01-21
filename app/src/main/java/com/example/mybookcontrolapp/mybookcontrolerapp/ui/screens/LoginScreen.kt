@@ -5,7 +5,6 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -32,7 +31,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -55,8 +53,6 @@ import com.example.mybookcontrolapp.R
 import com.example.mybookcontrolapp.Routes
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.UserInfoViewModel
-import kotlinx.coroutines.Delay
-import kotlinx.coroutines.delay
 
 @Composable
 fun LoginScreen(
@@ -236,10 +232,11 @@ fun LoginButton(
     Button(
         onClick = {
             loginViewModel.login(
-                email, password, {
-                    navigationController.navigate(Routes.UserInfoScreen.route)
-                })
-            userInfoViewModel.cargarInfoUser(email)
+                email, password
+            ) {
+                navigationController.navigate(Routes.UserInfoScreen.route)
+            }
+            userInfoViewModel.getInfoUser(email)
         },
         enabled = loginEnable,
         modifier = Modifier.fillMaxWidth(),

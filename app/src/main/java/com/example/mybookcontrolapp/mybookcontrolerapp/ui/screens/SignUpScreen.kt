@@ -41,13 +41,19 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.mybookcontrolapp.Routes
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.SignUpViewModel
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.UserInfoViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun SignUpScreen(signUpViewModel: SignUpViewModel, navController: NavHostController) {
+fun SignUpScreen(
+    signUpViewModel: SignUpViewModel,
+    loginViewModel: LoginViewModel,
+    navController: NavHostController
+) {
 
     val email: String by signUpViewModel.email.observeAsState(initial = "")
     val userName: String by signUpViewModel.userName.observeAsState(initial = "")
@@ -76,6 +82,7 @@ fun SignUpScreen(signUpViewModel: SignUpViewModel, navController: NavHostControl
             FabNewUser(
                 navController,
                 signUpViewModel,
+                loginViewModel,
                 email,
                 userName,
                 age,
@@ -93,6 +100,7 @@ fun SignUpScreen(signUpViewModel: SignUpViewModel, navController: NavHostControl
 fun FabNewUser(
     navController: NavHostController,
     singUpViewModel: SignUpViewModel,
+    loginViewModel: LoginViewModel,
     email: String,
     userName: String,
     age: String,
@@ -109,12 +117,11 @@ fun FabNewUser(
                 Toast.LENGTH_LONG
             ).show()
             singUpViewModel.signUp(
-                userName,
                 email,
                 password1,
-                age,
-                favoriteGenere,
-                {navController.navigate(Routes.UserInfoScreen.route) })
+            )
+            singUpViewModel.registerUser(userName, email, age, favoriteGenere)
+            loginViewModel.login(email, password1) { navController.navigate(Routes.UserInfoScreen.route) }
         } else {
             Toast.makeText(
                 contentToast,
