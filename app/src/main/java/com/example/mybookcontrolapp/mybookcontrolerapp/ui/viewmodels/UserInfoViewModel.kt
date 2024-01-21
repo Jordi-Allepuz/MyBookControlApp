@@ -36,11 +36,11 @@ class UserInfoViewModel @Inject constructor(private val authService: AuthService
     val isLoading: LiveData<Boolean> = _isLoading
 
 
-    fun cargarInfoUser (userName: String){
+    fun cargarInfoUser (email: String){
         viewModelScope.launch {
             _isLoading.value= true
             val result = withContext(Dispatchers.IO){
-                storageService.cargarInfoUser(userName)
+                storageService.cargarInfoUser(email)
             }
             if (result!=null){
                 _userName.value= result.Name

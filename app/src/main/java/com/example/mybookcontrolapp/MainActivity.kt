@@ -16,6 +16,7 @@ import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.SignUpScreen
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.UserInfoScreen
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.SignUpViewModel
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.UserInfoViewModel
 import com.example.mybookcontrolapp.ui.theme.MyBookControlAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,6 +26,7 @@ class MainActivity : ComponentActivity() {
 
     private val loginViewModel: LoginViewModel by viewModels()
     private val signUpViewModel: SignUpViewModel by viewModels()
+    private val userInfoViewModel: UserInfoViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,13 +42,13 @@ class MainActivity : ComponentActivity() {
                         startDestination = Routes.LoginScreen.route
                     ) {
                         composable(Routes.LoginScreen.route) {
-                            LoginScreen(loginViewModel, navigationController)
+                            LoginScreen(loginViewModel, userInfoViewModel, navigationController)
                         }
                         composable(Routes.SignUpScreen.route) {
-                            SignUpScreen( signUpViewModel ,navigationController)
+                            SignUpScreen(signUpViewModel, navigationController)
                         }
                         composable(Routes.UserInfoScreen.route) {
-                            UserInfoScreen( loginViewModel ,navigationController)
+                            UserInfoScreen(loginViewModel, userInfoViewModel, navigationController)
                         }
                     }
                 }

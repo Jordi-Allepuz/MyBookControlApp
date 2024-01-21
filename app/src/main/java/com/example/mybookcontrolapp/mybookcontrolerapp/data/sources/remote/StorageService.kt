@@ -8,15 +8,15 @@ import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-class StorageService @Inject constructor(private val firestore: FirebaseFirestore) {
+class StorageService @Inject constructor(private val firebaseStorage: FirebaseFirestore) {
 
     suspend fun registredUserData(user: User) {
         val usuarioMap = UserToMap(user)
-        firestore.collection("usuarios").add(usuarioMap)
+        firebaseStorage.collection("usuarios").add(usuarioMap)
     }
 
-    suspend fun cargarInfoUser(userName: String) :User?{
-       val result = firestore.collection("usuarios").whereEqualTo("name", userName).get().await()
+    suspend fun cargarInfoUser(email: String) :User?{
+       val result = firebaseStorage.collection("usuarios").whereEqualTo("email", email).get().await()
         return result.documents.firstOrNull()?.toObject<User>()
     }
 

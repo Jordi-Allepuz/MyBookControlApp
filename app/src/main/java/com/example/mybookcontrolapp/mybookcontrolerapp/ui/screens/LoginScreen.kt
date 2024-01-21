@@ -52,9 +52,14 @@ import androidx.navigation.NavHostController
 import com.example.mybookcontrolapp.R
 import com.example.mybookcontrolapp.Routes
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.UserInfoViewModel
 
 @Composable
-fun LoginScreen(loginViewModel: LoginViewModel, navigationController: NavHostController) {
+fun LoginScreen(
+    loginViewModel: LoginViewModel,
+    userInfoViewModel: UserInfoViewModel,
+    navigationController: NavHostController
+) {
     Box(
         Modifier
             .fillMaxSize()
@@ -71,7 +76,12 @@ fun LoginScreen(loginViewModel: LoginViewModel, navigationController: NavHostCon
             }
         } else {
             Header(Modifier.align(Alignment.TopEnd))
-            Body(Modifier.align(Alignment.Center), loginViewModel, navigationController)
+            Body(
+                Modifier.align(Alignment.Center),
+                loginViewModel,
+                userInfoViewModel,
+                navigationController
+            )
             Footer(Modifier.align(Alignment.BottomCenter), navigationController)
         }
     }
@@ -97,6 +107,7 @@ fun Header(modifier: Modifier) {
 fun Body(
     modifier: Modifier,
     loginViewModel: LoginViewModel,
+    userInfoViewModel: UserInfoViewModel,
     navigationController: NavHostController
 ) {
     val email: String by loginViewModel.email.observeAsState(initial = "")
@@ -116,7 +127,14 @@ fun Body(
         Spacer(modifier = Modifier.size(8.dp))
         ForgotPassword(Modifier.align(Alignment.End))
         Spacer(modifier = Modifier.size(16.dp))
-        LoginButton(isLoginEnable, loginViewModel, navigationController, email, password)
+        LoginButton(
+            isLoginEnable,
+            loginViewModel,
+            userInfoViewModel,
+            navigationController,
+            email,
+            password
+        )
         Spacer(modifier = Modifier.size(16.dp))
         LoginDivider()
     }
@@ -206,15 +224,17 @@ fun ForgotPassword(modifier: Modifier) {
 fun LoginButton(
     loginEnable: Boolean,
     loginViewModel: LoginViewModel,
+    userInfoViewModel: UserInfoViewModel,
     navigationController: NavHostController,
-    email:String,
+    email: String,
     password: String
 ) {
     Button(
         onClick = {
             loginViewModel.login(
-                email, password, { navigationController.navigate(Routes.UserBooksScreen.route) }
+                email, password, { navigationController.navigate(Routes.UserInfoScreen.route) }
             )
+            userInfoViewModel.cargarInfoUser(email)
         },
         enabled = loginEnable,
         modifier = Modifier.fillMaxWidth(),
@@ -271,14 +291,14 @@ fun Footer(
                 .fillMaxWidth()
         )
         Spacer(modifier = Modifier.size(24.dp))
-        SingUp( navigationController)
+        SingUp(navigationController)
         Spacer(modifier = Modifier.size(24.dp))
     }
 
 }
 
 @Composable
-fun SingUp( navigationController: NavHostController ) {
+fun SingUp(navigationController: NavHostController) {
 
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
         Text(text = "No tienes una cuenta?", fontSize = 12.sp, color = Color.Gray)

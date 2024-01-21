@@ -1,6 +1,9 @@
 package com.example.mybookcontrolapp.mybookcontrolerapp.data.sources.remote
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreSettings
+import com.google.firebase.ktx.Firebase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,5 +18,9 @@ object NetWorkModule {
     @Singleton
     @Provides
     fun provideFirebaseAuth()= FirebaseAuth.getInstance()
+
+    @Singleton
+    @Provides
+    fun provideFirebaseStorage()= FirebaseFirestore.getInstance()
 
 }
