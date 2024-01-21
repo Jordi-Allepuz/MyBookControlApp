@@ -28,9 +28,6 @@ class AuthService @Inject constructor( private val firebaseAuth: FirebaseAuth) {
         return firebaseAuth.currentUser != null
     }
 
-    suspend fun registredUserData(user:User ){
-        val usuarioMap = UserToMap(user)
-        FirebaseFirestore.getInstance().collection("usuarios").add(usuarioMap)
-    }
+
 
 }

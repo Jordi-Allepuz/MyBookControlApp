@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.User
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.sources.remote.AuthService
-import dagger.hilt.android.HiltAndroidApp
+import com.example.mybookcontrolapp.mybookcontrolerapp.data.sources.remote.StorageService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,7 +15,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class SignUpViewModel @Inject constructor(private val authService: AuthService) : ViewModel() {
+class SignUpViewModel @Inject constructor(private val authService: AuthService, private val storageService: StorageService) : ViewModel() {
 
 
     private val _email = MutableLiveData<String>()
@@ -91,7 +91,7 @@ class SignUpViewModel @Inject constructor(private val authService: AuthService) 
 
             }
             if (result != null) {
-                authService.registredUserData(User(userName, age, email, favoriteGenere))
+                storageService.registredUserData(User(userName, age, email, favoriteGenere))
                 toUserScreen()
             } else {
                 //error

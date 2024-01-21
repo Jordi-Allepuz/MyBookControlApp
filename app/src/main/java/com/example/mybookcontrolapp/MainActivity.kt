@@ -13,7 +13,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.LoginScreen
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.SignUpScreen
-import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.UserBooksScreen
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.UserInfoScreen
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.SignUpViewModel
 import com.example.mybookcontrolapp.ui.theme.MyBookControlAppTheme
@@ -45,8 +45,8 @@ class MainActivity : ComponentActivity() {
                         composable(Routes.SignUpScreen.route) {
                             SignUpScreen( signUpViewModel ,navigationController)
                         }
-                        composable(Routes.UserBooksScreen.route) {
-                            UserBooksScreen( loginViewModel ,navigationController)
+                        composable(Routes.UserInfoScreen.route) {
+                            UserInfoScreen( loginViewModel ,navigationController)
                         }
                     }
                 }

@@ -20,6 +20,7 @@ import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material.icons.rounded.Person2
 import androidx.compose.material.icons.rounded.SwipeDown
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -47,6 +48,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.mybookcontrolapp.Routes
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.SignUpViewModel
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -99,195 +101,204 @@ fun ContentNewUSer(singUpViewModel: SignUpViewModel, navController: NavHostContr
         mutableStateOf("Vuelve a introducir contraseña")
     }
 
-
     var passwordVisibility by rememberSaveable { mutableStateOf(true) }
+    val isLoading: Boolean by singUpViewModel.isLoading.observeAsState(false)
 
-
-    Box(modifier = Modifier.fillMaxSize()) {
-        Column() {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-            ) {
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(20.dp),
+    if (isLoading) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+        ) {
+            CircularProgressIndicator()
+        }
+    } else {
+        Box(modifier = Modifier.fillMaxSize()) {
+            Column() {
+                Box(
                     modifier = Modifier
-                        .align(Alignment.Center)
-                        .padding(bottom = 80.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
+                        .fillMaxSize()
                 ) {
-                    OutlinedTextField(
-                        value = userName,
-                        onValueChange = {
-                            singUpViewModel.onLoginChange(
-                                email,
-                                it,
-                                password1,
-                                password2,
-                                age,
-                                favoriteGenere
-                            )
-                        },
-                        label = { Text(text = "Nombre Usuario") },
-                        leadingIcon = {
-                            Icon(
-                                imageVector = Icons.Rounded.Person,
-                                contentDescription = "name"
-                            )
-                        },
-                        modifier = Modifier.size(300.dp, 60.dp),
-                        singleLine = true
-                    )
-                    OutlinedTextField(
-                        value = age,
-                        onValueChange = {
-                            singUpViewModel.onLoginChange(
-                                email,
-                                userName,
-                                password1,
-                                password2,
-                                it,
-                                favoriteGenere
-                            )
-                        },
-                        label = { Text(text = "Edad") },
-                        leadingIcon = {
-                            Icon(
-                                imageVector = Icons.Rounded.Person2,
-                                contentDescription = "edad"
-                            )
-                        },
-                        modifier = Modifier.size(300.dp, 60.dp),
-                        singleLine = true
-                    )
-                    OutlinedTextField(
-                        value = email,
-                        onValueChange = {
-                            singUpViewModel.onLoginChange(
-                                it,
-                                userName,
-                                password1,
-                                password2,
-                                age,
-                                favoriteGenere
-                            )
-                        },
-                        label = { Text(text = "Correo electronico") },
-                        leadingIcon = {
-                            Icon(
-                                imageVector = Icons.Rounded.Email,
-                                contentDescription = "email"
-                            )
-                        },
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-                        modifier = Modifier.size(300.dp, 60.dp),
-                        singleLine = true
-
-                    )
-                    OutlinedTextField(
-                        value = password1,
-                        onValueChange = {
-                            singUpViewModel.onLoginChange(
-                                email,
-                                userName,
-                                it,
-                                password2,
-                                age,
-                                favoriteGenere
-                            )
-                        },
-                        label = { Text(text = "Contraseña") },
-                        trailingIcon = {
-                            val passwordImagen = if (passwordVisibility) {
-                                Icons.Filled.VisibilityOff
-                            } else {
-                                Icons.Filled.Visibility
-                            }
-                            IconButton(onClick = { passwordVisibility = !passwordVisibility }) {
-                                Icon(
-                                    imageVector = passwordImagen,
-                                    contentDescription = "visibility"
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(20.dp),
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .padding(bottom = 80.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
+                        OutlinedTextField(
+                            value = userName,
+                            onValueChange = {
+                                singUpViewModel.onLoginChange(
+                                    email,
+                                    it,
+                                    password1,
+                                    password2,
+                                    age,
+                                    favoriteGenere
                                 )
-
-                            }
-                        },
-                        modifier = Modifier.size(300.dp, 90.dp),
-                        visualTransformation = if (passwordVisibility) {
-                            PasswordVisualTransformation()
-                        } else {
-                            VisualTransformation.None
-                        },
-                        supportingText = { Text(text = "Introduce contraseña") },
-                        singleLine = true
-                    )
-                    OutlinedTextField(
-                        value = password2,
-                        onValueChange = {
-                            singUpViewModel.onLoginChange(
-                                email,
-                                userName,
-                                password1,
-                                it,
-                                age,
-                                favoriteGenere
-                            )
-                        },
-                        label = { Text(text = "Contraseña") },
-                        trailingIcon = {
-                            val passwordImagen = if (passwordVisibility) {
-                                Icons.Filled.VisibilityOff
-                            } else {
-                                Icons.Filled.Visibility
-                            }
-                            IconButton(onClick = { passwordVisibility = !passwordVisibility }) {
+                            },
+                            label = { Text(text = "Nombre Usuario") },
+                            leadingIcon = {
                                 Icon(
-                                    imageVector = passwordImagen,
-                                    contentDescription = "visibility"
+                                    imageVector = Icons.Rounded.Person,
+                                    contentDescription = "name"
                                 )
+                            },
+                            modifier = Modifier.size(300.dp, 60.dp),
+                            singleLine = true
+                        )
+                        OutlinedTextField(
+                            value = age,
+                            onValueChange = {
+                                singUpViewModel.onLoginChange(
+                                    email,
+                                    userName,
+                                    password1,
+                                    password2,
+                                    it,
+                                    favoriteGenere
+                                )
+                            },
+                            label = { Text(text = "Edad") },
+                            leadingIcon = {
+                                Icon(
+                                    imageVector = Icons.Rounded.Person2,
+                                    contentDescription = "edad"
+                                )
+                            },
+                            modifier = Modifier.size(300.dp, 60.dp),
+                            singleLine = true
+                        )
+                        OutlinedTextField(
+                            value = email,
+                            onValueChange = {
+                                singUpViewModel.onLoginChange(
+                                    it,
+                                    userName,
+                                    password1,
+                                    password2,
+                                    age,
+                                    favoriteGenere
+                                )
+                            },
+                            label = { Text(text = "Correo electronico") },
+                            leadingIcon = {
+                                Icon(
+                                    imageVector = Icons.Rounded.Email,
+                                    contentDescription = "email"
+                                )
+                            },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+                            modifier = Modifier.size(300.dp, 60.dp),
+                            singleLine = true
 
-                            }
-                        },
-                        modifier = Modifier.size(300.dp, 90.dp),
-                        visualTransformation = if (passwordVisibility) {
-                            PasswordVisualTransformation()
-                        } else {
-                            VisualTransformation.None
-                        },
-                        supportingText = { Text(text = "Confirmar contraseña") },
-                        singleLine = true
-                    )
-                    OutlinedTextField(
-                        value = favoriteGenere,
-                        onValueChange = {
-                            singUpViewModel.onLoginChange(
-                                email,
-                                userName,
-                                password1,
-                                password2,
-                                age,
-                                it
-                            )
-                        },
-                        label = { Text(text = "Genero favorito") },
-                        leadingIcon = {
-                            Icon(
-                                imageVector = Icons.Rounded.Person2,
-                                contentDescription = "favorito"
-                            )
-                        },
-                        modifier = Modifier.size(300.dp, 60.dp),
-                        singleLine = true
-                    )
-                    Button(onClick = {
-                        singUpViewModel.signUp(
-                            userName,
-                            email,
-                            password1,
-                            age,
-                            favoriteGenere
-                        ) { navController.navigate(Routes.UserBooksScreen.route) }
-                    }) {
-                        Text(text = "SIGN UP")
+                        )
+                        OutlinedTextField(
+                            value = password1,
+                            onValueChange = {
+                                singUpViewModel.onLoginChange(
+                                    email,
+                                    userName,
+                                    it,
+                                    password2,
+                                    age,
+                                    favoriteGenere
+                                )
+                            },
+                            label = { Text(text = "Contraseña") },
+                            trailingIcon = {
+                                val passwordImagen = if (passwordVisibility) {
+                                    Icons.Filled.VisibilityOff
+                                } else {
+                                    Icons.Filled.Visibility
+                                }
+                                IconButton(onClick = { passwordVisibility = !passwordVisibility }) {
+                                    Icon(
+                                        imageVector = passwordImagen,
+                                        contentDescription = "visibility"
+                                    )
+
+                                }
+                            },
+                            modifier = Modifier.size(300.dp, 90.dp),
+                            visualTransformation = if (passwordVisibility) {
+                                PasswordVisualTransformation()
+                            } else {
+                                VisualTransformation.None
+                            },
+                            supportingText = { Text(text = "Introduce contraseña") },
+                            singleLine = true
+                        )
+                        OutlinedTextField(
+                            value = password2,
+                            onValueChange = {
+                                singUpViewModel.onLoginChange(
+                                    email,
+                                    userName,
+                                    password1,
+                                    it,
+                                    age,
+                                    favoriteGenere
+                                )
+                            },
+                            label = { Text(text = "Contraseña") },
+                            trailingIcon = {
+                                val passwordImagen = if (passwordVisibility) {
+                                    Icons.Filled.VisibilityOff
+                                } else {
+                                    Icons.Filled.Visibility
+                                }
+                                IconButton(onClick = { passwordVisibility = !passwordVisibility }) {
+                                    Icon(
+                                        imageVector = passwordImagen,
+                                        contentDescription = "visibility"
+                                    )
+
+                                }
+                            },
+                            modifier = Modifier.size(300.dp, 90.dp),
+                            visualTransformation = if (passwordVisibility) {
+                                PasswordVisualTransformation()
+                            } else {
+                                VisualTransformation.None
+                            },
+                            supportingText = { Text(text = "Confirmar contraseña") },
+                            singleLine = true
+                        )
+                        OutlinedTextField(
+                            value = favoriteGenere,
+                            onValueChange = {
+                                singUpViewModel.onLoginChange(
+                                    email,
+                                    userName,
+                                    password1,
+                                    password2,
+                                    age,
+                                    it
+                                )
+                            },
+                            label = { Text(text = "Genero favorito") },
+                            leadingIcon = {
+                                Icon(
+                                    imageVector = Icons.Rounded.Person2,
+                                    contentDescription = "favorito"
+                                )
+                            },
+                            modifier = Modifier.size(300.dp, 60.dp),
+                            singleLine = true
+                        )
+                        Button(enabled = isSignUpEnable,
+                            onClick = {
+                                singUpViewModel.signUp(
+                                    userName,
+                                    email,
+                                    password1,
+                                    age,
+                                    favoriteGenere
+                                ) { navController.navigate(Routes.UserInfoScreen.route) }
+                            }) {
+                            Text(text = "SIGN UP")
+                        }
                     }
                 }
             }
