@@ -232,8 +232,8 @@ fun LoginButton(
     Button(
         onClick = {
             loginViewModel.login(
-                email, password, { navigationController.navigate(Routes.UserInfoScreen.route) }
-            )
+                email, password, {
+                    navigationController.navigate(Routes.UserInfoScreen.route)})
             userInfoViewModel.cargarInfoUser(email)
         },
         enabled = loginEnable,

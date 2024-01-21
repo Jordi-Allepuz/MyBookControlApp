@@ -57,17 +57,13 @@ class SignUpViewModel @Inject constructor(private val authService: AuthService, 
         _password2.value = password2
         _age.value = age
         _favoriteGenere.value = favoriteGenere
-        _isSignUpEnable.value =
-            enableSignUp(email, userName, password1, password2, age, favoriteGenere)
+        _isSignUpEnable.value = enableSignUp(email, password1, password2)
     }
 
     fun enableSignUp(
         email: String,
-        userName: String,
         password1: String,
         password2: String,
-        age: String,
-        favoriteGenere: String
     ): Boolean {
         return Patterns.EMAIL_ADDRESS.matcher(email)
             .matches() && password1.length > 6 && password2.length > 6 &&
@@ -87,8 +83,6 @@ class SignUpViewModel @Inject constructor(private val authService: AuthService, 
             _isLoading.value = true
             val result = withContext(Dispatchers.IO) {
                 authService.signUp(email, password)
-
-
             }
             if (result != null) {
                 storageService.registredUserData(User(userName, age, email, favoriteGenere))

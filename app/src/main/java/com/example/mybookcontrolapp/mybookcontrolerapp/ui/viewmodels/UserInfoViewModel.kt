@@ -16,41 +16,25 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class UserInfoViewModel @Inject constructor(private val authService: AuthService, private val storageService: StorageService):ViewModel() {
+class UserInfoViewModel @Inject constructor( private val storageService: StorageService):ViewModel() {
 
-    private val _userName = MutableLiveData<String>()
-    val userName: LiveData<String> = _userName
+    private val _user = MutableLiveData<User>()
+    val user: LiveData<User> = _user
 
+//    init {
+//        cargarInfoUser("valencianu@valencianu.com")
+//    }
 
-    private val _age = MutableLiveData<String>()
-    val age: LiveData<String> = _age
-
-    private val _favoriteGenere = MutableLiveData<String>()
-    val favoriteGenere: LiveData<String> = _favoriteGenere
-
-    private val _readBooks = MutableLiveData<List<Book>>()
-    val readBooks:LiveData<List<Book>> = _readBooks
-
-
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
-
-
-    fun cargarInfoUser (email: String){
+    fun cargarInfoUser (email:String){
         viewModelScope.launch {
-            _isLoading.value= true
             val result = withContext(Dispatchers.IO){
                 storageService.cargarInfoUser(email)
             }
             if (result!=null){
-                _userName.value= result.Name
-                _age.value= result.Age
-                _favoriteGenere.value= result.favoriteGenere
-                _readBooks.value= result.books
+                _user.value= result
             }else{
                 //error
             }
-            _isLoading.value= false
         }
     }
 

@@ -2,11 +2,9 @@ package com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens
 
 import android.annotation.SuppressLint
 import android.widget.Toast
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -18,11 +16,8 @@ import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Email
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material.icons.rounded.Person2
-import androidx.compose.material.icons.rounded.SwipeDown
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
@@ -30,7 +25,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -55,26 +49,79 @@ import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.SignUpViewM
 @Composable
 fun SignUpScreen(signUpViewModel: SignUpViewModel, navController: NavHostController) {
 
+    val email: String by signUpViewModel.email.observeAsState(initial = "")
+    val userName: String by signUpViewModel.userName.observeAsState(initial = "")
+    val age: String by signUpViewModel.age.observeAsState(initial = "")
+    val password1: String by signUpViewModel.password1.observeAsState(initial = "")
+    val password2: String by signUpViewModel.password2.observeAsState(initial = "")
+    val favoriteGenere: String by signUpViewModel.favoriteGenere.observeAsState(initial = "")
+    val isSignUpEnable: Boolean by signUpViewModel.isSignUpEnable.observeAsState(initial = false)
+
 
     Scaffold(
 //        topBar = { TopBarNewUser(navController) },
-        content = { ContentNewUSer(signUpViewModel, navController) },
+        content = {
+            ContentNewUSer(
+                signUpViewModel,
+                email,
+                userName,
+                age,
+                password1,
+                password2,
+                favoriteGenere,
+            )
+        },
 //        bottomBar = { BottomBarNewUser(navController) },
-        floatingActionButton = { FabNewUser(navController) },
+        floatingActionButton = {
+            FabNewUser(
+                navController,
+                signUpViewModel,
+                email,
+                userName,
+                age,
+                password1,
+                favoriteGenere,
+                isSignUpEnable
+            )
+        },
         floatingActionButtonPosition = FabPosition.End,
     )
 }
 
 
 @Composable
-fun FabNewUser(navController: NavHostController) {
+fun FabNewUser(
+    navController: NavHostController,
+    singUpViewModel: SignUpViewModel,
+    email: String,
+    userName: String,
+    age: String,
+    password1: String,
+    favoriteGenere: String,
+    isSignUpEnable: Boolean,
+) {
     val contentToast = LocalContext.current.applicationContext
     FloatingActionButton(onClick = {
-        Toast.makeText(
-            contentToast,
-            "Rellena todos los campos para registrarte",
-            Toast.LENGTH_LONG
-        ).show()
+        if (isSignUpEnable) {
+            Toast.makeText(
+                contentToast,
+                "REGISTRADO",
+                Toast.LENGTH_LONG
+            ).show()
+            singUpViewModel.signUp(
+                userName,
+                email,
+                password1,
+                age,
+                favoriteGenere,
+                {navController.navigate(Routes.UserInfoScreen.route) })
+        } else {
+            Toast.makeText(
+                contentToast,
+                "REVISA LOS CAMPOS",
+                Toast.LENGTH_LONG
+            ).show()
+        }
     }) {
         Icon(imageVector = Icons.Rounded.Add, contentDescription = "check")
     }
@@ -83,15 +130,15 @@ fun FabNewUser(navController: NavHostController) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ContentNewUSer(singUpViewModel: SignUpViewModel, navController: NavHostController) {
-
-    val email: String by singUpViewModel.email.observeAsState(initial = "")
-    val userName: String by singUpViewModel.userName.observeAsState(initial = "")
-    val age: String by singUpViewModel.age.observeAsState(initial = "")
-    val password1: String by singUpViewModel.password1.observeAsState(initial = "")
-    val password2: String by singUpViewModel.password2.observeAsState(initial = "")
-    val favoriteGenere: String by singUpViewModel.favoriteGenere.observeAsState(initial = "")
-    val isSignUpEnable: Boolean by singUpViewModel.isSignUpEnable.observeAsState(initial = false)
+fun ContentNewUSer(
+    singUpViewModel: SignUpViewModel,
+    email: String,
+    userName: String,
+    age: String,
+    password1: String,
+    password2: String,
+    favoriteGenere: String,
+) {
 
 
     var avisoContraseña by rememberSaveable {
@@ -287,18 +334,6 @@ fun ContentNewUSer(singUpViewModel: SignUpViewModel, navController: NavHostContr
                             modifier = Modifier.size(300.dp, 60.dp),
                             singleLine = true
                         )
-                        Button(enabled = isSignUpEnable,
-                            onClick = {
-                                singUpViewModel.signUp(
-                                    userName,
-                                    email,
-                                    password1,
-                                    age,
-                                    favoriteGenere
-                                ) { navController.navigate(Routes.UserInfoScreen.route) }
-                            }) {
-                            Text(text = "SIGN UP")
-                        }
                     }
                 }
             }

@@ -15,7 +15,7 @@ class StorageService @Inject constructor(private val firebaseStorage: FirebaseFi
         firebaseStorage.collection("usuarios").add(usuarioMap)
     }
 
-    suspend fun cargarInfoUser(email: String) :User?{
+    suspend fun cargarInfoUser(email:String) :User?{
        val result = firebaseStorage.collection("usuarios").whereEqualTo("email", email).get().await()
         return result.documents.firstOrNull()?.toObject<User>()
     }

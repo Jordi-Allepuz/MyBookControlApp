@@ -5,11 +5,11 @@ import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.User
 
 fun UserToMap (user: User):MutableMap<String, Any>{
     return mutableMapOf(
-        "name" to user.Name,
-        "age" to user.Age,
+        "name" to user.name,
+        "age" to user.age,
         "email" to user.email,
-        "genero_favorito" to user.favoriteGenere,
-        "libros_leidos" to user.books
+        "genero_favorito" to user.genero_favorito,
+//        "libros_leidos" to user.libros_leidos
     )
 
 }

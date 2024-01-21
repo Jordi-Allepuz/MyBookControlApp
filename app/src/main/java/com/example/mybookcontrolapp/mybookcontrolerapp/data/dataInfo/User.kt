@@ -1,9 +1,9 @@
 package com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo
 
 data class User(
-    val Name: String = "",
-    val Age: String = "",
+    val name: String = "",
+    val age: String = "",
     val email: String = "",
-    val favoriteGenere: String = "",
-    val books: List<Book> = emptyList()
+    val genero_favorito: String = "",
+//    val libros_leidos: List<Book> = emptyList()
 )
