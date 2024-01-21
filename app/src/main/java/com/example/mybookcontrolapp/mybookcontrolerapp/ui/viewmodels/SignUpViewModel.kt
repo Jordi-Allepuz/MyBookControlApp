@@ -97,12 +97,14 @@ class SignUpViewModel @Inject constructor(
         userName: String,
         email: String,
         age: String,
-        favoriteGenere: String
+        favoriteGenere: String,
+        toLoginScreen:() -> Unit
     ) {
         viewModelScope.launch {
             _isLoading.value = true
-            val result = withContext(Dispatchers.IO) {
+            withContext(Dispatchers.IO) {
                 storageService.registredUserData(User(userName, age, email, favoriteGenere))
+                toLoginScreen()
             }
             _isLoading.value = false
         }
