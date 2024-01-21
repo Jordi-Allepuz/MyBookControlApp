@@ -1,6 +1,7 @@
 package com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens
 
 import android.app.Activity
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -31,6 +32,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -53,6 +55,8 @@ import com.example.mybookcontrolapp.R
 import com.example.mybookcontrolapp.Routes
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.UserInfoViewModel
+import kotlinx.coroutines.Delay
+import kotlinx.coroutines.delay
 
 @Composable
 fun LoginScreen(
@@ -135,7 +139,7 @@ fun Body(
             email,
             password
         )
-        Spacer(modifier = Modifier.size(16.dp))
+        Spacer(modifier = Modifier.size(20.dp))
         LoginDivider()
     }
 }
@@ -233,7 +237,8 @@ fun LoginButton(
         onClick = {
             loginViewModel.login(
                 email, password, {
-                    navigationController.navigate(Routes.UserInfoScreen.route)})
+                    navigationController.navigate(Routes.UserInfoScreen.route)
+                })
             userInfoViewModel.cargarInfoUser(email)
         },
         enabled = loginEnable,
@@ -284,15 +289,8 @@ fun Footer(
     navigationController: NavHostController
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
-        Divider(
-            Modifier
-                .background(Color.Gray)
-                .height(1.dp)
-                .fillMaxWidth()
-        )
-        Spacer(modifier = Modifier.size(24.dp))
         SingUp(navigationController)
-        Spacer(modifier = Modifier.size(24.dp))
+        Spacer(modifier = Modifier.size(60.dp))
     }
 
 }
@@ -300,17 +298,24 @@ fun Footer(
 @Composable
 fun SingUp(navigationController: NavHostController) {
 
-    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+    val contentToast = LocalContext.current.applicationContext
+
+    Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
         Text(text = "No tienes una cuenta?", fontSize = 12.sp, color = Color.Gray)
-        Text(
-            text = "Regístrate",
-            Modifier
-                .padding(horizontal = 8.dp)
-                .clickable { navigationController.navigate(Routes.SignUpScreen.route) },
-            fontSize = 12.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Blue
-        )
+        Button(
+            onClick = {
+                Toast.makeText(contentToast, "LOG-IN", Toast.LENGTH_LONG).show()
+                navigationController.navigate(Routes.SignUpScreen.route)
+            },
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFF036392),
+                contentColor = Color.White,
+            )
+        ) {
+            Text(text = "Regístrate")
+        }
+
     }
 }
 

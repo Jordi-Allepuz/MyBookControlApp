@@ -141,13 +141,6 @@ fun ContentNewUSer(
 ) {
 
 
-    var avisoContraseña by rememberSaveable {
-        mutableStateOf("Introduce contraseña")
-    }
-    var avisoContraseñaConf by rememberSaveable {
-        mutableStateOf("Vuelve a introducir contraseña")
-    }
-
     var passwordVisibility by rememberSaveable { mutableStateOf(true) }
     val isLoading: Boolean by singUpViewModel.isLoading.observeAsState(false)
 
