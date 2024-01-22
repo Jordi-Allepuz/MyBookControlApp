@@ -17,7 +17,6 @@ import androidx.navigation.NavHostController
 import com.example.mybookcontrolapp.Routes
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.Book
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.User
-import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.UserInfoViewModel
 
 @Composable
@@ -27,6 +26,7 @@ fun UserInfoScreen(
 ) {
 
     val user: User? by userInfoViewModel.user.observeAsState()
+    val books: List<Book>? by userInfoViewModel.books.observeAsState()
 
     if (user == null) {
         Box(
@@ -42,7 +42,7 @@ fun UserInfoScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             UserInfo(user!!)
-//            ReadBooks(user!!, userInfoViewModel)
+            ReadBooks(user!!, books!!, userInfoViewModel)
             Botones(userInfoViewModel, navigationController)
         }
     }
@@ -60,27 +60,30 @@ fun UserInfo(user: User) {
 }
 
 
-//@Composable
-//fun ReadBooks(user: User, userInfoViewModel: UserInfoViewModel) {
-//    val book: Book? by userInfoViewModel.book.observeAsState()
-//
-//    Column() {
-//        user.libros_leidos.forEach {
-//            userInfoViewModel.getLibro(it)
-//            if (book== null){
-//                CircularProgressIndicator()
-//            }else{
-//                Text(text = book!!.autor )
-//            }
-//
-//        }
+@Composable
+fun ReadBooks(user: User, books: List<Book>, userInfoViewModel: UserInfoViewModel) {
+
+    Column() {
+        books.forEach { book ->
+            if (book == null) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                ) {
+                    CircularProgressIndicator()
+                }
+            }else{
+                Text(text = book.autor)
+            }
+        }
+    }
 //    }
 //    LazyRow(
 //        modifier = Modifier
 //            .fillMaxWidth()
 //            .height(200.dp),
 //        content = { items(books) { book -> CardBooks(book) } })
-//}
+}
 
 
 //@OptIn(ExperimentalMaterial3Api::class, ExperimentalCoilApi::class)

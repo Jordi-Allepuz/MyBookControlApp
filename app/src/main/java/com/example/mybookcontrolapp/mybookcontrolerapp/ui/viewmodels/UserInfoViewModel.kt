@@ -32,6 +32,7 @@ class UserInfoViewModel @Inject constructor(private val storageService: StorageS
 
     init {
         getInfoUser(authService.getCurrentUser()!!.email.toString())
+        getBookList(authService.getCurrentUser()!!.email.toString())
     }
 
 
@@ -56,30 +57,28 @@ class UserInfoViewModel @Inject constructor(private val storageService: StorageS
         }
     }
 
-//
-//    fun getLibro(id: String) {
-//        viewModelScope.launch {
-//            val result = withContext(Dispatchers.IO) {
-//                storageService.getInfoBook(id)
-//            }
-//            if (result != null) {
-//                _book.value = result
-//            } else {
-//                //error
-//            }
-//        }
-//    }
 
-    fun getBookList(id:String) {
+    fun getLibroInfo(id: String) {
         viewModelScope.launch {
             val result = withContext(Dispatchers.IO) {
-                storageService.getBookList(authService.getCurrentUser()!!.providerId)
+                storageService.getInfoBook(id)
             }
             if (result != null) {
-                _books.value = result
+                _book.value = result
             } else {
                 //error
             }
+        }
+    }
+
+    fun getBookList(email: String) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                storageService.getInfoUser(email)!!.libros_leidos.forEach {
+                    _books.value.orEmpty() + storageService.getInfoBook(it)
+                }
+            }
+
         }
     }
 

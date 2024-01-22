@@ -29,10 +29,10 @@ class StorageService @Inject constructor(private val firebaseStorage: FirebaseFi
         return result.toObject<Book>()
     }
 
-    suspend fun getBookList(id:String): List<Book>?{
-        val result = firebaseStorage.collection("libros").document(id).get().await()
-        return result.toObject<List<Book>>()
-    }
+//    suspend fun getBookList(id:String): List<Book>?{
+//        val result = firebaseStorage.collection("libros").document(id).get().await()
+//        return result.toObject<List<Book>>()
+//    }
 
 
 //    suspend fun registredInfoBook(book: Book){
