@@ -42,7 +42,7 @@ fun UserInfoScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             UserInfo(user!!)
-            ReadBooks(books!!)
+            ReadBooks(userInfoViewModel)
             Botones(userInfoViewModel, navigationController)
         }
     }
@@ -61,27 +61,11 @@ fun UserInfo(user: User) {
 
 
 @Composable
-fun ReadBooks(books: List<Book>) {
+fun ReadBooks(userInfoViewModel: UserInfoViewModel) {
     Column() {
-        books.forEach { book ->
-            if (book == null) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                ) {
-                    CircularProgressIndicator()
-                }
-            } else {
-                Text(text = book.titulo)
-                Text(text = book.autor)
-                Text(text = book.editorial)
-                Text(text = book.genero)
-                Text(text = book.isbn)
-            }
-
         }
     }
-}
+
 
 
 //    LazyRow(

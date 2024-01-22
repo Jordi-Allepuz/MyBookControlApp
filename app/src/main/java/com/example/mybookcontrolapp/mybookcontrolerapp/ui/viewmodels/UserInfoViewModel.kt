@@ -12,13 +12,17 @@ import com.example.mybookcontrolapp.mybookcontrolerapp.data.sources.remote.Stora
 import com.google.firebase.firestore.DocumentReference
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.forEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
 @HiltViewModel
-class UserInfoViewModel @Inject constructor(private val storageService: StorageService, private val authService: AuthService) :
+class UserInfoViewModel @Inject constructor(
+    private val storageService: StorageService,
+    private val authService: AuthService
+) :
     ViewModel() {
 
     private val _user = MutableLiveData<User>()
@@ -36,7 +40,7 @@ class UserInfoViewModel @Inject constructor(private val storageService: StorageS
     }
 
 
-    fun logOut(toLoginScreen:()-> Unit){
+    fun logOut(toLoginScreen: () -> Unit) {
         viewModelScope.launch {
             authService.logOut()
             toLoginScreen()
@@ -71,15 +75,10 @@ class UserInfoViewModel @Inject constructor(private val storageService: StorageS
         }
     }
 
-    fun getBookList(email: String) {
+    fun getBookList(id: String) {
         viewModelScope.launch {
-            val result = withContext(Dispatchers.IO) {
-                 storageService.getBookList(email)
-            }
-            if (result != null) {
-                _books.value = result
-            } else {
-                //error
+            withContext(Dispatchers.IO) {
+                storageService.getBookList(id)
             }
         }
     }
