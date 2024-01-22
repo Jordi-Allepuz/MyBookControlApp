@@ -62,7 +62,6 @@ fun UserInfo(user: User) {
 
 @Composable
 fun ReadBooks(books: List<Book>) {
-
     Column() {
         books.forEach { book ->
             if (book == null) {

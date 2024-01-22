@@ -25,8 +25,15 @@ class StorageService @Inject constructor(private val firebaseStorage: FirebaseFi
     }
 
     suspend fun getInfoBook(id: String): Book? {
-        val result = firebaseStorage.collection("libros").document(id).get().await()
-        return result.toObject<Book>()
+        val result = firebaseStorage.collection("libros").document(id).get().addOnSuccessListener {
+            val titulo = it.get("titulo") as String?
+            val autor = it.get("autor") as String?
+            val editorial = it.get("editorial") as String?
+            val genero = it.get("genero") as String?
+            val isbn = it.get("isbn") as String?
+            val portada = it.get("portada") as String?
+        }
+        return Book(titulo, autor, editorial, genero, isbn, portada)
     }
 
     suspend fun getBookList(email: String): List<Book>? {
