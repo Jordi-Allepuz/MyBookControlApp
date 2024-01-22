@@ -73,12 +73,14 @@ class UserInfoViewModel @Inject constructor(private val storageService: StorageS
 
     fun getBookList(email: String) {
         viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                storageService.getInfoUser(email)!!.libros_leidos.forEach {
-                    _books.value.orEmpty() + storageService.getInfoBook(it)
-                }
+            val result = withContext(Dispatchers.IO) {
+                 storageService.getBookList(email)
             }
-
+            if (result != null) {
+                _books.value = result
+            } else {
+                //error
+            }
         }
     }
 

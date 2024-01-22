@@ -42,7 +42,7 @@ fun UserInfoScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             UserInfo(user!!)
-            ReadBooks(user!!, books!!, userInfoViewModel)
+            ReadBooks(books!!)
             Botones(userInfoViewModel, navigationController)
         }
     }
@@ -61,7 +61,7 @@ fun UserInfo(user: User) {
 
 
 @Composable
-fun ReadBooks(user: User, books: List<Book>, userInfoViewModel: UserInfoViewModel) {
+fun ReadBooks(books: List<Book>) {
 
     Column() {
         books.forEach { book ->
@@ -72,18 +72,24 @@ fun ReadBooks(user: User, books: List<Book>, userInfoViewModel: UserInfoViewMode
                 ) {
                     CircularProgressIndicator()
                 }
-            }else{
+            } else {
+                Text(text = book.titulo)
                 Text(text = book.autor)
+                Text(text = book.editorial)
+                Text(text = book.genero)
+                Text(text = book.isbn)
             }
+
         }
     }
-//    }
+}
+
+
 //    LazyRow(
 //        modifier = Modifier
 //            .fillMaxWidth()
 //            .height(200.dp),
 //        content = { items(books) { book -> CardBooks(book) } })
-}
 
 
 //@OptIn(ExperimentalMaterial3Api::class, ExperimentalCoilApi::class)
@@ -116,5 +122,6 @@ fun Botones(
         }
     }
 }
+
 
 

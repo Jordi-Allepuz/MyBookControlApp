@@ -29,10 +29,13 @@ class StorageService @Inject constructor(private val firebaseStorage: FirebaseFi
         return result.toObject<Book>()
     }
 
-//    suspend fun getBookList(id:String): List<Book>?{
-//        val result = firebaseStorage.collection("libros").document(id).get().await()
-//        return result.toObject<List<Book>>()
-//    }
+    suspend fun getBookList(email: String): List<Book>? {
+        val result =
+            firebaseStorage.collection("usuarios").whereEqualTo("email", email).get().await()
+        val userDocument = result.documents.firstOrNull() ?: return null
+        return userDocument.get("libros_leidos") as? List<Book> ?: return emptyList()
+
+    }
 
 
 //    suspend fun registredInfoBook(book: Book){
