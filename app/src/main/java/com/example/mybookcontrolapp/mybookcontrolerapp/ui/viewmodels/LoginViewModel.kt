@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavHostController
 import com.example.mybookcontrolapp.Routes
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.User
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.sources.remote.AuthService
@@ -65,33 +66,20 @@ class LoginViewModel @Inject constructor(private val authService: AuthService) :
     }
 
 
-    fun logOut(){
-        viewModelScope.launch {
-           val result= authService.logOut()
-            if (result!= null){
-                _email.value= ""
-                _password.value= ""
-            }else{
-
-            }
-        }
+    fun isUserLogged():Boolean{
+        return authService.isUserLogged()
     }
 
 
-//    private fun isUserLogged():Boolean{
-//        return authService.isUserLogged()
-//    }
-//
-//
-//    fun checkDestination(){
-//        val isUserLogged: Boolean = isUserLogged()
-//        if (isUserLogged){
-//            Routes.UserBooksScreen.route
-//        }else{
-//            Routes.LoginScreen.route
-//        }
-//    }
-//
+    fun checkDestination():String{
+        val isUserLogged = isUserLogged()
+        return if (isUserLogged){
+            Routes.UserInfoScreen.route
+        }else{
+            Routes.LoginScreen.route
+        }
+    }
+
 
 
 

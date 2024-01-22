@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.Book
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.User
+import com.example.mybookcontrolapp.mybookcontrolerapp.data.sources.remote.AuthService
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.sources.remote.StorageService
 import com.google.firebase.firestore.DocumentReference
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +18,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class UserInfoViewModel @Inject constructor(private val storageService: StorageService) :
+class UserInfoViewModel @Inject constructor(private val storageService: StorageService, private val authService: AuthService) :
     ViewModel() {
 
     private val _user = MutableLiveData<User>()
@@ -28,6 +29,18 @@ class UserInfoViewModel @Inject constructor(private val storageService: StorageS
 
     private val _books = MutableLiveData<List<Book>>()
     val books: LiveData<List<Book>> = _books
+
+    init {
+        getInfoUser(authService.getCurrentUser()!!.email.toString())
+    }
+
+
+    fun logOut(toLoginScreen:()-> Unit){
+        viewModelScope.launch {
+            authService.logOut()
+            toLoginScreen()
+        }
+    }
 
 
     fun getInfoUser(email: String) {
@@ -43,25 +56,29 @@ class UserInfoViewModel @Inject constructor(private val storageService: StorageS
         }
     }
 
-    fun getLibro(id: String) {
+//
+//    fun getLibro(id: String) {
+//        viewModelScope.launch {
+//            val result = withContext(Dispatchers.IO) {
+//                storageService.getInfoBook(id)
+//            }
+//            if (result != null) {
+//                _book.value = result
+//            } else {
+//                //error
+//            }
+//        }
+//    }
+
+    fun getBookList(id:String) {
         viewModelScope.launch {
             val result = withContext(Dispatchers.IO) {
-                storageService.getInfoBook(id)
+                storageService.getBookList(authService.getCurrentUser()!!.providerId)
             }
             if (result != null) {
-                _book.value = result
+                _books.value = result
             } else {
                 //error
-            }
-        }
-    }
-
-    fun getLibros(user: User) {
-        viewModelScope.launch {
-            val result = withContext(Dispatchers.IO) {
-                user.libros_leidos.forEach {
-
-                }
             }
         }
     }

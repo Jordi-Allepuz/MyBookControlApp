@@ -12,19 +12,26 @@ import javax.inject.Inject
 
 class StorageService @Inject constructor(private val firebaseStorage: FirebaseFirestore) {
 
-    suspend fun registredUserData(user: User) {
+    suspend fun registredUserData(user: User): Boolean {
         val usuarioMap = UserToMap(user)
-        firebaseStorage.collection("usuarios").add(usuarioMap)
+        val result = firebaseStorage.collection("usuarios").add(usuarioMap).isComplete
+        return result
     }
 
-    suspend fun getInfoUser(email:String) :User?{
-       val result = firebaseStorage.collection("usuarios").whereEqualTo("email", email).get().await()
+    suspend fun getInfoUser(email: String): User? {
+        val result =
+            firebaseStorage.collection("usuarios").whereEqualTo("email", email).get().await()
         return result.documents.firstOrNull()?.toObject<User>()
     }
 
-    suspend fun getInfoBook(id:String): Book?{
+    suspend fun getInfoBook(id: String): Book? {
         val result = firebaseStorage.collection("libros").document(id).get().await()
         return result.toObject<Book>()
+    }
+
+    suspend fun getBookList(id:String): List<Book>?{
+        val result = firebaseStorage.collection("libros").document(id).get().await()
+        return result.toObject<List<Book>>()
     }
 
 

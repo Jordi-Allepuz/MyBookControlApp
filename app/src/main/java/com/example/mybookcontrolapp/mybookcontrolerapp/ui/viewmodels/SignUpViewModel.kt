@@ -77,6 +77,7 @@ class SignUpViewModel @Inject constructor(
     fun signUp(
         email: String,
         password: String,
+        toUserScreen: () -> Unit
 
     ) {
         viewModelScope.launch {
@@ -85,7 +86,7 @@ class SignUpViewModel @Inject constructor(
                 authService.signUp(email, password)
             }
             if (result != null) {
-                //
+                toUserScreen()
             } else {
                 //error
             }
@@ -97,18 +98,20 @@ class SignUpViewModel @Inject constructor(
         userName: String,
         email: String,
         age: String,
-        favoriteGenere: String,
-        toLoginScreen:() -> Unit
+        favoriteGenere: String
     ) {
         viewModelScope.launch {
             _isLoading.value = true
-            withContext(Dispatchers.IO) {
-                storageService.registredUserData(User(userName, age, email, favoriteGenere))
-                toLoginScreen()
+           val result=  withContext(Dispatchers.IO) {
+               storageService.registredUserData(User(userName, age, email, favoriteGenere))
+            }
+            if (result != null) {
+                //
+            } else {
+                //error
             }
             _isLoading.value = false
         }
     }
-
 
 }

@@ -57,7 +57,6 @@ import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.UserInfoVie
 @Composable
 fun LoginScreen(
     loginViewModel: LoginViewModel,
-    userInfoViewModel: UserInfoViewModel,
     navigationController: NavHostController
 ) {
     Box(
@@ -79,7 +78,6 @@ fun LoginScreen(
             Body(
                 Modifier.align(Alignment.Center),
                 loginViewModel,
-                userInfoViewModel,
                 navigationController
             )
             Footer(Modifier.align(Alignment.BottomCenter), navigationController)
@@ -107,7 +105,6 @@ fun Header(modifier: Modifier) {
 fun Body(
     modifier: Modifier,
     loginViewModel: LoginViewModel,
-    userInfoViewModel: UserInfoViewModel,
     navigationController: NavHostController
 ) {
     val email: String by loginViewModel.email.observeAsState(initial = "")
@@ -130,7 +127,6 @@ fun Body(
         LoginButton(
             isLoginEnable,
             loginViewModel,
-            userInfoViewModel,
             navigationController,
             email,
             password
@@ -224,19 +220,20 @@ fun ForgotPassword(modifier: Modifier) {
 fun LoginButton(
     loginEnable: Boolean,
     loginViewModel: LoginViewModel,
-    userInfoViewModel: UserInfoViewModel,
     navigationController: NavHostController,
     email: String,
     password: String
 ) {
+    val contentToast = LocalContext.current.applicationContext
     Button(
         onClick = {
+            Toast.makeText(contentToast, "LOG-IN", Toast.LENGTH_LONG).show()
             loginViewModel.login(
                 email, password
             ) {
                 navigationController.navigate(Routes.UserInfoScreen.route)
             }
-            userInfoViewModel.getInfoUser(email)
+//            userInfoViewModel.getInfoUser(email)
         },
         enabled = loginEnable,
         modifier = Modifier.fillMaxWidth(),
@@ -295,13 +292,10 @@ fun Footer(
 @Composable
 fun SingUp(navigationController: NavHostController) {
 
-    val contentToast = LocalContext.current.applicationContext
-
     Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
         Text(text = "No tienes una cuenta?", fontSize = 12.sp, color = Color.Gray)
         Button(
             onClick = {
-                Toast.makeText(contentToast, "LOG-IN", Toast.LENGTH_LONG).show()
                 navigationController.navigate(Routes.SignUpScreen.route)
             },
             modifier = Modifier.fillMaxWidth(),

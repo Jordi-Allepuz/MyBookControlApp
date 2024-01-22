@@ -113,15 +113,13 @@ fun FabNewUser(
                 "REGISTRADO",
                 Toast.LENGTH_LONG
             ).show()
-            singUpViewModel.signUp(
+            singUpViewModel.registerUser(
+                userName,
                 email,
-                password1,
+                age,
+                favoriteGenere
             )
-            singUpViewModel.registerUser(userName, email, age, favoriteGenere) {
-                navController.navigate(
-                    Routes.LoginScreen.route
-                )
-            }
+            singUpViewModel.signUp(email, password1){navController.navigate(Routes.LoginScreen.route)}
         } else {
             Toast.makeText(
                 contentToast,

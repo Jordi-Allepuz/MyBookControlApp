@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
@@ -15,7 +13,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.mybookcontrolapp.Routes
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.Book
@@ -25,7 +22,6 @@ import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.UserInfoVie
 
 @Composable
 fun UserInfoScreen(
-    loginViewModel: LoginViewModel,
     userInfoViewModel: UserInfoViewModel,
     navigationController: NavHostController
 ) {
@@ -47,7 +43,7 @@ fun UserInfoScreen(
         ) {
             UserInfo(user!!)
 //            ReadBooks(user!!, userInfoViewModel)
-            Botones(loginViewModel, navigationController)
+            Botones(userInfoViewModel, navigationController)
         }
     }
 }
@@ -106,13 +102,12 @@ fun UserInfo(user: User) {
 
 @Composable
 fun Botones(
-    loginViewModel: LoginViewModel,
+    userInfoViewModel: UserInfoViewModel,
     navigationController: NavHostController
 ) {
     Row() {
         Button(onClick = {
-            loginViewModel.logOut()
-            navigationController.navigate(Routes.LoginScreen.route)
+            userInfoViewModel.logOut { navigationController.navigate(Routes.LoginScreen.route) }
         }) {
             Text(text = "LOG OUT")
         }
