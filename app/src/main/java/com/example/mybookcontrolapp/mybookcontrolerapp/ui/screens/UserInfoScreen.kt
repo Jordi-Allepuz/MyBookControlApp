@@ -1,9 +1,11 @@
 package com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -11,16 +13,22 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.annotation.ExperimentalCoilApi
@@ -37,7 +45,7 @@ fun UserInfoScreen(
 ) {
 
     val user: User? by userInfoViewModel.user.observeAsState()
-    val books: List<Book>? by userInfoViewModel.books.observeAsState()
+    val books: List<Book>? by userInfoViewModel.userBooks.observeAsState()
 
     if (user == null || books == null) {
         Box(
@@ -53,7 +61,17 @@ fun UserInfoScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             UserInfo(user!!)
+            Spacer(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp)
+            )
             ReadBooks(books!!, userInfoViewModel, navigationController)
+            Spacer(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp)
+            )
             Botones(userInfoViewModel, navigationController)
         }
     }
@@ -79,8 +97,7 @@ fun ReadBooks(
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
-            .height(350.dp)
-            .padding(horizontal = 20.dp),
+            .height(350.dp),
         content = {
             items(books) { book ->
                 CardBooks(
@@ -88,6 +105,17 @@ fun ReadBooks(
                     userInfoViewModel,
                     navigationController
                 )
+            }
+            item {
+                IconButton(onClick = {
+                    userInfoViewModel.getBookCollection {
+                        navigationController.navigate(
+                            Routes.CollectionBookScreen.route
+                        )
+                    }
+                }) {
+                    Icon(imageVector = Icons.Default.Add, contentDescription = null)
+                }
             }
         })
 
@@ -107,14 +135,18 @@ fun CardBooks(
                 Routes.BookInfoScreen.route
             )
         }
-    }) {
-        Column() {
+    }, modifier = Modifier.padding(horizontal = 20.dp)) {
+        Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.Center) {
             Image(
                 painter = rememberImagePainter(data = book.portada),
                 contentDescription = null,
-                modifier = Modifier.width(200.dp)
+                modifier = Modifier.width(200.dp), contentScale = ContentScale.Crop,
             )
-            Text(text = book.titulo)
+            Text(
+                text = book.titulo,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
+            )
         }
     }
 }

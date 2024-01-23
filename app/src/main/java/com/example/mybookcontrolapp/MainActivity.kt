@@ -12,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.BookInfoScreen
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.CollectionBookScreen
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.LoginScreen
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.SignUpScreen
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.UserInfoScreen
@@ -53,6 +54,9 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(Routes.BookInfoScreen.route) {
                             BookInfoScreen(userInfoViewModel, navigationController)
+                        }
+                        composable(Routes.CollectionBookScreen.route) {
+                            CollectionBookScreen(userInfoViewModel, navigationController)
                         }
                     }
                 }

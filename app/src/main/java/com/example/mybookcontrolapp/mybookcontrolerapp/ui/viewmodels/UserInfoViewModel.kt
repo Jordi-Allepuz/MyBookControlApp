@@ -32,8 +32,11 @@ class UserInfoViewModel @Inject constructor(
     private val _book = MutableLiveData<Book>()
     val book: LiveData<Book> = _book
 
-    private val _books = MutableLiveData<MutableList<Book>>()
-    val books: LiveData<MutableList<Book>> = _books
+    private val _userBooks = MutableLiveData<MutableList<Book>>()
+    val userBooks: LiveData<MutableList<Book>> = _userBooks
+
+    private val _allBooks = MutableLiveData<MutableList<Book>>()
+    val allBooks: LiveData<MutableList<Book>> = _allBooks
 
     init {
         val currentUserEmail = authService.getCurrentUser()?.email
@@ -81,11 +84,11 @@ class UserInfoViewModel @Inject constructor(
             val result = withContext(Dispatchers.IO) {
                 storageService.getFavoriteBooks(id)
             }
-            _books.value = result
+            _userBooks.value = result
         }
     }
 
-    fun getBookInfo(name: String, toInfo:() -> Unit) {
+    fun getBookInfo(name: String, toInfo: () -> Unit) {
         viewModelScope.launch {
             val result = withContext(Dispatchers.IO) {
                 storageService.getInfoBook(name)
@@ -99,7 +102,26 @@ class UserInfoViewModel @Inject constructor(
         }
     }
 
+    fun getBookCollection(toList: () -> Unit) {
+        viewModelScope.launch {
+            val result = withContext(Dispatchers.IO) {
+                storageService.getAllBooks()
+            }
+            _allBooks.value = result
+            toList()
+        }
+    }
 
+    fun addBookUser(book: Book, id: String, toUser: () -> Unit) {
+        viewModelScope.launch {
+            val result = withContext(Dispatchers.IO) {
+                storageService.addBookUser(book, id)
+                toUser()
+            }
+
+        }
+
+    }
 
 
 }
