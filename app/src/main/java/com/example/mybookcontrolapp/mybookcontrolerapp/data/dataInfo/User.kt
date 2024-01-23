@@ -1,6 +1,9 @@
 package com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo
 
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
+import java.lang.ref.Reference
 
 data class User(
     val name: String = "",

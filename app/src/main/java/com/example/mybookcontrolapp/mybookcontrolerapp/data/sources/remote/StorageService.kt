@@ -4,6 +4,7 @@ package com.example.mybookcontrolapp.mybookcontrolerapp.data.sources.remote
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.Book
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.User
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.mappers.UserToMap
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
@@ -20,29 +21,45 @@ class StorageService @Inject constructor(private val firebaseStorage: FirebaseFi
         return result
     }
 
+    suspend fun getUserId(email: String): String?{
+        val result =
+            firebaseStorage.collection("usuarios").whereEqualTo("email", email).get().await()
+        return result.documents.firstOrNull()?.id
+    }
+
+
     suspend fun getInfoUser(email: String): User? {
         val result =
             firebaseStorage.collection("usuarios").whereEqualTo("email", email).get().await()
         return result.documents.firstOrNull()?.toObject<User>()
     }
 
-    suspend fun getInfoBook(id: String): Book? {
-        val result = firebaseStorage.collection("libros").document(id).get().await()
-        return result.toObject<Book>()
-
+    suspend fun getInfoBook(name:String): Book? {
+        val result =
+            firebaseStorage.collection("libros").whereEqualTo("titulo", name).get().await()
+        return result.documents.firstOrNull()?.toObject<Book>()
     }
 
-    suspend fun getBookList(id: String): Flow<List<Book>> = flow {
-        firebaseStorage.collection("usuarios").document(id).collection("libros_leidos").get()
-            .await().map { document ->
-                document.toObject(Book::class.java)
+
+    suspend fun getFavoriteBooks(id: String): MutableList<Book> {
+        val books = mutableListOf<Book>()
+        try {
+            val result = firebaseStorage
+                .collection("usuarios")
+                .document(id)
+                .collection("libros_favoritos")
+                .get()
+                .await()
+
+            for (documento in result) {
+                val libro = documento.toObject(Book::class.java)
+                books.add(libro)
             }
+        } catch (e: Exception) {
+            println("Error al obtener libros favoritos: ${e.message}")
+        }
+        return books
     }
 
-
-//    suspend fun registredInfoBook(book: Book){
-//        val bookMap = BookToMap(book)
-//        firebaseStorage.collection("libros").add(bookMap)
-//    }
 
 }

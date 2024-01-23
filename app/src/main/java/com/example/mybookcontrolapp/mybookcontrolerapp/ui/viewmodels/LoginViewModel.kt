@@ -67,7 +67,7 @@ class LoginViewModel @Inject constructor(private val authService: AuthService) :
 
 
     fun isUserLogged():Boolean{
-        return authService.isUserLogged()
+        return  authService.isUserLogged()
     }
 
 
