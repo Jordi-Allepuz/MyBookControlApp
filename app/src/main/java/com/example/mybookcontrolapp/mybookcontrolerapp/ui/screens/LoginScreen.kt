@@ -52,7 +52,6 @@ import androidx.navigation.NavHostController
 import com.example.mybookcontrolapp.R
 import com.example.mybookcontrolapp.Routes
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
-import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.UserInfoViewModel
 
 @Composable
 fun LoginScreen(
@@ -225,15 +224,15 @@ fun LoginButton(
     password: String
 ) {
     val contentToast = LocalContext.current.applicationContext
+
     Button(
         onClick = {
-            Toast.makeText(contentToast, "LOG-IN", Toast.LENGTH_LONG).show()
-            loginViewModel.login(
-                email, password
-            ) {
-                navigationController.navigate(Routes.UserInfoScreen.route)
-            }
-//            userInfoViewModel.getInfoUser(email)
+                Toast.makeText(contentToast, "LOG-IN", Toast.LENGTH_LONG).show()
+                loginViewModel.login(
+                    email, password
+                ) {
+                    navigationController.navigate(Routes.UserInfoScreen.route)
+                }
         },
         enabled = loginEnable,
         modifier = Modifier.fillMaxWidth(),
@@ -243,10 +242,12 @@ fun LoginButton(
             contentColor = Color.White,
             disabledContentColor = Color.White
         )
-    ) {
+    )
+    {
         Text(text = "Log in")
     }
 }
+
 
 
 @Composable

@@ -26,7 +26,7 @@ class StorageService @Inject constructor(private val firebaseStorage: FirebaseFi
         val bookMap = BookToMap(book)
         val result =
             firebaseStorage.collection("usuarios").document(id).collection("libros_favoritos")
-                .add(book).isComplete
+                .add(bookMap).isComplete
         return result
     }
 

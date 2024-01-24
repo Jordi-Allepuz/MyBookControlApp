@@ -39,9 +39,9 @@ class UserInfoViewModel @Inject constructor(
     val allBooks: LiveData<MutableList<Book>> = _allBooks
 
     init {
-        val currentUserEmail = authService.getCurrentUser()?.email
-        if (currentUserEmail != null) {
-            getInfoUser(currentUserEmail)
+        _userId.value = authService.getCurrentUser()?.email
+        if (_userId.value != null) {
+            getInfoUser(_userId.value!!)
         }
     }
 
@@ -116,12 +116,17 @@ class UserInfoViewModel @Inject constructor(
         viewModelScope.launch {
             val result = withContext(Dispatchers.IO) {
                 storageService.addBookUser(book, id)
-                toUser()
+                _userBooks.value!!.add(book)
             }
-
+            if (result!=null){
+                toUser()
+            }else{
+                //
+            }
         }
-
     }
+
+
 
 
 }

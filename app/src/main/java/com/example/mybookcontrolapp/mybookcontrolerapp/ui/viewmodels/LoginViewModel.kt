@@ -3,6 +3,8 @@ package com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels
 
 import android.util.Log
 import android.util.Patterns
+import androidx.compose.material3.AlertDialog
+import androidx.compose.runtime.Composable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,18 +25,23 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(private val authService: AuthService) : ViewModel() {
 
-    private val _email = MutableLiveData<String>()
+    private val _email = MutableLiveData<String>("")
     val email: LiveData<String> = _email
 
-    private val _password = MutableLiveData<String>()
+    private val _password = MutableLiveData<String>("")
     val password: LiveData<String> = _password
 
 
     private val _isLoginEnable = MutableLiveData<Boolean>()
     val isLoginEnable: LiveData<Boolean> = _isLoginEnable
 
+
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
+
+
+    private val _isLoginCorrect = MutableLiveData<Boolean>()
+    val isLoginCorrect: LiveData<Boolean> = _isLoginCorrect
 
     fun onLoginChange(email: String, password: String) {
         _email.value = email
@@ -59,11 +66,13 @@ class LoginViewModel @Inject constructor(private val authService: AuthService) :
             if (result != null) {
                 toUserScreen()
             } else {
-                //error
+
             }
             _isLoading.value = false
         }
     }
+
+
 
 
     fun isUserLogged():Boolean{
