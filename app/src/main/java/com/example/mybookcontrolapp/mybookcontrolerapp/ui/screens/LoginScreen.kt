@@ -2,6 +2,15 @@ package com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens
 
 import android.app.Activity
 import android.widget.Toast
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandHorizontally
+import androidx.compose.animation.expandIn
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.scaleIn
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -31,15 +40,18 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -110,7 +122,7 @@ fun Body(
     val password: String by loginViewModel.password.observeAsState(initial = "")
     val isLoginEnable: Boolean by loginViewModel.isLoginEnable.observeAsState(initial = false)
 
-    Column(modifier = modifier) {
+    Column(modifier = modifier.fillMaxWidth()) {
         ImageLogo(Modifier.align(Alignment.CenterHorizontally))
         Spacer(modifier = Modifier.size(50.dp))
         Email(email) {
@@ -137,11 +149,22 @@ fun Body(
 
 @Composable
 fun ImageLogo(modifier: Modifier) {
+    var show by remember { mutableStateOf(false) }
+    LaunchedEffect(key1 = Unit) {
+        show = true
+    }
+    val scale by animateFloatAsState(
+        targetValue = if (show) 1f else 0f,
+        animationSpec = tween(durationMillis = 1000, easing = LinearOutSlowInEasing)
+    )
     Image(
         painter = painterResource(id = R.drawable.logoapp),
         contentDescription = "logo", modifier = modifier
-            .clip(CircleShape)
-            .size(100.dp)
+            .size(150.dp)
+            .graphicsLayer {
+                scaleX= scale
+                scaleY= scale
+            }.clip(CircleShape)
     )
 }
 
@@ -223,16 +246,14 @@ fun LoginButton(
     email: String,
     password: String
 ) {
-    val contentToast = LocalContext.current.applicationContext
 
     Button(
         onClick = {
-                Toast.makeText(contentToast, "LOG-IN", Toast.LENGTH_LONG).show()
-                loginViewModel.login(
-                    email, password
-                ) {
-                    navigationController.navigate(Routes.UserInfoScreen.route)
-                }
+            loginViewModel.login(
+                email, password
+            ) {
+                navigationController.navigate(Routes.UserInfoScreen.route)
+            }
         },
         enabled = loginEnable,
         modifier = Modifier.fillMaxWidth(),
@@ -247,7 +268,6 @@ fun LoginButton(
         Text(text = "Log in")
     }
 }
-
 
 
 @Composable

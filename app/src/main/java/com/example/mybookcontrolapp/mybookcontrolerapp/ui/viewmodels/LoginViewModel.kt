@@ -1,6 +1,8 @@
 package com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels
 
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import android.util.Patterns
 import androidx.compose.material3.AlertDialog
@@ -25,10 +27,10 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(private val authService: AuthService) : ViewModel() {
 
-    private val _email = MutableLiveData<String>("")
+    private val _email = MutableLiveData<String>()
     val email: LiveData<String> = _email
 
-    private val _password = MutableLiveData<String>("")
+    private val _password = MutableLiveData<String>()
     val password: LiveData<String> = _password
 
 
@@ -40,8 +42,6 @@ class LoginViewModel @Inject constructor(private val authService: AuthService) :
     val isLoading: LiveData<Boolean> = _isLoading
 
 
-    private val _isLoginCorrect = MutableLiveData<Boolean>()
-    val isLoginCorrect: LiveData<Boolean> = _isLoginCorrect
 
     fun onLoginChange(email: String, password: String) {
         _email.value = email
@@ -59,19 +59,41 @@ class LoginViewModel @Inject constructor(private val authService: AuthService) :
     fun login(email: String, password: String, toUserScreen: () -> Unit) {
         viewModelScope.launch {
             _isLoading.value = true
-
-            val result = withContext(Dispatchers.IO) {
-                authService.login(email, password)
-            }
-            if (result != null) {
-                toUserScreen()
-            } else {
-
+            try{
+                val result = withContext(Dispatchers.IO) {
+                    authService.login(email, password)
+                }
+                if (result != null) {
+                    toUserScreen()
+                    _email.value = ""
+                    _password.value = ""
+                } else {
+//                    _email.value = ""
+//                    _password.value = ""
+//                    _isLoginEnable.value= false
+//                    //
+                }
+            }catch (e:Exception){
+//                _email.value = ""
+//                _password.value = ""
+//                _isLoginEnable.value= false
+//                //
             }
             _isLoading.value = false
         }
     }
 
+
+
+    fun logOut(toLoginScreen: () -> Unit) {
+        viewModelScope.launch {
+            authService.logOut()
+            _email.value = ""
+            _password.value = ""
+
+            toLoginScreen()
+        }
+    }
 
 
 
@@ -88,7 +110,6 @@ class LoginViewModel @Inject constructor(private val authService: AuthService) :
             Routes.LoginScreen.route
         }
     }
-
 
 
 

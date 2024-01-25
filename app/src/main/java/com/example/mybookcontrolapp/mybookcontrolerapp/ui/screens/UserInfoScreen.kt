@@ -36,11 +36,13 @@ import coil.compose.rememberImagePainter
 import com.example.mybookcontrolapp.Routes
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.Book
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.User
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.UserInfoViewModel
 
 @Composable
 fun UserInfoScreen(
     userInfoViewModel: UserInfoViewModel,
+    loginViewModel: LoginViewModel,
     navigationController: NavHostController
 ) {
 
@@ -72,7 +74,7 @@ fun UserInfoScreen(
                     .fillMaxWidth()
                     .height(100.dp)
             )
-            Botones(userInfoViewModel, navigationController)
+            Botones(userInfoViewModel, loginViewModel, navigationController)
         }
     }
 }
@@ -155,11 +157,14 @@ fun CardBooks(
 @Composable
 fun Botones(
     userInfoViewModel: UserInfoViewModel,
+    loginViewModel: LoginViewModel,
     navigationController: NavHostController
 ) {
     Row() {
         Button(onClick = {
-            userInfoViewModel.logOut { navigationController.navigate(Routes.LoginScreen.route) }
+            loginViewModel.logOut {
+                navigationController.navigate(Routes.LoginScreen.route)
+            }
         }) {
             Text(text = "LOG OUT")
         }

@@ -50,7 +50,7 @@ class MainActivity : ComponentActivity() {
                             SignUpScreen(signUpViewModel, navigationController)
                         }
                         composable(Routes.UserInfoScreen.route) {
-                            UserInfoScreen(userInfoViewModel, navigationController)
+                            UserInfoScreen(userInfoViewModel, loginViewModel, navigationController)
                         }
                         composable(Routes.BookInfoScreen.route) {
                             BookInfoScreen(userInfoViewModel, navigationController)

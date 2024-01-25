@@ -46,12 +46,7 @@ class UserInfoViewModel @Inject constructor(
     }
 
 
-    fun logOut(toLoginScreen: () -> Unit) {
-        viewModelScope.launch {
-            authService.logOut()
-            toLoginScreen()
-        }
-    }
+
 
 
     fun getInfoUser(email: String) {
@@ -125,6 +120,8 @@ class UserInfoViewModel @Inject constructor(
             }
         }
     }
+
+
 
 
 
