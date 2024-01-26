@@ -1,5 +1,6 @@
 package com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -22,7 +23,7 @@ class UserInfoViewModel @Inject constructor(
 ) :
     ViewModel() {
 
-    private val _user = MutableLiveData<User>()
+    private val _user = MutableLiveData<User>(null)
     val user: LiveData<User> = _user
 
 
@@ -38,21 +39,14 @@ class UserInfoViewModel @Inject constructor(
     private val _allBooks = MutableLiveData<MutableList<Book>>()
     val allBooks: LiveData<MutableList<Book>> = _allBooks
 
-    init {
-        _userId.value = authService.getCurrentUser()?.email
-        if (_userId.value != null) {
-            getInfoUser(_userId.value!!)
-        }
-    }
 
 
 
-
-
-    fun getInfoUser(email: String) {
+    fun getInfoUser() {
         viewModelScope.launch {
+            _userId.value = authService.getCurrentUser()?.email
             val result = withContext(Dispatchers.IO) {
-                storageService.getInfoUser(email)
+                storageService.getInfoUser(_userId.value!!)
             }
             if (result != null) {
                 _user.value = result
@@ -62,6 +56,7 @@ class UserInfoViewModel @Inject constructor(
             }
         }
     }
+
 
     fun getUserId(email: String) {
         viewModelScope.launch {
@@ -113,16 +108,13 @@ class UserInfoViewModel @Inject constructor(
                 storageService.addBookUser(book, id)
                 _userBooks.value!!.add(book)
             }
-            if (result!=null){
+            if (result != null) {
                 toUser()
-            }else{
+            } else {
                 //
             }
         }
     }
-
-
-
 
 
 

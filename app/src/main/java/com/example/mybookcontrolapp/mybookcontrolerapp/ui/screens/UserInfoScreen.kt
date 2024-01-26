@@ -23,6 +23,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -48,6 +49,10 @@ fun UserInfoScreen(
 
     val user: User? by userInfoViewModel.user.observeAsState()
     val books: List<Book>? by userInfoViewModel.userBooks.observeAsState()
+
+    LaunchedEffect(Unit) {
+        userInfoViewModel.getInfoUser()
+    }
 
     if (user == null || books == null) {
         Box(
