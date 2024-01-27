@@ -53,7 +53,7 @@ class MainActivity : ComponentActivity() {
                             UserInfoScreen(userInfoViewModel, loginViewModel, navigationController)
                         }
                         composable(Routes.BookInfoScreen.route) {
-                            BookInfoScreen(userInfoViewModel, navigationController)
+                            BookInfoScreen(userInfoViewModel,loginViewModel, navigationController)
                         }
                         composable(Routes.CollectionBookScreen.route) {
                             CollectionBookScreen(userInfoViewModel, loginViewModel, navigationController)

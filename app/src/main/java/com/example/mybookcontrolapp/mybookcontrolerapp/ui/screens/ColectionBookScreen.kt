@@ -37,6 +37,7 @@ import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.example.mybookcontrolapp.Routes
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.Book
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.CardBookInfo
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.ModalDrawer
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.TopBar
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
@@ -68,7 +69,7 @@ fun CollectionBookScreen(
                     coroutina,
                     userInfoViewModel,
                     loginViewModel,
-                    navigationController
+                    navigationController,badgedOn = false
                 )
             },
             content = { paddingValues ->
@@ -85,7 +86,7 @@ fun CollectionBookScreen(
 }
 
 
-@OptIn(ExperimentalCoilApi::class)
+
 @Composable
 fun CollectionBookContent(
     userInfoViewModel: UserInfoViewModel,
@@ -116,40 +117,3 @@ fun CollectionBookContent(
     }
 }
 
-
-@Composable
-fun CardBookInfo(
-    book: Book,
-    userInfoViewModel: UserInfoViewModel,
-    navigationController: NavHostController,
-) {
-    Card(modifier = Modifier
-        .fillMaxWidth()
-        .height(400.dp)
-        .padding(vertical = 16.dp, horizontal = 20.dp)
-        .clickable {
-            userInfoViewModel.addBookUser(
-                book,
-                userInfoViewModel.userId.value!!.toString()
-            ) {
-                navigationController.navigate(
-                    Routes.UserInfoScreen.route
-                )
-            }
-        }, shape = RoundedCornerShape(8.dp)
-    ) {
-        Row() {
-            Column() {
-                Text(text = book.titulo)
-                Text(text = book.editorial)
-            }
-            Image(
-                painter = rememberImagePainter(data = book.portada),
-                contentDescription = null,
-                modifier = Modifier.width(200.dp), contentScale = ContentScale.Crop,
-            )
-        }
-
-
-    }
-}

@@ -43,6 +43,7 @@ import coil.compose.rememberImagePainter
 import com.example.mybookcontrolapp.Routes
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.Book
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.User
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.CardBook
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.ModalDrawer
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.TopBar
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
@@ -66,7 +67,7 @@ fun UserInfoScreen(
         drawerState = estadoDrawer
     ) {
         Scaffold(
-            topBar = { TopBar("USER INFO", estadoDrawer, coroutina, userInfoViewModel, loginViewModel, navigationController) },
+            topBar = { TopBar("USER INFO", estadoDrawer, coroutina, userInfoViewModel, loginViewModel, navigationController, badgedOn = false) },
             content = { paddingValues ->
                 UserInfoContent(
                     userInfoViewModel,
@@ -153,7 +154,7 @@ fun ReadBooks(
                 .height(350.dp),
             content = {
                 items(books) { book ->
-                    CardBooks(
+                    CardBook(
                         book,
                         userInfoViewModel,
                         navigationController
@@ -179,34 +180,6 @@ fun ReadBooks(
 }
 
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalCoilApi::class)
-@Composable
-fun CardBooks(
-    book: Book,
-    userInfoViewModel: UserInfoViewModel,
-    navigationController: NavHostController
-) {
-    Card(onClick = {
-        userInfoViewModel.getBookInfo(book.titulo) {
-            navigationController.navigate(
-                Routes.BookInfoScreen.route
-            )
-        }
-    }, modifier = Modifier.padding(horizontal = 20.dp)) {
-        Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.Center) {
-            Image(
-                painter = rememberImagePainter(data = book.portada),
-                contentDescription = null,
-                modifier = Modifier.width(200.dp), contentScale = ContentScale.Crop,
-            )
-            Text(
-                text = book.titulo,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
-    }
-}
 
 
 

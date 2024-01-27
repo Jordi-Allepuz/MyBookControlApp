@@ -2,10 +2,8 @@ package com.example.mybookcontrolapp.mybookcontrolerapp.ui.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.Menu
 import androidx.compose.material.icons.rounded.ShoppingCart
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -33,7 +31,8 @@ fun TopBar(
     coroutina: CoroutineScope,
     userInfoViewModel: UserInfoViewModel,
     loginViewModel: LoginViewModel,
-    navigationController: NavHostController
+    navigationController: NavHostController,
+    badgedOn:Boolean
 ) {
 
     var MenuOpen by rememberSaveable { mutableStateOf(false) }
@@ -53,9 +52,7 @@ fun TopBar(
             }
         },
         actions = {
-            IconButton(onClick = {}) {
-                Icon(imageVector = Icons.Rounded.Favorite, contentDescription = "favorite")
-            }
+            if (badgedOn) BadgedBoxBook()
             IconButton(onClick = { userInfoViewModel.visitShop("https://www.casadellibro.com/") }) {
                 Icon(imageVector = Icons.Rounded.ShoppingCart, contentDescription = "search")
             }
