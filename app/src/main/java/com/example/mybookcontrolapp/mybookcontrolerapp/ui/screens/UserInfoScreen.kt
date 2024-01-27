@@ -18,6 +18,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ModalNavigationDrawer
@@ -37,6 +38,7 @@ import androidx.navigation.NavHostController
 import com.example.mybookcontrolapp.Routes
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.Book
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.User
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.BottomBar
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.CardAddBook
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.CardBook
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.ModalDrawer
@@ -81,7 +83,7 @@ fun UserInfoScreen(
                     paddingValues
                 )
             },
-            bottomBar = { }
+            bottomBar = { BottomBar() }
         )
     }
 
