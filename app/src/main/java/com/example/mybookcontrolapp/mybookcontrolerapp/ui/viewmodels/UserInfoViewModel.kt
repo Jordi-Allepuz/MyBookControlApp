@@ -9,6 +9,7 @@ import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.Book
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.User
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.sources.remote.AuthService
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.sources.remote.StorageService
+import com.example.mybookcontrolapp.mybookcontrolerapp.domain.usecases.UseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,7 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 class UserInfoViewModel @Inject constructor(
     private val storageService: StorageService,
-    private val authService: AuthService
+    private val authService: AuthService,
+    private val useCases: UseCases
 ) :
     ViewModel() {
 
@@ -113,6 +115,12 @@ class UserInfoViewModel @Inject constructor(
             } else {
                 //
             }
+        }
+    }
+
+    fun visitShop(url:String){
+        viewModelScope.launch {
+            useCases.execute(url)
         }
     }
 

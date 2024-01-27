@@ -1,7 +1,6 @@
 package com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,7 +21,6 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -30,6 +28,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -75,7 +74,7 @@ fun UserInfoScreen(
                     .fillMaxWidth()
                     .height(100.dp)
             )
-            ReadBooks(books!!, userInfoViewModel, navigationController)
+            ReadBooks(books!!, user!!.name, userInfoViewModel, navigationController)
             Spacer(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -90,9 +89,9 @@ fun UserInfoScreen(
 @Composable
 fun UserInfo(user: User) {
     Column(Modifier.fillMaxWidth()) {
-        Text(text = "Nombre Usuario: ${user.name}")
-        Text(text = "Edad Usuario: ${user.age}")
-        Text(text = "Genero de lectura favorito: ${user.genero_favorito}")
+        Text(text = "Nombre Usuario: ${user.name}", color = Color.Black)
+        Text(text = "Edad Usuario: ${user.age}", color = Color.Black)
+        Text(text = "Genero de lectura favorito: ${user.genero_favorito}", color = Color.Black)
     }
 }
 
@@ -100,34 +99,37 @@ fun UserInfo(user: User) {
 @Composable
 fun ReadBooks(
     books: List<Book>,
+    userName: String,
     userInfoViewModel: UserInfoViewModel,
     navigationController: NavHostController
 ) {
-    LazyRow(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(350.dp),
-        content = {
-            items(books) { book ->
-                CardBooks(
-                    book,
-                    userInfoViewModel,
-                    navigationController
-                )
-            }
-            item {
-                IconButton(onClick = {
-                    userInfoViewModel.getBookCollection {
-                        navigationController.navigate(
-                            Routes.CollectionBookScreen.route
-                        )
-                    }
-                }) {
-                    Icon(imageVector = Icons.Default.Add, contentDescription = null)
+    Column() {
+        Text(text = "LIBROS FAVORITOS DE ${userName.uppercase()}" , color = Color.Black)
+        LazyRow(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(350.dp),
+            content = {
+                items(books) { book ->
+                    CardBooks(
+                        book,
+                        userInfoViewModel,
+                        navigationController
+                    )
                 }
-            }
-        })
-
+                item {
+                    IconButton(onClick = {
+                        userInfoViewModel.getBookCollection {
+                            navigationController.navigate(
+                                Routes.CollectionBookScreen.route
+                            )
+                        }
+                    }) {
+                        Icon(imageVector = Icons.Default.Add, contentDescription = null)
+                    }
+                }
+            })
+    }
 }
 
 
@@ -174,6 +176,11 @@ fun Botones(
             }
         }) {
             Text(text = "LOG OUT")
+        }
+        Button(onClick = {
+            userInfoViewModel.visitShop("https://www.casadellibro.com/")
+        }) {
+            Text(text = "SHOP")
         }
     }
 }
