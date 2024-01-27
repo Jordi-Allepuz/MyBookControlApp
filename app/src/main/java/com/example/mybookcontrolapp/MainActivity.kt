@@ -56,7 +56,7 @@ class MainActivity : ComponentActivity() {
                             BookInfoScreen(userInfoViewModel, navigationController)
                         }
                         composable(Routes.CollectionBookScreen.route) {
-                            CollectionBookScreen(userInfoViewModel, navigationController)
+                            CollectionBookScreen(userInfoViewModel, loginViewModel, navigationController)
                         }
                     }
                 }

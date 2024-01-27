@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -16,7 +17,6 @@ import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Email
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material.icons.rounded.Person2
-import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
@@ -43,7 +43,6 @@ import androidx.navigation.NavHostController
 import com.example.mybookcontrolapp.Routes
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.SignUpViewModel
-import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.UserInfoViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -66,7 +65,7 @@ fun SignUpScreen(
 
     Scaffold(
 //        topBar = { TopBarNewUser(navController) },
-        content = {
+        content = {paddingValues ->
             ContentNewUSer(
                 signUpViewModel,
                 email,
@@ -75,6 +74,7 @@ fun SignUpScreen(
                 password1,
                 password2,
                 favoriteGenere,
+                paddingValues
             )
         },
 //        bottomBar = { BottomBarNewUser(navController) },
@@ -146,6 +146,7 @@ fun ContentNewUSer(
     password1: String,
     password2: String,
     favoriteGenere: String,
+    paddingValues: PaddingValues,
 ) {
 
 
@@ -160,7 +161,7 @@ fun ContentNewUSer(
             CircularProgressIndicator()
         }
     } else {
-        Box(modifier = Modifier.fillMaxSize()) {
+        Box(modifier = Modifier.fillMaxSize().padding(paddingValues)) {
             Column() {
                 Box(
                     modifier = Modifier
