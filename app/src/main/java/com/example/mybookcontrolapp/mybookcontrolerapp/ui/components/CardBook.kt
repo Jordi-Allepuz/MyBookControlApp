@@ -40,12 +40,12 @@ fun CardBook(
                 Routes.BookInfoScreen.route
             )
         }
-    }, modifier = Modifier.padding(horizontal = 20.dp)) {
+    }, modifier = Modifier.width(250.dp).height(300.dp).padding(horizontal = 20.dp)) {
         Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.Center) {
             Image(
                 painter = rememberImagePainter(data = book.portada),
                 contentDescription = null,
-                modifier = Modifier.width(200.dp), contentScale = ContentScale.Crop,
+                modifier = Modifier.width(250.dp), contentScale = ContentScale.Crop,
             )
             Text(
                 text = book.titulo,

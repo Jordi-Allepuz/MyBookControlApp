@@ -1,8 +1,6 @@
 package com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -34,15 +32,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import coil.annotation.ExperimentalCoilApi
-import coil.compose.rememberImagePainter
 import com.example.mybookcontrolapp.Routes
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.Book
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.User
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.CardAddBook
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.CardBook
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.ModalDrawer
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.TopBar
@@ -67,7 +62,17 @@ fun UserInfoScreen(
         drawerState = estadoDrawer
     ) {
         Scaffold(
-            topBar = { TopBar("USER INFO", estadoDrawer, coroutina, userInfoViewModel, loginViewModel, navigationController, badgedOn = false) },
+            topBar = {
+                TopBar(
+                    "USER INFO",
+                    estadoDrawer,
+                    coroutina,
+                    userInfoViewModel,
+                    loginViewModel,
+                    navigationController,
+                    badgedOn = false
+                )
+            },
             content = { paddingValues ->
                 UserInfoContent(
                     userInfoViewModel,
@@ -161,23 +166,12 @@ fun ReadBooks(
                     )
                 }
                 item {
-                    IconButton(onClick = {
-                        userInfoViewModel.getBookCollection {
-                            navigationController.navigate(
-                                Routes.CollectionBookScreen.route
-                            )
-                        }
-                    }) {
-                        Icon(
-                            imageVector = Icons.Default.Add,
-                            contentDescription = null,
-                            tint = Color.Black
-                        )
-                    }
+                    CardAddBook(userInfoViewModel, navigationController)
                 }
             })
     }
 }
+
 
 
 
