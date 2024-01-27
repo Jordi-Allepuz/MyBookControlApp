@@ -51,7 +51,8 @@ import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.UserInfoVie
 @Composable
 fun SignUpScreen(
     signUpViewModel: SignUpViewModel,
-    navController: NavHostController
+    navController: NavHostController,
+    loginViewModel: LoginViewModel
 ) {
 
     val email: String by signUpViewModel.email.observeAsState(initial = "")
@@ -81,6 +82,7 @@ fun SignUpScreen(
             FabNewUser(
                 navController,
                 signUpViewModel,
+                loginViewModel,
                 email,
                 userName,
                 age,
@@ -98,6 +100,7 @@ fun SignUpScreen(
 fun FabNewUser(
     navController: NavHostController,
     singUpViewModel: SignUpViewModel,
+    loginViewModel: LoginViewModel,
     email: String,
     userName: String,
     age: String,
@@ -119,7 +122,7 @@ fun FabNewUser(
                 age,
                 favoriteGenere
             )
-            singUpViewModel.signUp(email, password1){navController.navigate(Routes.LoginScreen.route)}
+            singUpViewModel.signUp(email, password1){navController.navigate(Routes.UserInfoScreen.route)}
         } else {
             Toast.makeText(
                 contentToast,
