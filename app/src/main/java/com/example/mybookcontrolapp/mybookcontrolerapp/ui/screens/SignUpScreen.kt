@@ -2,10 +2,12 @@ package com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens
 
 import android.annotation.SuppressLint
 import android.widget.Toast
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -27,6 +29,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -40,6 +43,8 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberImagePainter
 import com.example.mybookcontrolapp.Routes
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.SignUpViewModel
@@ -74,7 +79,7 @@ fun SignUpScreen(
                 password1,
                 password2,
                 favoriteGenere,
-                paddingValues
+                paddingValues,
             )
         },
 //        bottomBar = { BottomBarNewUser(navController) },
@@ -136,7 +141,7 @@ fun FabNewUser(
 }
 
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalCoilApi::class)
 @Composable
 fun ContentNewUSer(
     singUpViewModel: SignUpViewModel,
@@ -152,6 +157,12 @@ fun ContentNewUSer(
 
     var passwordVisibility by rememberSaveable { mutableStateOf(true) }
     val isLoading: Boolean by singUpViewModel.isLoading.observeAsState(false)
+    val photos: MutableList<String>? by singUpViewModel.photos.observeAsState( )
+
+//    LaunchedEffect(Unit) {
+//        singUpViewModel.getPhotos()
+//    }
+
 
     if (isLoading) {
         Box(
@@ -161,7 +172,9 @@ fun ContentNewUSer(
             CircularProgressIndicator()
         }
     } else {
-        Box(modifier = Modifier.fillMaxSize().padding(paddingValues)) {
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .padding(paddingValues)) {
             Column() {
                 Box(
                     modifier = Modifier
@@ -336,6 +349,7 @@ fun ContentNewUSer(
                             modifier = Modifier.size(300.dp, 60.dp),
                             singleLine = true
                         )
+//                        Text(text = photos!!.size.toString())
                     }
                 }
             }

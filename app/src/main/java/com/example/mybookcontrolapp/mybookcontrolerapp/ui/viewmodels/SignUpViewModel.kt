@@ -1,10 +1,12 @@
 package com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels
 
+import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.User
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.sources.remote.AuthService
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.sources.remote.StorageService
@@ -45,6 +47,9 @@ class SignUpViewModel @Inject constructor(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+
+    private val _photos = MutableLiveData<MutableList<String>>()
+    val photos: LiveData<MutableList<String>> = _photos
 
     fun onLoginChange(
         email: String,
@@ -113,5 +118,24 @@ class SignUpViewModel @Inject constructor(
             _isLoading.value = false
         }
     }
+
+//
+//    fun getPhotos(){
+//        viewModelScope.launch {
+//            _isLoading.value= true
+//            val result = withContext(Dispatchers.IO){
+//                storageService.getAllPhotos()
+//            }
+//            if (result != null){
+//                _photos.value= result
+//                Log.i("FOTOS", _photos.value!!.size.toString())
+//            }else{
+//                ""
+//            }
+//            _isLoading.value= false
+//        }
+//    }
+
+
 
 }

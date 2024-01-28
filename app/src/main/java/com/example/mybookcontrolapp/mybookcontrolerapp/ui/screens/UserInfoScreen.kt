@@ -3,6 +3,7 @@ package com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,6 +17,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
@@ -128,14 +130,14 @@ fun UserInfoContent(
                 .fillMaxSize()
                 .background(brush)
                 .padding(paddingValues)
-                .padding(top = 100.dp),
+                .padding(top = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             UserInfo(user!!)
             Spacer(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(60.dp)
+                    .height(30.dp)
             )
             ReadBooks(books!!, user!!.name, userInfoViewModel, navigationController)
         }
@@ -146,8 +148,8 @@ fun UserInfoContent(
 @OptIn(ExperimentalCoilApi::class)
 @Composable
 fun UserInfo(user: User) {
-    Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-        Image(painter = rememberImagePainter(data = user.profile_image), contentDescription = null, modifier = Modifier.size(25.dp) )
+    Column(Modifier.fillMaxWidth().border(2.dp, Color.Black, RoundedCornerShape(4.dp)).padding(6.dp), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+        Image(painter = rememberImagePainter(data = user.foto), contentDescription = null, modifier = Modifier.size(120.dp) )
         Text(text = "Nombre Usuario: ${user.name}", color = Color.Black)
         Text(text = "Edad Usuario: ${user.age}", color = Color.Black)
         Text(text = "Genero de lectura favorito: ${user.genero_favorito}", color = Color.Black)
@@ -170,7 +172,7 @@ fun ReadBooks(
         Spacer(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(30.dp)
+                .height(20.dp)
         )
         LazyRow(
             modifier = Modifier

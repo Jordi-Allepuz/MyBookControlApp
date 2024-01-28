@@ -23,6 +23,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -48,6 +50,9 @@ fun CardBook(
     userInfoViewModel: UserInfoViewModel,
     navigationController: NavHostController
 ) {
+
+    val userId:String? by userInfoViewModel.userId.observeAsState()
+
     Card(onClick = {
         userInfoViewModel.getBookInfo(book.titulo) {
             navigationController.navigate(
@@ -79,7 +84,12 @@ fun CardBook(
                 fontWeight = FontWeight.ExtraBold,
                 color = Color.Black
             )
-            IconButton(onClick = { }, modifier= Modifier.weight(0.5f).align(Alignment.End).padding(4.dp)) {
+            IconButton(onClick = { userInfoViewModel.deleteBookUser(book.titulo, userId!!
+            ) { navigationController.navigate(Routes.UserInfoScreen.route) }
+            }, modifier= Modifier
+                .weight(0.5f)
+                .align(Alignment.End)
+                .padding(4.dp)) {
                 Icon(imageVector = Icons.Default.Delete, contentDescription = "null" )
             }
         }

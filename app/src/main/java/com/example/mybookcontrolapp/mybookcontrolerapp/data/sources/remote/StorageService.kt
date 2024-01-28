@@ -8,13 +8,17 @@ import com.example.mybookcontrolapp.mybookcontrolerapp.data.mappers.UserToMap
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-class StorageService @Inject constructor(private val firebaseStorage: FirebaseFirestore) {
+class StorageService @Inject constructor(private val firebaseStorage: FirebaseFirestore, private val storage: FirebaseStorage) {
 
     suspend fun registredUserData(user: User): Boolean {
         val usuarioMap = UserToMap(user)
@@ -30,11 +34,17 @@ class StorageService @Inject constructor(private val firebaseStorage: FirebaseFi
         return result
     }
 
-    suspend fun deleteBookUser(bookId:String):Boolean{
-        val result = firebaseStorage.collection("usuarios").document()
-            .collection("libros_favoritos").document(bookId).delete().isComplete
-        return result
+    suspend fun deleteBookUser(bookName: String, id: String):Boolean{
+        val result = firebaseStorage.collection("usuarios").document(id)
+            .collection("libros_favoritos").whereEqualTo("titulo", bookName).get().await()
+        if (result.documents.isEmpty()){
+            return false
+        }else{
+            result.documents.first().reference.delete().await()
+            return true
+        }
     }
+
 
     suspend fun getUserId(email: String): String? {
         val result =
@@ -94,6 +104,20 @@ class StorageService @Inject constructor(private val firebaseStorage: FirebaseFi
         return books
 
     }
+
+//    suspend fun getAllPhotos(): MutableList<String>{
+//        val photos = mutableListOf<String>()
+//        try {
+//            val result = storage.reference.child("users_Profiles")
+//
+//            for (image in result.bucket){
+//                photos.add(image.toString())
+//            }
+//        }catch (e:Exception){
+//            println("Error al obtener libros coleccion: ${e.message}")
+//        }
+//        return photos
+//    }
 
 
 }
