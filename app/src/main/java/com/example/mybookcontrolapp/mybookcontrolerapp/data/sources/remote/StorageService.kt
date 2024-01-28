@@ -30,6 +30,11 @@ class StorageService @Inject constructor(private val firebaseStorage: FirebaseFi
         return result
     }
 
+//    suspend fun deleteBookUser(book: Book, id: String):Boolean{
+//        val result = firebaseStorage.collection("usuarios").document(id).collection("libros_favoritos")
+//
+//    }
+
     suspend fun getUserId(email: String): String? {
         val result =
             firebaseStorage.collection("usuarios").whereEqualTo("email", email).get().await()

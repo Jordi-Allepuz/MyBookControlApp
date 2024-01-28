@@ -29,7 +29,7 @@ import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.UserInfoVie
 fun CardAddBook(userInfoViewModel: UserInfoViewModel, navigationController: NavHostController) {
     Card(modifier = Modifier
         .width(250.dp)
-        .height(300.dp)
+        .height(400.dp)
         .padding(horizontal = 20.dp), colors = CardDefaults.cardColors(containerColor = Color.Transparent)) {
         Box(modifier = Modifier.fillMaxSize().border(2.dp, Color.Black, RoundedCornerShape(4.dp)), contentAlignment = Alignment.Center ){
             IconButton(onClick = {

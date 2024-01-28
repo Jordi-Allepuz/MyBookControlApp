@@ -118,11 +118,17 @@ class UserInfoViewModel @Inject constructor(
         }
     }
 
+//    fun deleteBookUser(){
+//
+//    }
+
     fun visitShop(url:String){
         viewModelScope.launch {
             useCases.execute(url)
         }
     }
+
+
 
 
 
