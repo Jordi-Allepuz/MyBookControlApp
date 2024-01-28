@@ -118,9 +118,18 @@ class UserInfoViewModel @Inject constructor(
         }
     }
 
-//    fun deleteBookUser(){
-//
-//    }
+    fun deleteBookUser(bookId:String, toUser: () -> Unit){
+        viewModelScope.launch {
+            val result = withContext(Dispatchers.IO){
+                storageService.deleteBookUser(bookId)
+            }
+            if (result != null) {
+                toUser()
+            } else {
+                //
+            }
+        }
+    }
 
     fun visitShop(url:String){
         viewModelScope.launch {

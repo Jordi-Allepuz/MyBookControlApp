@@ -10,5 +10,6 @@ data class User(
     val age: String = "",
     val email: String = "",
     val genero_favorito: String = "",
-    val libros_leidos: List<String> = emptyList()
+    val libros_leidos: List<String> = emptyList(),
+    val profile_image:String = ""
 )

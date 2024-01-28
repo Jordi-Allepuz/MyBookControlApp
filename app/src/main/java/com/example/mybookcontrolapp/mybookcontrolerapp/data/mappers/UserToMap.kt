@@ -9,7 +9,8 @@ fun UserToMap (user: User):MutableMap<String, Any>{
         "age" to user.age,
         "email" to user.email,
         "genero_favorito" to user.genero_favorito,
-        "libros_leidos" to user.libros_leidos
+        "libros_leidos" to user.libros_leidos,
+        "profile_image" to user.profile_image
     )
 
 }
