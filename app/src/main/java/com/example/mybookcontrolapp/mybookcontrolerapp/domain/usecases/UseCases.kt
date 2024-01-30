@@ -1,13 +1,17 @@
 package com.example.mybookcontrolapp.mybookcontrolerapp.domain.usecases
 
-import com.example.mybookcontrolapp.mybookcontrolerapp.data.repositories.PokemonRepositoryImpl
-import com.example.mybookcontrolapp.mybookcontrolerapp.domain.repositories.ShopRepository
+import com.example.mybookcontrolapp.mybookcontrolerapp.data.repositories.EmailRepositoryImpl
+import com.example.mybookcontrolapp.mybookcontrolerapp.data.repositories.ShopRepositoryImpl
 import javax.inject.Inject
 
-class UseCases  @Inject constructor(private val repositoryImpl: PokemonRepositoryImpl){
+class UseCases  @Inject constructor(private val shopRepositoryImpl: ShopRepositoryImpl, private val emailRepositoryImpl: EmailRepositoryImpl ){
 
-    suspend fun execute (url:String){
-        repositoryImpl.visitShop(url)
+    suspend fun executeShop (url:String){
+        shopRepositoryImpl.visitShop(url)
+    }
+
+    suspend fun executeEmail (emailAddress:String){
+        emailRepositoryImpl.visitEmail(emailAddress)
     }
 
 }

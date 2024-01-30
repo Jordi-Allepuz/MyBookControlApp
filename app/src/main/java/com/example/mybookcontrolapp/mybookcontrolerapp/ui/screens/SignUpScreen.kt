@@ -159,9 +159,9 @@ fun ContentNewUSer(
     val isLoading: Boolean by singUpViewModel.isLoading.observeAsState(false)
     val photos: MutableList<String>? by singUpViewModel.photos.observeAsState( )
 
-//    LaunchedEffect(Unit) {
-//        singUpViewModel.getPhotos()
-//    }
+    LaunchedEffect(Unit) {
+        singUpViewModel.getPhotos()
+    }
 
 
     if (isLoading) {
@@ -349,7 +349,6 @@ fun ContentNewUSer(
                             modifier = Modifier.size(300.dp, 60.dp),
                             singleLine = true
                         )
-//                        Text(text = photos!!.size.toString())
                     }
                 }
             }

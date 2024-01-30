@@ -1,6 +1,5 @@
 package com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -131,14 +130,20 @@ class UserInfoViewModel @Inject constructor(
         }
     }
 
+
     fun visitShop(url:String){
         viewModelScope.launch {
-            useCases.execute(url)
+            useCases.executeShop(url)
         }
     }
 
 
 
+    fun sendEmail(emailAdress:String){
+        viewModelScope.launch {
+            useCases.executeEmail(emailAdress)
+        }
+    }
 
 
 

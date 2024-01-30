@@ -29,8 +29,8 @@ fun TopBar(
     titulo: String,
     estadoDrawer: DrawerState,
     coroutina: CoroutineScope,
-    userInfoViewModel: UserInfoViewModel,
     loginViewModel: LoginViewModel,
+    userInfoViewModel: UserInfoViewModel,
     navigationController: NavHostController,
     badgedOn:Boolean
 ) {

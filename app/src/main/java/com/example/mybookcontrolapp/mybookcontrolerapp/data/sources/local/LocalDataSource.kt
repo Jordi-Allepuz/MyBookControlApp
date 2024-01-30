@@ -1,5 +1,6 @@
 package com.example.mybookcontrolapp.mybookcontrolerapp.data.sources.local
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -16,5 +17,14 @@ class LocalDataSource @Inject constructor(@ApplicationContext private val contex
         context.startActivity(intent)
     }
 
-
+    @SuppressLint("QueryPermissionsNeeded")
+    fun sendEmail(emailAddress: String) {
+        val intent = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse("mailto:$emailAddress")
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        }
+            context.startActivity(intent)
+    }
 }
+
+

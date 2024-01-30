@@ -105,19 +105,21 @@ class StorageService @Inject constructor(private val firebaseStorage: FirebaseFi
 
     }
 
-//    suspend fun getAllPhotos(): MutableList<String>{
-//        val photos = mutableListOf<String>()
-//        try {
-//            val result = storage.reference.child("users_Profiles")
-//
-//            for (image in result.bucket){
-//                photos.add(image.toString())
-//            }
-//        }catch (e:Exception){
-//            println("Error al obtener libros coleccion: ${e.message}")
-//        }
-//        return photos
-//    }
+    suspend fun getAllPhotos(): MutableList<String>{
+        val photos = mutableListOf<String>()
+        try {
+            val result = storage.reference.child("users_Profiles").listAll().await()
+
+            result.items.forEach{ file ->
+                val url = file.downloadUrl.await()
+                photos.add(url.toString())
+
+            }
+        }catch (e:Exception){
+            println("Error al obtener photos : ${e.message}")
+        }
+        return photos
+    }
 
 
 }

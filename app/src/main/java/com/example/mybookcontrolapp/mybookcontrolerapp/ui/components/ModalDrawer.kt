@@ -38,12 +38,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.mybookcontrolapp.R
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.data.DataModalDrawer
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.UserInfoViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ModalDrawer(estadoDrawer: DrawerState, coroutina: CoroutineScope) {
+fun ModalDrawer(estadoDrawer: DrawerState, coroutina: CoroutineScope, userInfoViewModel: UserInfoViewModel) {
 
     var itemSeleccionado by rememberSaveable { mutableStateOf(0) }
 
@@ -69,6 +70,9 @@ fun ModalDrawer(estadoDrawer: DrawerState, coroutina: CoroutineScope) {
                     ),
                     selected = index == itemSeleccionado,
                     onClick = {
+                        if(index== 2){
+                            userInfoViewModel.sendEmail("mybookcontroler@bookapp.com")
+                        }
                         itemSeleccionado = index
                     },
                     icon = {
@@ -118,15 +122,18 @@ val listaDrawers = listOf<DataModalDrawer>(
         "Build",
         Icons.Filled.Build,
         Icons.Outlined.Build,
+
     ),
     DataModalDrawer(
         "Info",
         Icons.Filled.Info,
         Icons.Outlined.Info,
+
     ),
     DataModalDrawer(
         "Email", Icons.Filled.Mail,
         Icons.Outlined.Mail,
+
     )
 )
 

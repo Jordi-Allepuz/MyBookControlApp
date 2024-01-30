@@ -30,7 +30,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
-import com.example.mybookcontrolapp.Routes
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.Book
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.ModalDrawer
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.TopBar
@@ -50,12 +49,12 @@ fun BookInfoScreen(
     val estadoDrawer = rememberDrawerState(initialValue = DrawerValue.Closed)
 
     ModalNavigationDrawer(
-        drawerContent = { ModalDrawer(estadoDrawer = estadoDrawer, coroutina = coroutina) },
+        drawerContent = { ModalDrawer(estadoDrawer = estadoDrawer, coroutina = coroutina, userInfoViewModel) },
         gesturesEnabled = false,
         drawerState = estadoDrawer
     ) {
         Scaffold(
-            topBar = { TopBar("BOOK INFO", estadoDrawer, coroutina, userInfoViewModel, loginViewModel, navigationController, badgedOn = true) },
+            topBar = { TopBar("BOOK INFO", estadoDrawer, coroutina, loginViewModel,userInfoViewModel, navigationController, badgedOn = true) },
             content = { paddingValues ->
                 BookInfoContent(
                     userInfoViewModel,

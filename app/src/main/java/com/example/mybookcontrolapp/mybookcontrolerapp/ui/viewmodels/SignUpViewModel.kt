@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.User
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.sources.remote.AuthService
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.sources.remote.StorageService
@@ -15,6 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import kotlin.random.Random
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
@@ -108,9 +108,18 @@ class SignUpViewModel @Inject constructor(
         viewModelScope.launch {
             _isLoading.value = true
            val result=  withContext(Dispatchers.IO) {
-               storageService.registredUserData(User(userName, age, email, favoriteGenere))
+               val randomPhoto= Random.nextInt(0, _photos.value!!.size)
+               val photo:String= _photos.value!![randomPhoto]
+               storageService.registredUserData(User(userName, age, email, favoriteGenere, photo))
+               Log.i("FOTO", photo)
             }
             if (result != null) {
+                _userName.value= ""
+                _email.value= ""
+                _age.value = ""
+                _password1.value= ""
+                _password2.value= ""
+                _favoriteGenere.value= ""
                 //
             } else {
                 //error
@@ -119,22 +128,21 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
-//
-//    fun getPhotos(){
-//        viewModelScope.launch {
-//            _isLoading.value= true
-//            val result = withContext(Dispatchers.IO){
-//                storageService.getAllPhotos()
-//            }
-//            if (result != null){
-//                _photos.value= result
-//                Log.i("FOTOS", _photos.value!!.size.toString())
-//            }else{
-//                ""
-//            }
-//            _isLoading.value= false
-//        }
-//    }
+
+    fun getPhotos(){
+        viewModelScope.launch {
+            _isLoading.value= true
+            val result = withContext(Dispatchers.IO){
+                storageService.getAllPhotos()
+            }
+            if (result != null){
+                _photos.value= result
+            }else{
+                ""
+            }
+            _isLoading.value= false
+        }
+    }
 
 
 

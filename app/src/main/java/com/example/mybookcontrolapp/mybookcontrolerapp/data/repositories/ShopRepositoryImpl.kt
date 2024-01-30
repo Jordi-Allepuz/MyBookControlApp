@@ -6,7 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class PokemonRepositoryImpl @Inject constructor(private val localDataSource: LocalDataSource) :ShopRepository {
+class ShopRepositoryImpl @Inject constructor(private val localDataSource: LocalDataSource) :ShopRepository {
 
     override suspend fun visitShop(url: String) {
          withContext(Dispatchers.IO){
