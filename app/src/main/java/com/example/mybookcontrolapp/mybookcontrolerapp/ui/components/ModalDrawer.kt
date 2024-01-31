@@ -22,6 +22,7 @@ import androidx.compose.material3.DrawerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonColors
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.NavigationDrawerItemDefaults
@@ -73,8 +74,8 @@ fun ModalDrawer(estadoDrawer: DrawerState, coroutina: CoroutineScope, userInfoVi
                     selected = index == itemSeleccionado,
                     onClick = {
                         when(index){
-                            1 -> navigationController.navigate(Routes.InfoAppScreen.route)
-                            2 -> userInfoViewModel.sendEmail("joralljan@alu.edu.gva.es")
+                            0-> navigationController.navigate(Routes.InfoAppScreen.route)
+                            1 -> userInfoViewModel.sendEmail("joralljan@alu.edu.gva.es")
                         }
                         itemSeleccionado = index
                     },
@@ -104,8 +105,8 @@ fun ModalDrawer(estadoDrawer: DrawerState, coroutina: CoroutineScope, userInfoVi
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Icon(imageVector = Icons.Default.Close, contentDescription = "cerrar")
-                    Text(text = "Cerrar")
+                    Icon(imageVector = Icons.Default.Close, contentDescription = "cerrar", tint = Color.Black)
+                    Text(text = "Cerrar", color = Color.Black)
                 }
             }
         }
@@ -121,12 +122,6 @@ lista de Drawers o iconos, lista que llamaremos a la hora de introducir los moda
  */
 
 val listaDrawers = listOf<DataModalDrawer>(
-    DataModalDrawer(
-        "Build",
-        Icons.Filled.Build,
-        Icons.Outlined.Build,
-
-    ),
     DataModalDrawer(
         "Info",
         Icons.Filled.Info,
