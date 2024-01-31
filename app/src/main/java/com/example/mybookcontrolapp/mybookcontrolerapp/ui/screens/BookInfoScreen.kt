@@ -31,6 +31,7 @@ import androidx.navigation.NavHostController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.Book
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.BottomBar
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.ModalDrawer
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.TopBar
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
@@ -62,7 +63,7 @@ fun BookInfoScreen(
                     paddingValues
                 )
             },
-            bottomBar = { }
+            bottomBar = { BottomBar(navigationController)}
         )
     }
 
@@ -92,7 +93,8 @@ fun BookInfoContent(
     } else {
         Column(
             modifier = Modifier
-                .fillMaxSize().padding(paddingValues),
+                .fillMaxSize()
+                .padding(paddingValues),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             BookInfo(book!!)

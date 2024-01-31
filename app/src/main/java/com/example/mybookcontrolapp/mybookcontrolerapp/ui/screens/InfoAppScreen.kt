@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.mybookcontrolapp.R
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.BottomBar
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.ModalDrawer
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.TopBar
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
@@ -77,7 +78,7 @@ fun InfoAppScreen(
                     badgedOn = false
                 )
             },
-            bottomBar = { },
+            bottomBar = { BottomBar(navigationController)},
             content = {
                 ContentInfo(navigationController)
             })

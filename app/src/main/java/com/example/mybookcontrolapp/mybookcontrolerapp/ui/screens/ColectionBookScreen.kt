@@ -22,6 +22,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.Book
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.BottomBar
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.CardBookInfo
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.ModalDrawer
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.TopBar
@@ -64,7 +65,7 @@ fun CollectionBookScreen(
                     paddingValues
                 )
             },
-            bottomBar = {}
+            bottomBar = { BottomBar(navigationController)}
         )
     }
 
