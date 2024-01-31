@@ -49,7 +49,7 @@ fun BookInfoScreen(
     val estadoDrawer = rememberDrawerState(initialValue = DrawerValue.Closed)
 
     ModalNavigationDrawer(
-        drawerContent = { ModalDrawer(estadoDrawer = estadoDrawer, coroutina = coroutina, userInfoViewModel) },
+        drawerContent = { ModalDrawer(estadoDrawer = estadoDrawer, coroutina = coroutina, userInfoViewModel, navigationController) },
         gesturesEnabled = false,
         drawerState = estadoDrawer
     ) {

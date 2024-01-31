@@ -36,7 +36,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.mybookcontrolapp.R
+import com.example.mybookcontrolapp.Routes
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.data.DataModalDrawer
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.UserInfoViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -44,7 +46,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ModalDrawer(estadoDrawer: DrawerState, coroutina: CoroutineScope, userInfoViewModel: UserInfoViewModel) {
+fun ModalDrawer(estadoDrawer: DrawerState, coroutina: CoroutineScope, userInfoViewModel: UserInfoViewModel, navigationController: NavHostController) {
 
     var itemSeleccionado by rememberSaveable { mutableStateOf(0) }
 
@@ -70,8 +72,9 @@ fun ModalDrawer(estadoDrawer: DrawerState, coroutina: CoroutineScope, userInfoVi
                     ),
                     selected = index == itemSeleccionado,
                     onClick = {
-                        if(index== 2){
-                            userInfoViewModel.sendEmail("mybookcontroler@bookapp.com")
+                        when(index){
+                            1 -> navigationController.navigate(Routes.InfoAppScreen.route)
+                            2 -> userInfoViewModel.sendEmail("joralljan@alu.edu.gva.es")
                         }
                         itemSeleccionado = index
                     },
