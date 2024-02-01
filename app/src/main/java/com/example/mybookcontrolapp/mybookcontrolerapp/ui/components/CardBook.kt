@@ -40,6 +40,9 @@ import coil.compose.rememberImagePainter
 import com.example.mybookcontrolapp.Routes
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.Book
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.UserInfoViewModel
+import com.example.mybookcontrolapp.ui.theme.greatvibes
+import com.example.mybookcontrolapp.ui.theme.kaushanscript
+import com.example.mybookcontrolapp.ui.theme.yellowtail
 
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalCoilApi::class)
@@ -89,6 +92,7 @@ fun CardBook(
                 Text(
                     text = book.titulo,
                     textAlign = TextAlign.Center,
+                    fontFamily = kaushanscript,
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(0.5f),

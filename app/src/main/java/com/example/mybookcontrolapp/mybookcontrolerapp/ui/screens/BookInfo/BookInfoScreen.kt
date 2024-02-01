@@ -144,6 +144,7 @@ fun BookInfoContent(
 //}
 
 
+@OptIn(ExperimentalCoilApi::class)
 @Composable
 fun BookInfo(book: Book) {
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
@@ -156,7 +157,7 @@ fun BookInfo(book: Book) {
         ) {
             Card(
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .fillMaxWidth().height(300.dp)
                     .clip(RoundedCornerShape(8.dp))
                     .border(5.dp, Color.LightGray, RoundedCornerShape(8.dp)),
                 elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
@@ -186,7 +187,7 @@ fun BookInfo(book: Book) {
 
                         Image(
                             painter = rememberImagePainter(data = book.portada),
-                            contentDescription = "Portada del libro",
+                            contentDescription = "portada",
                             modifier = Modifier
                                 .size(120.dp)
                                 .clip(RoundedCornerShape(8.dp))

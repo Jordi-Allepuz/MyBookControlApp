@@ -50,6 +50,7 @@ import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.ModalDrawer
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.TopBar
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.UserInfoViewModel
+import com.example.mybookcontrolapp.ui.theme.caveat
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -139,6 +140,13 @@ fun ContentInfo() {
                     color = Color.Black
                 )
                 Divider(thickness = 4.dp)
+                Text(
+                    text = "Curso: 2CFSF DAM ",
+                    modifier = Modifier.padding(10.dp),
+                    fontSize = 20.sp,
+                    color = Color.Black
+                )
+                Divider(thickness = 4.dp)
             }
         }
         Box(
@@ -183,6 +191,7 @@ fun ContentInfo() {
                         Modifier.padding(start = 8.dp),
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
+                        fontFamily = caveat,
                         color = Color.Black
                     )
                 }

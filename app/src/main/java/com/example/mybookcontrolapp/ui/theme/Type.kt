@@ -2,9 +2,11 @@ package com.example.mybookcontrolapp.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.example.mybookcontrolapp.R
 
 // Set of Material typography styles to start with
 val Typography = Typography(
@@ -32,3 +34,30 @@ val Typography = Typography(
     )
     */
 )
+
+
+val caveat = FontFamily(
+    Font(
+        R.font.caveat
+    )
+)
+
+val greatvibes = FontFamily(
+    Font(
+        R.font.greatvibes
+    )
+)
+
+val kaushanscript = FontFamily(
+    Font(
+        R.font.kaushanscript
+    )
+)
+
+val yellowtail = FontFamily(
+    Font(
+        R.font.yellowtail
+    )
+)
+
+
