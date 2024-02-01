@@ -46,6 +46,7 @@ import androidx.navigation.NavHostController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.example.mybookcontrolapp.Routes
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.DropDownMenuGenere
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.SignUpViewModel
 
@@ -327,28 +328,37 @@ fun ContentNewUSer(
                             supportingText = { Text(text = "Confirmar contraseña") },
                             singleLine = true
                         )
-                        OutlinedTextField(
-                            value = favoriteGenere,
-                            onValueChange = {
-                                singUpViewModel.onLoginChange(
-                                    email,
-                                    userName,
-                                    password1,
-                                    password2,
-                                    age,
-                                    it
-                                )
-                            },
-                            label = { Text(text = "Genero favorito") },
-                            leadingIcon = {
-                                Icon(
-                                    imageVector = Icons.Rounded.Person2,
-                                    contentDescription = "favorito"
-                                )
-                            },
-                            modifier = Modifier.size(300.dp, 60.dp),
-                            singleLine = true
+                        DropDownMenuGenere(
+                            singUpViewModel,
+                            email ,
+                            userName,
+                            age,
+                            password1,
+                            password2,
+                            favoriteGenere
                         )
+//                        OutlinedTextField(
+//                            value = favoriteGenere,
+//                            onValueChange = {
+//                                singUpViewModel.onLoginChange(
+//                                    email,
+//                                    userName,
+//                                    password1,
+//                                    password2,
+//                                    age,
+//                                    it
+//                                )
+//                            },
+//                            label = { Text(text = "Genero favorito") },
+//                            leadingIcon = {
+//                                Icon(
+//                                    imageVector = Icons.Rounded.Person2,
+//                                    contentDescription = "favorito"
+//                                )
+//                            },
+//                            modifier = Modifier.size(300.dp, 60.dp),
+//                            singleLine = true
+//                        )
                     }
                 }
             }
