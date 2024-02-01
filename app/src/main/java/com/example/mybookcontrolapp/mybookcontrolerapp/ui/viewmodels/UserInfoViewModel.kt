@@ -41,8 +41,6 @@ class UserInfoViewModel @Inject constructor(
     val allBooks: LiveData<MutableList<Book>> = _allBooks
 
 
-
-
     fun getInfoUser() {
         viewModelScope.launch {
             _userId.value = authService.getCurrentUser()?.email
@@ -131,6 +129,17 @@ class UserInfoViewModel @Inject constructor(
     }
 
 
+
+    fun updateBookLikes(bookId: String, newLikes: Int) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                storageService.updateBookLikes(bookId, newLikes)
+            }
+        }
+    }
+
+
+
     fun visitShop(url:String){
         viewModelScope.launch {
             useCases.executeShop(url)
@@ -144,8 +153,6 @@ class UserInfoViewModel @Inject constructor(
             useCases.executeEmail(emailAdress)
         }
     }
-
-
 
 
 

@@ -142,8 +142,8 @@ fun UserInfoContent(
 fun UserInfo(user: User) {
     Column(Modifier.fillMaxWidth().border(2.dp, Color.Black, RoundedCornerShape(4.dp)).padding(6.dp), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
         Image(painter = rememberImagePainter(data = user.foto), contentDescription = null, modifier = Modifier.size(120.dp) )
-        Text(text = "Nombre Usuario: ${user.name}", color = Color.Black)
-        Text(text = "Edad Usuario: ${user.age}", color = Color.Black)
+        Text(text = "Nombre: ${user.name}", color = Color.Black)
+        Text(text = "Edad: ${user.age} años", color = Color.Black)
         Text(text = "Genero de lectura favorito: ${user.genero_favorito}", color = Color.Black)
     }
 }

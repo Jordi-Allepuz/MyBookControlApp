@@ -3,6 +3,11 @@ package com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInHorizontally
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -21,11 +26,17 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -75,10 +86,10 @@ fun InfoAppScreen(
                     loginViewModel,
                     userInfoViewModel,
                     navigationController,
-                    badgedOn = false
+                    badgedOn = false,
                 )
             },
-            bottomBar = { BottomBar(navigationController)},
+            bottomBar = { BottomBar(navigationController) },
             content = {
                 ContentInfo(navigationController)
             })
@@ -141,20 +152,41 @@ fun ContentInfo(navigationController: NavHostController) {
                     .fillMaxWidth()
                     .padding(top = 8.dp, start = 16.dp)
             ) {
+                var show by remember { mutableStateOf(false) }
+                LaunchedEffect(key1 = Unit) {
+                    show = true
+                }
+                val scale by animateFloatAsState(
+                    targetValue = if (show) 1f else 0f,
+                    animationSpec = tween(durationMillis = 1500, easing = LinearOutSlowInEasing)
+                )
                 Image(
                     painter = painterResource(id = R.drawable.jordiphoto),
                     contentDescription = "photoperfil",
                     Modifier
                         .size(80.dp)
+                        .graphicsLayer {
+                            scaleX = scale
+                            scaleY = scale
+                        }
                         .clip(CircleShape), contentScale = ContentScale.Crop
                 )
-                Text(
-                    text = "JORDI ALLEPUZ JANOHER",
-                    Modifier.padding(start = 8.dp),
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.Black
-                )
+                AnimatedVisibility(
+                    visible = show,
+                    enter = slideInHorizontally(
+                        initialOffsetX = { it },
+                        animationSpec = tween(durationMillis = 1500)
+                    )
+                ) {
+                    Text(
+                        text = "JORDI ALLEPUZ JANOHER",
+                        Modifier.padding(start = 8.dp),
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black
+                    )
+                }
+
             }
         }
     }

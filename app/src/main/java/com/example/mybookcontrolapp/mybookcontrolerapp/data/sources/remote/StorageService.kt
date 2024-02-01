@@ -46,6 +46,12 @@ class StorageService @Inject constructor(private val firebaseStorage: FirebaseFi
     }
 
 
+    suspend fun updateBookLikes(bookName:String, likes:Int):Boolean{
+        val result = firebaseStorage.collection("libros").document(bookName).update("likes", likes)
+        return result.isComplete
+    }
+
+
     suspend fun getUserId(email: String): String? {
         val result =
             firebaseStorage.collection("usuarios").whereEqualTo("email", email).get().await()

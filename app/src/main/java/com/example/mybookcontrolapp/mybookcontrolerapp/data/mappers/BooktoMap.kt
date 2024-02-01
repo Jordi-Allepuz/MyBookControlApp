@@ -10,7 +10,7 @@ fun BookToMap (book:Book):MutableMap<String, Any>{
         "editorial" to book.editorial,
         "isbn" to book.isbn,
         "genero" to book.editorial,
-        "portada" to book.portada
-    )
+        "portada" to book.portada,
+        "likes" to book.likes)
 
 }

@@ -45,6 +45,7 @@ fun BookInfoScreen(
     loginViewModel: LoginViewModel,
     navigationController: NavHostController
 ) {
+    val book: Book? by userInfoViewModel.book.observeAsState()
 
     val coroutina = rememberCoroutineScope()
     val estadoDrawer = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -60,7 +61,8 @@ fun BookInfoScreen(
                 BookInfoContent(
                     userInfoViewModel,
                     navigationController,
-                    paddingValues
+                    paddingValues,
+                    book!!
                 )
             },
             bottomBar = { BottomBar(navigationController)}
@@ -77,11 +79,9 @@ fun BookInfoScreen(
 fun BookInfoContent(
     userInfoViewModel: UserInfoViewModel,
     navigationController: NavHostController,
-    paddingValues: PaddingValues
+    paddingValues: PaddingValues,
+    book: Book
 ) {
-
-    val book: Book? by userInfoViewModel.book.observeAsState()
-
 
     if (book == null) {
         Box(
@@ -97,7 +97,7 @@ fun BookInfoContent(
                 .padding(paddingValues),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            BookInfo(book!!)
+            BookInfo(book)
         }
     }
 }
@@ -117,7 +117,7 @@ fun BookInfo(book: Book) {
 
                 Text(text = "Editorial: ${book.editorial}", color = Color.Black)
                 Text(text = "Genero: ${book.genero}", color = Color.Black)
-                Text(text = "Genero: ${book.autor}", color = Color.Black)
+                Text(text = "Autor: ${book.autor}", color = Color.Black)
                 Text(text = "Isbn: ${book.isbn}", color = Color.Black)
             }
             Column(

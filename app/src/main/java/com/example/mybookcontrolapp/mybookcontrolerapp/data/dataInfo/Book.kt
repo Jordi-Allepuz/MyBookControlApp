@@ -6,5 +6,6 @@ data class Book(
     val editorial: String = "",
     val genero: String = "",
     val isbn: String = "",
-    val portada:String = ""
+    val portada:String = "",
+    val likes:Int = 0
 )
