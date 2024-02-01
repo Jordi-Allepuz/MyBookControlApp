@@ -65,7 +65,7 @@ fun BookInfoScreen(
                     book!!
                 )
             },
-            bottomBar = { BottomBar(navigationController)}
+            bottomBar = { BottomBar(navigationController, loginViewModel)}
         )
     }
 

@@ -37,6 +37,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -46,6 +47,7 @@ import androidx.navigation.NavHostController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.example.mybookcontrolapp.Routes
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.BottomBar
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.DropDownMenuGenere
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.SignUpViewModel
@@ -70,8 +72,8 @@ fun SignUpScreen(
 
 
     Scaffold(
-//        topBar = { TopBarNewUser(navController) },
-        content = {paddingValues ->
+        topBar = {/*empty*/},
+        content = { paddingValues ->
             ContentNewUSer(
                 signUpViewModel,
                 email,
@@ -83,7 +85,7 @@ fun SignUpScreen(
                 paddingValues,
             )
         },
-//        bottomBar = { BottomBarNewUser(navController) },
+        bottomBar = { /*empty*/ },
         floatingActionButton = {
             FabNewUser(
                 navController,
@@ -115,28 +117,33 @@ fun FabNewUser(
     isSignUpEnable: Boolean,
 ) {
     val contentToast = LocalContext.current.applicationContext
-    FloatingActionButton(onClick = {
-        if (isSignUpEnable) {
-            Toast.makeText(
-                contentToast,
-                "REGISTRADO",
-                Toast.LENGTH_LONG
-            ).show()
-            singUpViewModel.registerUser(
-                userName,
-                email,
-                age,
-                favoriteGenere
-            )
-            singUpViewModel.signUp(email, password1){navController.navigate(Routes.UserInfoScreen.route)}
-        } else {
-            Toast.makeText(
-                contentToast,
-                "REVISA LOS CAMPOS",
-                Toast.LENGTH_LONG
-            ).show()
-        }
-    }) {
+    FloatingActionButton(
+        onClick = {
+            if (isSignUpEnable) {
+                Toast.makeText(
+                    contentToast,
+                    "REGISTRADO",
+                    Toast.LENGTH_LONG
+                ).show()
+                singUpViewModel.registerUser(
+                    userName,
+                    email,
+                    age,
+                    favoriteGenere
+                )
+                singUpViewModel.signUp(
+                    email,
+                    password1
+                ) { navController.navigate(Routes.UserInfoScreen.route) }
+            } else {
+                Toast.makeText(
+                    contentToast,
+                    "REVISA LOS CAMPOS",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }, contentColor = Color.Black, containerColor = Color(0xFFE66A94)
+    ) {
         Icon(imageVector = Icons.Rounded.Add, contentDescription = "check")
     }
 }
@@ -158,7 +165,7 @@ fun ContentNewUSer(
 
     var passwordVisibility by rememberSaveable { mutableStateOf(true) }
     val isLoading: Boolean by singUpViewModel.isLoading.observeAsState(false)
-    val photos: MutableList<String>? by singUpViewModel.photos.observeAsState( )
+    val photos: MutableList<String>? by singUpViewModel.photos.observeAsState()
 
     LaunchedEffect(Unit) {
         singUpViewModel.getPhotos()
@@ -173,9 +180,11 @@ fun ContentNewUSer(
             CircularProgressIndicator()
         }
     } else {
-        Box(modifier = Modifier
-            .fillMaxSize()
-            .padding(paddingValues)) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+        ) {
             Column() {
                 Box(
                     modifier = Modifier
@@ -330,7 +339,7 @@ fun ContentNewUSer(
                         )
                         DropDownMenuGenere(
                             singUpViewModel,
-                            email ,
+                            email,
                             userName,
                             age,
                             password1,

@@ -28,6 +28,7 @@ import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.ModalDrawer
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.TopBar
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.UserInfoViewModel
+import kotlin.math.log
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -65,7 +66,7 @@ fun CollectionBookScreen(
                     paddingValues
                 )
             },
-            bottomBar = { BottomBar(navigationController)}
+            bottomBar = { BottomBar(navigationController, loginViewModel)}
         )
     }
 

@@ -86,7 +86,7 @@ fun UserInfoScreen(
                     paddingValues
                 )
             },
-            bottomBar = { BottomBar(navigationController) }
+            bottomBar = { BottomBar(navigationController, loginViewModel) }
         )
     }
 

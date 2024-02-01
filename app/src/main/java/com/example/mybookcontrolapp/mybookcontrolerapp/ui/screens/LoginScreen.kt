@@ -314,7 +314,7 @@ fun Footer(
 fun SingUp(navigationController: NavHostController) {
 
     Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = "No tienes una cuenta?", fontSize = 12.sp, color = Color.Gray)
+        Text(text = "No tienes una cuenta?", fontSize = 12.sp, color = Color.Blue, fontWeight = FontWeight.Bold)
         Button(
             onClick = {
                 navigationController.navigate(Routes.SignUpScreen.route)

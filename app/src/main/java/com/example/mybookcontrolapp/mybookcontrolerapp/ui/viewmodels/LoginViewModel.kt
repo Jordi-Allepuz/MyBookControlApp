@@ -67,6 +67,7 @@ class LoginViewModel @Inject constructor(private val authService: AuthService) :
                     toUserScreen()
                     _email.value = ""
                     _password.value = ""
+                    _isLoginEnable.value= false
                     Log.i("Current User Email", "${authService.getCurrentUser()!!.email}")
                 } else {
 //                    _email.value = ""

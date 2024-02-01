@@ -50,6 +50,7 @@ import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.ModalDrawer
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.TopBar
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.UserInfoViewModel
+import kotlin.math.log
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -89,7 +90,7 @@ fun InfoAppScreen(
                     badgedOn = false,
                 )
             },
-            bottomBar = { BottomBar(navigationController) },
+            bottomBar = { BottomBar(navigationController, loginViewModel) },
             content = {
                 ContentInfo(navigationController)
             })
