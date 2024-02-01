@@ -1,44 +1,51 @@
-package com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens
+package com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.BookInfo
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberImagePainter
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.Book
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.BottomBar
-import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.CardBookInfo
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.ModalDrawer
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.TopBar
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.UserInfoViewModel
-import kotlin.math.log
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun CollectionBookScreen(
+fun BookInfoScreen(
     userInfoViewModel: UserInfoViewModel,
     loginViewModel: LoginViewModel,
     navigationController: NavHostController
 ) {
+    val book: Book? by userInfoViewModel.book.observeAsState()
 
     val coroutina = rememberCoroutineScope()
     val estadoDrawer = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -49,21 +56,11 @@ fun CollectionBookScreen(
         drawerState = estadoDrawer
     ) {
         Scaffold(
-            topBar = {
-                TopBar(
-                    titulo = "LISTADO LIBROS",
-                    estadoDrawer,
-                    coroutina,
-                    loginViewModel,
-                    userInfoViewModel,
-                    navigationController, badgedOn = false
-                )
-            },
+            topBar = { TopBar("BOOK INFO", estadoDrawer, coroutina, loginViewModel,userInfoViewModel, navigationController, badgedOn = true) },
             content = { paddingValues ->
-                CollectionBookContent(
-                    userInfoViewModel,
-                    navigationController,
-                    paddingValues
+                BookInfoContent(
+                    paddingValues,
+                    book!!
                 )
             },
             bottomBar = { BottomBar(navigationController, loginViewModel)}
@@ -75,15 +72,13 @@ fun CollectionBookScreen(
 
 
 
-@Composable
-fun CollectionBookContent(
-    userInfoViewModel: UserInfoViewModel,
-    navigationController: NavHostController,
-    paddingValues: PaddingValues
-) {
-    val books: List<Book>? by userInfoViewModel.allBooks.observeAsState()
 
-    if (books == null) {
+@Composable
+fun BookInfoContent(
+    paddingValues: PaddingValues,
+    book: Book
+) {
+    if (book == null) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -93,15 +88,47 @@ fun CollectionBookContent(
     } else {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(paddingValues)
+                .fillMaxSize()
+                .padding(paddingValues),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            LazyColumn(content = {
-                items(books!!) { book ->
-                    CardBookInfo(book, userInfoViewModel, navigationController)
-                }
-            })
+            BookInfo(book)
         }
     }
 }
+
+
+@OptIn(ExperimentalCoilApi::class)
+@Composable
+fun BookInfo(book: Book) {
+    Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(text = "Titulo Libro: ${book.titulo}", color = Color.Black)
+        Row() {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(2f)
+            ) {
+
+                Text(text = "Editorial: ${book.editorial}", color = Color.Black)
+                Text(text = "Genero: ${book.genero}", color = Color.Black)
+                Text(text = "Autor: ${book.autor}", color = Color.Black)
+                Text(text = "Isbn: ${book.isbn}", color = Color.Black)
+            }
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(2f)
+            ) {
+                Image(
+                    painter = rememberImagePainter(data = book.portada),
+                    contentDescription = null,
+                    modifier = Modifier.width(200.dp), contentScale = ContentScale.Crop,
+                )
+            }
+
+        }
+    }
+}
+
 

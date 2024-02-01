@@ -1,8 +1,7 @@
-package com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens
+package com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.InfoApp
 
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
@@ -38,7 +37,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -50,7 +48,6 @@ import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.ModalDrawer
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.TopBar
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.UserInfoViewModel
-import kotlin.math.log
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -61,7 +58,7 @@ fun InfoAppScreen(
     userInfoViewModel: UserInfoViewModel,
     navigationController: NavHostController
 ) {
-    val activity = LocalContext.current as Activity
+
     val coroutina = rememberCoroutineScope()
     val estadoDrawer = rememberDrawerState(initialValue = DrawerValue.Closed)
 
@@ -92,14 +89,14 @@ fun InfoAppScreen(
             },
             bottomBar = { BottomBar(navigationController, loginViewModel) },
             content = {
-                ContentInfo(navigationController)
+                ContentInfo()
             })
     }
 }
 
 
 @Composable
-fun ContentInfo(navigationController: NavHostController) {
+fun ContentInfo() {
     Column() {
         Box(
             modifier = Modifier
@@ -187,7 +184,6 @@ fun ContentInfo(navigationController: NavHostController) {
                         color = Color.Black
                     )
                 }
-
             }
         }
     }

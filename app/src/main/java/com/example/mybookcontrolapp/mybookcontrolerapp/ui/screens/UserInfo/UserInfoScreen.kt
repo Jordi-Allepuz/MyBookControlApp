@@ -1,4 +1,4 @@
-package com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens
+package com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.UserInfo
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
@@ -81,7 +81,6 @@ fun UserInfoScreen(
             content = { paddingValues ->
                 UserInfoContent(
                     userInfoViewModel,
-                    loginViewModel,
                     navigationController,
                     paddingValues
                 )
@@ -96,7 +95,6 @@ fun UserInfoScreen(
 @Composable
 fun UserInfoContent(
     userInfoViewModel: UserInfoViewModel,
-    loginViewModel: LoginViewModel,
     navigationController: NavHostController,
     paddingValues: PaddingValues
 ) {

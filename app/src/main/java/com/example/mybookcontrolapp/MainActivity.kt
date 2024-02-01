@@ -11,12 +11,12 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.BookInfoScreen
-import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.CollectionBookScreen
-import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.InfoAppScreen
-import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.LoginScreen
-import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.SignUpScreen
-import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.UserInfoScreen
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.BookInfo.BookInfoScreen
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.ColectionBooks.CollectionBookScreen
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.InfoApp.InfoAppScreen
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.LogIn.LoginScreen
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.SignUp.SignUpScreen
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.UserInfo.UserInfoScreen
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.SignUpViewModel
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.UserInfoViewModel
@@ -48,7 +48,7 @@ class MainActivity : ComponentActivity() {
                             LoginScreen(loginViewModel, navigationController)
                         }
                         composable(Routes.SignUpScreen.route) {
-                            SignUpScreen(signUpViewModel, navigationController, loginViewModel)
+                            SignUpScreen(signUpViewModel, navigationController)
                         }
                         composable(Routes.UserInfoScreen.route) {
                             UserInfoScreen(userInfoViewModel, loginViewModel, navigationController)
