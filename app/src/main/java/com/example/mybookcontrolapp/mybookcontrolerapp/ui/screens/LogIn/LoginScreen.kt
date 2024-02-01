@@ -7,6 +7,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,8 +17,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Visibility
@@ -63,28 +66,26 @@ fun LoginScreen(
     loginViewModel: LoginViewModel,
     navigationController: NavHostController
 ) {
-    Box(
+    Column(
         Modifier
             .fillMaxSize()
-            .padding(8.dp)
+            .padding(8.dp), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally
     ) {
         val isLoading: Boolean by loginViewModel.isLoading.observeAsState(false)
         if (isLoading) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .align(Alignment.Center)
             ) {
                 CircularProgressIndicator()
             }
         } else {
-            Header(Modifier.align(Alignment.TopEnd))
+            Header()
             Body(
-                Modifier.align(Alignment.Center),
                 loginViewModel,
                 navigationController
             )
-            Footer(Modifier.align(Alignment.BottomCenter), navigationController)
+            Footer( navigationController)
         }
     }
 }
@@ -93,13 +94,15 @@ fun LoginScreen(
 /*HEADER*/
 
 @Composable
-fun Header(modifier: Modifier) {
+fun Header() {
     val activity = LocalContext.current as Activity
-    Icon(
-        imageVector = Icons.Default.Close,
-        contentDescription = "close app",
-        tint = Color.Black,
-        modifier = modifier.clickable { activity.finish() })
+    Row(modifier= Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End, verticalAlignment = Alignment.Top) {
+        Icon(
+            imageVector = Icons.Default.Close,
+            contentDescription = "close app",
+            tint = Color.Black,
+            modifier = Modifier.clickable { activity.finish() })
+    }
 }
 
 
@@ -107,7 +110,6 @@ fun Header(modifier: Modifier) {
 
 @Composable
 fun Body(
-    modifier: Modifier,
     loginViewModel: LoginViewModel,
     navigationController: NavHostController
 ) {
@@ -115,7 +117,9 @@ fun Body(
     val password: String by loginViewModel.password.observeAsState(initial = "")
     val isLoginEnable: Boolean by loginViewModel.isLoginEnable.observeAsState(initial = false)
 
-    Column(modifier = modifier.fillMaxWidth()) {
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .verticalScroll(rememberScrollState())) {
         ImageLogo(Modifier.align(Alignment.CenterHorizontally))
         Spacer(modifier = Modifier.size(50.dp))
         Email(email) {
@@ -155,9 +159,10 @@ fun ImageLogo(modifier: Modifier) {
         contentDescription = "logo", modifier = modifier
             .size(150.dp)
             .graphicsLayer {
-                scaleX= scale
-                scaleY= scale
-            }.clip(CircleShape)
+                scaleX = scale
+                scaleY = scale
+            }
+            .clip(CircleShape)
     )
 }
 
@@ -265,7 +270,7 @@ fun LoginButton(
 
 @Composable
 fun LoginDivider() {
-    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+    Row(modifier= Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
         Divider(
             Modifier
                 .background(Color.Blue)
@@ -284,7 +289,6 @@ fun LoginDivider() {
                 .height(1.dp)
                 .weight(1f)
         )
-
     }
 }
 
@@ -293,10 +297,9 @@ fun LoginDivider() {
 
 @Composable
 fun Footer(
-    modifier: Modifier,
     navigationController: NavHostController
 ) {
-    Column(modifier = modifier.fillMaxWidth()) {
+    Column(modifier = Modifier.fillMaxWidth()) {
         SingUp(navigationController)
         Spacer(modifier = Modifier.size(60.dp))
     }
