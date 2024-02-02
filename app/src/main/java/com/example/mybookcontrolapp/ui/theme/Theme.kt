@@ -17,31 +17,55 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = PhotoBlue2,
-    secondary = Cerulean,
-    tertiary = PrussianBlue,
+//    primary = PhotoBlue2,
+//    secondary = Cerulean,
+//    tertiary = PrussianBlue,
+//
+//    background = EarthYellow,
+//    surface = PhotoBlue1,
+//    onPrimary = Color.White,
+//    onSecondary = Color.White,
+//    onTertiary = Color.White,
+//    onBackground = EarthYellow,
+//    onSurface = PrussianBlue,
 
-    background = EarthYellow,
-    surface = PhotoBlue1,
+    primary = verde1,
+    secondary = verde2,
+    tertiary = verde3,
+
+    background = verde4,
+    surface = verde4,
     onPrimary = Color.White,
     onSecondary = Color.White,
     onTertiary = Color.White,
-    onBackground = EarthYellow,
-    onSurface = PrussianBlue,
+    onBackground = verde2,
+    onSurface = verde1,
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = PhotoBlue2,
-    secondary = Cerulean,
-    tertiary = PrussianBlue,
+//    primary = PhotoBlue2,
+//    secondary = Cerulean,
+//    tertiary = PrussianBlue,
+//
+//    background = EarthYellow,
+//    surface = PhotoBlue1,
+//    onPrimary = Color.White,
+//    onSecondary = Color.White,
+//    onTertiary = Color.White,
+//    onBackground = EarthYellow,
+//    onSurface = PrussianBlue,
 
-    background = EarthYellow,
-    surface = PhotoBlue1,
+    primary = verde1,
+    secondary = verde2,
+    tertiary = verde3,
+
+    background = verde4,
+    surface = verde4,
     onPrimary = Color.White,
     onSecondary = Color.White,
     onTertiary = Color.White,
-    onBackground = EarthYellow,
-    onSurface = PrussianBlue,
+    onBackground = verde2,
+    onSurface = verde1,
 
 )
 
