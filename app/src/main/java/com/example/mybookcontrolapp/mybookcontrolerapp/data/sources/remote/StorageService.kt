@@ -11,19 +11,24 @@ import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
+// Clase para manejar operaciones de almacenamiento y recuperación de datos con Firebase Firestore y Storage.
 class StorageService @Inject constructor(private val firebaseStorage: FirebaseFirestore, private val storage: FirebaseStorage) {
 
+    // Registra los datos de un usuario en Firestore
     suspend fun registredUserData(user: User): Boolean {
         val usuarioMap = userToMap(user)
         return firebaseStorage.collection("usuarios").add(usuarioMap).isComplete
     }
 
+    // Añade un libro a la colección de libros favoritos de un usuario
     suspend fun addBookUser(book: Book, id: String): Boolean {
         val bookMap = bookToMap(book)
         return firebaseStorage.collection("usuarios").document(id).collection("libros_favoritos")
             .add(bookMap).isComplete
     }
 
+
+    // Elimina un libro de la colección de libros favoritos de un usuario
     suspend fun deleteBookUser(bookName: String, id: String):Boolean{
         val result = firebaseStorage.collection("usuarios").document(id)
             .collection("libros_favoritos").whereEqualTo("titulo", bookName).get().await()
@@ -42,6 +47,7 @@ class StorageService @Inject constructor(private val firebaseStorage: FirebaseFi
     }
 
 
+    // Obtiene el ID de un usuario por su email
     suspend fun getUserId(email: String): String? {
         val result =
             firebaseStorage.collection("usuarios").whereEqualTo("email", email).get().await()
@@ -49,12 +55,15 @@ class StorageService @Inject constructor(private val firebaseStorage: FirebaseFi
     }
 
 
+    // Obtiene la información de un usuario por su email y retorna un objeto User
     suspend fun getInfoUser(email: String): User? {
         val result =
             firebaseStorage.collection("usuarios").whereEqualTo("email", email).get().await()
         return result.documents.firstOrNull()?.toObject<User>()
     }
 
+
+    // Obtiene la información de un libro por su nombre y retorna un objeto Book
     suspend fun getInfoBook(name: String): Book? {
         val result =
             firebaseStorage.collection("libros").whereEqualTo("titulo", name).get().await()
@@ -62,6 +71,8 @@ class StorageService @Inject constructor(private val firebaseStorage: FirebaseFi
     }
 
 
+
+    // Obtiene los libros favoritos de un usuario y retorna una lista mutable de objetos Book.
     suspend fun getFavoriteBooks(id: String): MutableList<Book> {
         val books = mutableListOf<Book>()
         try {
@@ -82,6 +93,9 @@ class StorageService @Inject constructor(private val firebaseStorage: FirebaseFi
         return books
     }
 
+
+
+    // Obtiene todos los libros disponibles y retorna una lista mutable de objetos Book.
     suspend fun getAllBooks(): MutableList<Book> {
         val books = mutableListOf<Book>()
         try {
@@ -101,6 +115,9 @@ class StorageService @Inject constructor(private val firebaseStorage: FirebaseFi
 
     }
 
+
+
+    // Obtiene todas las fotos de perfiles de usuarios
     suspend fun getAllPhotos(): MutableList<String>{
         val photos = mutableListOf<String>()
         try {

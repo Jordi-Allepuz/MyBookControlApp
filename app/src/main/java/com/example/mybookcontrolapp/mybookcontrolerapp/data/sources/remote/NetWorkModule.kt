@@ -17,14 +17,18 @@ import javax.inject.Singleton
 @InstallIn (SingletonComponent::class)
 object NetWorkModule {
 
+
+    // Proporciona una instancia  de FirebaseAuth para la autenticación de usuarios en Firebase.
     @Singleton
     @Provides
     fun provideFirebaseAuth()= FirebaseAuth.getInstance()
 
+    // Proporciona una instancia  de FirebaseFirestore para operaciones de base de datos en Firestore.
     @Singleton
     @Provides
     fun provideFirebaseStorage()= FirebaseFirestore.getInstance()
 
+    // Proporciona una instancia  de FirebaseStorage para almacenar y recuperar archivos en Firebase Storage.
     @Singleton
     @Provides
     fun provideStorage():FirebaseStorage = Firebase.storage

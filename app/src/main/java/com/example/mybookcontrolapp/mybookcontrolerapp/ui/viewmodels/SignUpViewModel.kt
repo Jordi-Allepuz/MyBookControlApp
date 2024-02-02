@@ -51,6 +51,8 @@ class SignUpViewModel @Inject constructor(
     private val _photos = MutableLiveData<MutableList<String>>()
     val photos: LiveData<MutableList<String>> = _photos
 
+
+    // Actualiza los LiveData con los valores ingresados y valida si el formulario está listo para enviar.
     fun onLoginChange(
         email: String,
         userName: String,
@@ -68,6 +70,8 @@ class SignUpViewModel @Inject constructor(
         _isSignUpEnable.value = enableSignUp(email, password1, password2)
     }
 
+
+    // Valida el correo electrónico y las contraseñas para habilitar el registro.
     fun enableSignUp(
         email: String,
         password1: String,
@@ -79,6 +83,8 @@ class SignUpViewModel @Inject constructor(
     }
 
 
+
+    // Realiza el registro del usuario en FirebaseAuth.
     fun signUp(
         email: String,
         password: String,
@@ -99,6 +105,8 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
+
+    // Registra los datos adicionales del usuario en Firestore.
     fun registerUser(
         userName: String,
         email: String,
@@ -129,6 +137,7 @@ class SignUpViewModel @Inject constructor(
     }
 
 
+    // Obtiene las fotos disponibles para el usuario desde Firebase Storage.
     fun getPhotos(){
         viewModelScope.launch {
             _isLoading.value= true

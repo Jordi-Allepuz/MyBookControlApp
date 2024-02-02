@@ -10,6 +10,7 @@ import javax.inject.Inject
 
 class LocalDataSource @Inject constructor(@ApplicationContext private val context: Context) {
 
+    // Método para abrir una página web en el navegador predeterminado del dispositivo.
     fun openWebPage( url: String) {
         val intent = Intent(Intent.ACTION_VIEW)
         intent.data = Uri.parse(url)
@@ -17,6 +18,7 @@ class LocalDataSource @Inject constructor(@ApplicationContext private val contex
         context.startActivity(intent)
     }
 
+    // Método para enviar un correo electrónico a la dirección proporcionada.
     @SuppressLint("QueryPermissionsNeeded")
     fun sendEmail(emailAddress: String) {
         val intent = Intent(Intent.ACTION_SENDTO).apply {

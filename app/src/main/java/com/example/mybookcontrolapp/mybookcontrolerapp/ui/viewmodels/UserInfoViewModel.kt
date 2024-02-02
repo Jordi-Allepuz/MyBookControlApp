@@ -41,6 +41,7 @@ class UserInfoViewModel @Inject constructor(
     val allBooks: LiveData<MutableList<Book>> = _allBooks
 
 
+    // Método para obtener la información del usuario actual utilizando el email.
     fun getInfoUser() {
         viewModelScope.launch {
             _userId.value = authService.getCurrentUser()?.email
@@ -57,6 +58,7 @@ class UserInfoViewModel @Inject constructor(
     }
 
 
+    // Método para obtener el ID del usuario a partir de su email.
     fun getUserId(email: String) {
         viewModelScope.launch {
             val result = withContext(Dispatchers.IO) {
@@ -68,6 +70,7 @@ class UserInfoViewModel @Inject constructor(
     }
 
 
+    // Método para obtener los libros favoritos del usuario.
     fun getFavoriteBooks(id: String) {
         viewModelScope.launch {
             val result = withContext(Dispatchers.IO) {
@@ -77,6 +80,8 @@ class UserInfoViewModel @Inject constructor(
         }
     }
 
+
+    // Método para obtener la información de un libro específico.
     fun getBookInfo(name: String, toInfo: () -> Unit) {
         viewModelScope.launch {
             val result = withContext(Dispatchers.IO) {
@@ -91,6 +96,8 @@ class UserInfoViewModel @Inject constructor(
         }
     }
 
+
+    // Método para obtener todos los libros disponibles.
     fun getBookCollection(toList: () -> Unit) {
         viewModelScope.launch {
             val result = withContext(Dispatchers.IO) {
@@ -101,6 +108,9 @@ class UserInfoViewModel @Inject constructor(
         }
     }
 
+
+
+    // Método para añadir un libro a los favoritos del usuario.
     fun addBookUser(book: Book, id: String, toUser: () -> Unit) {
         viewModelScope.launch {
             val result = withContext(Dispatchers.IO) {
@@ -115,6 +125,8 @@ class UserInfoViewModel @Inject constructor(
         }
     }
 
+
+    // Método para eliminar un libro de los favoritos del usuario.
     fun deleteBookUser(bookName: String, id: String, toUser: () -> Unit){
         viewModelScope.launch {
             val result = withContext(Dispatchers.IO){
@@ -129,7 +141,7 @@ class UserInfoViewModel @Inject constructor(
     }
 
 
-
+    // Método para actualizar el número de 'likes' de un libro.
     fun updateBookLikes(bookId: String, newLikes: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO){
@@ -139,7 +151,7 @@ class UserInfoViewModel @Inject constructor(
     }
 
 
-
+    // Método para visitar la tienda online.
     fun visitShop(url:String){
         viewModelScope.launch {
             useCases.executeShop(url)
@@ -147,7 +159,7 @@ class UserInfoViewModel @Inject constructor(
     }
 
 
-
+    // Método para enviar un correo electrónico.
     fun sendEmail(emailAdress:String){
         viewModelScope.launch {
             useCases.executeEmail(emailAdress)

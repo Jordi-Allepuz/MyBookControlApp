@@ -43,12 +43,13 @@ class LoginViewModel @Inject constructor(private val authService: AuthService) :
     }
 
 
-
+    // Valida el correo electrónico y la longitud de la contraseña para habilitar el inicio de sesión.
     fun enableLogin(email: String, password: String): Boolean {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches() && password.length > 6
     }
 
 
+    // Inicia sesión con el correo electrónico y la contraseña proporcionados.
     fun login(email: String, password: String, toUserScreen: () -> Unit) {
         viewModelScope.launch {
             _isLoading.value = true
@@ -73,7 +74,7 @@ class LoginViewModel @Inject constructor(private val authService: AuthService) :
     }
 
 
-
+    // Cierra la sesión del usuario actual
     fun logOut(toLoginScreen: () -> Unit) {
         viewModelScope.launch {
             authService.logOut()
@@ -85,12 +86,13 @@ class LoginViewModel @Inject constructor(private val authService: AuthService) :
     }
 
 
-
+    // Comprueba si el usuario está actualmente logueado.
     fun isUserLogged():Boolean{
         return  authService.isUserLogged()
     }
 
 
+    // Determina la ruta de navegación inicial basada en si el usuario está logueado o no.
     fun checkDestination():String{
         val isUserLogged = isUserLogged()
         return if (isUserLogged){
