@@ -1,9 +1,8 @@
 package com.example.mybookcontrolapp.mybookcontrolerapp.data.mappers
 
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.Book
-import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.User
 
-fun BookToMap (book:Book):MutableMap<String, Any>{
+fun bookToMap (book:Book):MutableMap<String, Any>{
     return mutableMapOf(
         "titulo" to book.titulo,
         "autor" to book.autor,

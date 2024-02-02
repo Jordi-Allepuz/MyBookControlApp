@@ -1,4 +1,4 @@
-package com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.InfoApp
+package com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.infoApp
 
 
 import android.annotation.SuppressLint

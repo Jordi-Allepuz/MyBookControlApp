@@ -138,7 +138,7 @@ class SignUpViewModel @Inject constructor(
             if (result != null){
                 _photos.value= result
             }else{
-                ""
+                //
             }
             _isLoading.value= false
         }

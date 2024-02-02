@@ -1,4 +1,4 @@
-package com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.LogIn
+package com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.logIn
 
 import android.app.Activity
 import androidx.compose.animation.core.LinearOutSlowInEasing

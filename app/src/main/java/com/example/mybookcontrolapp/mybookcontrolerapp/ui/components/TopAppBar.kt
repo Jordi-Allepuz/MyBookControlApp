@@ -18,7 +18,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
-import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.Book
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.UserInfoViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -36,7 +35,7 @@ fun TopBar(
     badgedOn: Boolean
 ) {
 
-    var MenuOpen by rememberSaveable { mutableStateOf(false) }
+    var menuOpen by rememberSaveable { mutableStateOf(false) }
     TopAppBar(
         title = { Text(text = titulo) },
         navigationIcon = {
@@ -57,11 +56,11 @@ fun TopBar(
             IconButton(onClick = { userInfoViewModel.visitShop("https://www.casadellibro.com/") }) {
                 Icon(imageVector = Icons.Rounded.ShoppingCart, contentDescription = "search")
             }
-            IconButton(onClick = { MenuOpen = true }) {
+            IconButton(onClick = { menuOpen = true }) {
                 Icon(imageVector = Icons.Filled.MoreVert, contentDescription = "overflow")
                 OverFlowMenu(
-                    expanded = MenuOpen,
-                    onDismiss = { MenuOpen = !MenuOpen }, loginViewModel, navigationController)
+                    expanded = menuOpen,
+                    onDismiss = { menuOpen = !menuOpen }, loginViewModel, navigationController)
 
             }
         },

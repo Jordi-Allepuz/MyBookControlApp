@@ -1,4 +1,4 @@
-package com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.SignUp
+package com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.signUp
 
 import android.annotation.SuppressLint
 import android.widget.Toast
@@ -33,11 +33,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.mybookcontrolapp.Routes
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.DropDownMenuGenere
-import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.SignUp.Components.Edad
-import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.SignUp.Components.Email
-import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.SignUp.Components.Nombre
-import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.SignUp.Components.Password1
-import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.SignUp.Components.Password2
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.signUp.components.Edad
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.signUp.components.Email
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.signUp.components.Nombre
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.signUp.components.Password1
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.signUp.components.Password2
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.SignUpViewModel
 
 

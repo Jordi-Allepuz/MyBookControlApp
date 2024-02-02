@@ -20,8 +20,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
-import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.Book
-import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.UserInfoViewModel
 import kotlinx.coroutines.delay
 
 

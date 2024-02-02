@@ -48,7 +48,7 @@ fun CardBookInfo(
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Text(text = book.titulo)
-            Row() {
+            Row{
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()

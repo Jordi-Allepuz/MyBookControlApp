@@ -1,22 +1,15 @@
 package com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels
 
 
-import android.content.Context
-import android.content.SharedPreferences
+
 import android.util.Log
 import android.util.Patterns
-import androidx.compose.material3.AlertDialog
-import androidx.compose.runtime.Composable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavHostController
 import com.example.mybookcontrolapp.Routes
-import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.User
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.sources.remote.AuthService
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -70,16 +63,10 @@ class LoginViewModel @Inject constructor(private val authService: AuthService) :
                     _isLoginEnable.value= false
                     Log.i("Current User Email", "${authService.getCurrentUser()!!.email}")
                 } else {
-//                    _email.value = ""
-//                    _password.value = ""
-//                    _isLoginEnable.value= false
-//                    //
+                   //
                 }
             }catch (e:Exception){
-//                _email.value = ""
-//                _password.value = ""
-//                _isLoginEnable.value= false
-//                //
+            //
             }
             _isLoading.value = false
         }
@@ -112,8 +99,6 @@ class LoginViewModel @Inject constructor(private val authService: AuthService) :
             Routes.LoginScreen.route
         }
     }
-
-
 
 
 

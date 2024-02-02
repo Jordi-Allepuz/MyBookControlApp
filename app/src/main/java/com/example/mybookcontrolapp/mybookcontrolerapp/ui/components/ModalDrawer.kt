@@ -11,18 +11,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Mail
-import androidx.compose.material.icons.outlined.Build
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Mail
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonColors
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.NavigationDrawerItemDefaults
@@ -58,7 +55,7 @@ fun ModalDrawer(estadoDrawer: DrawerState, coroutina: CoroutineScope, userInfoVi
             0xFFD5D2D2
         )
     ) {
-        Column() {
+        Column {
             Image(
                 painter = painterResource(id = R.drawable.drawableimage),
                 contentDescription = "modalDrawerImage"
@@ -121,7 +118,7 @@ fun ModalDrawer(estadoDrawer: DrawerState, coroutina: CoroutineScope, userInfoVi
 lista de Drawers o iconos, lista que llamaremos a la hora de introducir los modaldrawerItem,
  */
 
-val listaDrawers = listOf<DataModalDrawer>(
+val listaDrawers = listOf(
     DataModalDrawer(
         "Info",
         Icons.Filled.Info,

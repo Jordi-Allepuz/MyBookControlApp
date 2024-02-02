@@ -1,4 +1,4 @@
-package com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.ColectionBooks
+package com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.colectionBooks
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box

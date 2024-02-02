@@ -1,4 +1,4 @@
-package com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.UserInfo
+package com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.userInfo
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image

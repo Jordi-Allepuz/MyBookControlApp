@@ -8,13 +8,10 @@ import javax.inject.Inject
 
 class EmailRepositoryImpl @Inject constructor(private val localDataSource: LocalDataSource): EmailRepository{
 
-
     override suspend fun visitEmail(emailAddress: String) {
         withContext(Dispatchers.IO){
             localDataSource.sendEmail(emailAddress)
         }
     }
-
-
 }
 

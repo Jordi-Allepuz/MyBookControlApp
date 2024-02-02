@@ -3,7 +3,7 @@ package com.example.mybookcontrolapp.mybookcontrolerapp.data.mappers
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.dataInfo.User
 
 
-fun UserToMap (user: User):MutableMap<String, Any>{
+fun userToMap (user: User):MutableMap<String, Any>{
     return mutableMapOf(
         "name" to user.name,
         "age" to user.age,
