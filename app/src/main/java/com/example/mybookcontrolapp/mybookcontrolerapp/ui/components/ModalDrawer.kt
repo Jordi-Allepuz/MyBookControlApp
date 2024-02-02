@@ -46,6 +46,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun ModalDrawer(estadoDrawer: DrawerState, coroutina: CoroutineScope, userInfoViewModel: UserInfoViewModel, navigationController: NavHostController) {
 
+    // Estado para rastrear el ítem seleccionado en el drawer.
     var itemSeleccionado by rememberSaveable { mutableStateOf(0) }
 
     ModalDrawerSheet(
@@ -60,6 +61,7 @@ fun ModalDrawer(estadoDrawer: DrawerState, coroutina: CoroutineScope, userInfoVi
                 painter = painterResource(id = R.drawable.drawableimage),
                 contentDescription = "modalDrawerImage"
             )
+            // Itera sobre la lista de opciones del drawer para crear los ítems navegables.
             listaDrawers.forEachIndexed { index, item ->
                 NavigationDrawerItem(
                     modifier = Modifier.padding(8.dp),
@@ -95,6 +97,7 @@ fun ModalDrawer(estadoDrawer: DrawerState, coroutina: CoroutineScope, userInfoVi
                 .padding(8.dp),
             horizontalArrangement = Arrangement.End
         ) {
+            // Botón para cerrar el drawer.
             IconButton(
                 modifier = Modifier.width(100.dp),
                 onClick = { coroutina.launch { estadoDrawer.close() } }) {

@@ -25,6 +25,7 @@ import androidx.navigation.NavHostController
 import com.example.mybookcontrolapp.Routes
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.UserInfoViewModel
 
+// composable que muestra una tarjeta para agregar un libro.
 @Composable
 fun CardAddBook(userInfoViewModel: UserInfoViewModel, navigationController: NavHostController) {
     Card(modifier = Modifier

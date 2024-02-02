@@ -55,14 +55,14 @@ fun BookInfoScreen(
     loginViewModel: LoginViewModel,
     navigationController: NavHostController
 ) {
-    val book: Book? by userInfoViewModel.book.observeAsState()
+    val book: Book? by userInfoViewModel.book.observeAsState() // Observa cambios en el libro seleccionado.
 
-    val coroutina = rememberCoroutineScope()
+    val coroutina = rememberCoroutineScope() // Crea un scope de corutina para lanzar tareas asíncronas.
     val estadoDrawer = rememberDrawerState(initialValue = DrawerValue.Closed)
 
     ModalNavigationDrawer(
         drawerContent = { ModalDrawer(estadoDrawer = estadoDrawer, coroutina = coroutina, userInfoViewModel, navigationController) },
-        gesturesEnabled = false,
+        gesturesEnabled = false, // Deshabilita gestos para abrir/cerrar el drawer.
         drawerState = estadoDrawer
     ) {
         Scaffold(
@@ -106,40 +106,6 @@ fun BookInfoContent(
         }
     }
 }
-
-
-//@OptIn(ExperimentalCoilApi::class)
-//@Composable
-//fun BookInfo(book: Book) {
-//    Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-//        Text(text = "Titulo Libro: ${book.titulo}", color = Color.Black)
-//        Row() {
-//            Column(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .weight(2f)
-//            ) {
-//
-//                Text(text = "Editorial: ${book.editorial}", color = Color.Black)
-//                Text(text = "Genero: ${book.genero}", color = Color.Black)
-//                Text(text = "Autor: ${book.autor}", color = Color.Black)
-//                Text(text = "Isbn: ${book.isbn}", color = Color.Black)
-//            }
-//            Column(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .weight(2f)
-//            ) {
-//                Image(
-//                    painter = rememberImagePainter(data = book.portada),
-//                    contentDescription = null,
-//                    modifier = Modifier.width(200.dp), contentScale = ContentScale.Crop,
-//                )
-//            }
-//
-//        }
-//    }
-//}
 
 
 @OptIn(ExperimentalCoilApi::class)

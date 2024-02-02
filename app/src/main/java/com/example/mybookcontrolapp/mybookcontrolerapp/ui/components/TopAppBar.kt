@@ -28,17 +28,19 @@ import kotlinx.coroutines.launch
 fun TopBar(
     titulo: String,
     estadoDrawer: DrawerState,
-    coroutina: CoroutineScope,
+    coroutina: CoroutineScope,// Scope de corutina para ejecutar acciones asíncronas.
     loginViewModel: LoginViewModel,
     userInfoViewModel: UserInfoViewModel,
     navigationController: NavHostController,
     badgedOn: Boolean
 ) {
-
+// Estado para controlar la visibilidad del menú desplegable.
     var menuOpen by rememberSaveable { mutableStateOf(false) }
+
     TopAppBar(
         title = { Text(text = titulo) },
         navigationIcon = {
+            // Ícono para abrir o cerrar el drawer lateral.
             IconButton(onClick = {
                 coroutina.launch {
                     if (estadoDrawer.isClosed) {
@@ -52,15 +54,18 @@ fun TopBar(
             }
         },
         actions = {
+            // Muestra un ícono con insignia si `badgedOn` es verdadero.
             if (badgedOn) BadgedBoxBook()
             IconButton(onClick = { userInfoViewModel.visitShop("https://www.casadellibro.com/") }) {
                 Icon(imageVector = Icons.Rounded.ShoppingCart, contentDescription = "search")
             }
+            // Ícono para abrir el menú desplegable.
             IconButton(onClick = { menuOpen = true }) {
                 Icon(imageVector = Icons.Filled.MoreVert, contentDescription = "overflow")
                 OverFlowMenu(
                     expanded = menuOpen,
-                    onDismiss = { menuOpen = !menuOpen }, loginViewModel, navigationController)
+                    onDismiss = { menuOpen = !menuOpen }, loginViewModel, navigationController
+                )
 
             }
         },

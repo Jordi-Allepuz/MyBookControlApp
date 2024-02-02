@@ -26,14 +26,18 @@ import kotlinx.coroutines.delay
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BadgedBoxBook() {
+
+    // Contador para llevar la cuenta de los clics
     var contador by rememberSaveable { mutableStateOf(0) }
 
+    // animación del ícono "like"
     var scale by remember { mutableStateOf(1f) }
     val animatedScale by animateFloatAsState(
         targetValue = scale,
         animationSpec = tween(durationMillis = 1000, easing = LinearOutSlowInEasing)
     )
 
+    // Activacion cada vez que el contador cambia.
     LaunchedEffect(contador) {
         if (contador > 0) {
             scale = 3f

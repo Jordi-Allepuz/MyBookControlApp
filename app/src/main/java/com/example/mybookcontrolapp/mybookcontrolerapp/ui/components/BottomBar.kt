@@ -23,6 +23,7 @@ import com.example.mybookcontrolapp.Routes
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
 
 
+// Composable que define una barra de navegación inferior personalizada.
 @Composable
 fun BottomBar(navigationController: NavHostController, loginViewModel: LoginViewModel) {
 
@@ -33,6 +34,7 @@ fun BottomBar(navigationController: NavHostController, loginViewModel: LoginView
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
+                // IconButton para navegar a la pantalla de información del usuario.
                 IconButton(onClick = { navigationController.navigate(Routes.UserInfoScreen.route) }) {
                     Icon(
                         imageVector = Icons.Default.Face,
@@ -46,6 +48,8 @@ fun BottomBar(navigationController: NavHostController, loginViewModel: LoginView
                 Spacer(modifier = Modifier
                     .fillMaxHeight()
                     .width(100.dp))
+
+                // IconButton para cerrar sesión.
                 IconButton(onClick = {
                     loginViewModel.logOut {
                         navigationController.navigate(Routes.LoginScreen.route)

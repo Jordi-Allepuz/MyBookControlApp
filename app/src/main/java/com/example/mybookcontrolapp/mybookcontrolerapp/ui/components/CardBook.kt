@@ -54,14 +54,17 @@ fun CardBook(
 
     val userId: String? by userInfoViewModel.userId.observeAsState()
 
+    // Estado para controlar la visibilidad de la tarjeta, inicialmente visible.
     var isVisible by remember { mutableStateOf(true) }
 
+    // AnimatedVisibility maneja la animación de entrada y salida de la tarjeta, cuando eliminamos un libro
     AnimatedVisibility(
         visible = isVisible,
         exit = shrinkOut(animationSpec = tween(durationMillis = 500)),
     ) {
         Card(
             onClick = {
+                // Al hacer clic, obtiene información detallada del libro y navega a una nueva pantalla.
                 userInfoViewModel.getBookInfo(book.titulo) {
                     navigationController.navigate(
                         Routes.BookInfoScreen.route
@@ -75,6 +78,7 @@ fun CardBook(
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondary)
         ) {
             Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.Center) {
+                // Muestra la imagen de portada del libro usando Coil para cargar imágenes
                 Image(
                     painter = rememberImagePainter(data = book.portada),
                     contentDescription = null,
@@ -99,6 +103,7 @@ fun CardBook(
                     fontWeight = FontWeight.ExtraBold,
                     color = Color.Black
                 )
+                // Botón para eliminar el libro de la colección del usuario.
                 IconButton(
                     onClick = {
                         isVisible = false

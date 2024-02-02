@@ -36,7 +36,9 @@ fun DropDownMenuGenere(
     favoriteGenere: String,
 ) {
 
+    // Estado para controlar si el menú desplegable está expandido o no.
     var expanded by remember { mutableStateOf(false) }
+    // Lista de géneros literarios disponibles para seleccionar.
     val generes = EnumGenere.values()
 
     Column(verticalArrangement = Arrangement.SpaceBetween) {
