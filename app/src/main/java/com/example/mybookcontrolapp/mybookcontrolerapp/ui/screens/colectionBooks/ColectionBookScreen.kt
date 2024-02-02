@@ -53,8 +53,8 @@ fun CollectionBookScreen(
     navigationController: NavHostController
 ) {
 
-    val coroutina = rememberCoroutineScope()
-    val estadoDrawer = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val coroutina = rememberCoroutineScope() // Crea un scope de corutina para lanzar tareas asíncronas.
+    val estadoDrawer = rememberDrawerState(initialValue = DrawerValue.Closed) // Estado inicial del drawer lateral.
 
     ModalNavigationDrawer(
         drawerContent = { ModalDrawer(estadoDrawer = estadoDrawer, coroutina = coroutina, userInfoViewModel, navigationController) },
