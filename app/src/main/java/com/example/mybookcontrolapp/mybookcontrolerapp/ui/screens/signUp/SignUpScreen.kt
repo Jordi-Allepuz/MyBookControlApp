@@ -33,11 +33,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.mybookcontrolapp.Routes
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.DropDownMenuGenere
-import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.signUp.components.Edad
-import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.signUp.components.Email
-import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.signUp.components.Nombre
-import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.signUp.components.Password1
-import com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.signUp.components.Password2
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.SignUpViewModel
 
 
@@ -165,86 +160,80 @@ fun ContentNewUSer(
     } else {
         Box(
             modifier = Modifier
-                .fillMaxSize().verticalScroll(rememberScrollState())
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
                 .padding(paddingValues)
         ) {
-            Column{
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                ) {
-                    Column(
-                        verticalArrangement = Arrangement.spacedBy(20.dp),
-                        modifier = Modifier
-                            .align(Alignment.Center)
-                            .padding(bottom = 80.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                    ) {
-                        Nombre(
-                            userName,
-                            age,
-                            email,
-                            favoriteGenere,
-                            password1,
-                            password2,
-                            singUpViewModel
-                        )
-                        Edad(
-                            userName,
-                            age,
-                            email,
-                            favoriteGenere,
-                            password1,
-                            password2,
-                            singUpViewModel
-                        )
-                        Email(
-                            userName,
-                            age,
-                            email,
-                            favoriteGenere,
-                            password1,
-                            password2,
-                            singUpViewModel
-                        )
-                        Password1(
-                            userName,
-                            age,
-                            email,
-                            favoriteGenere,
-                            password1,
-                            password2,
-                            singUpViewModel,
-                            passwordVisibility,
-                            setPasswordVisibility = {passwordVisibility= it}
-                        )
-                        Password2(
-                            userName,
-                            age ,
-                            email ,
-                            favoriteGenere ,
-                            password1 ,
-                            password2 ,
-                            singUpViewModel  ,
-                            passwordVisibility,
-                            setPasswordVisibility = {passwordVisibility= it}
-                        )
-                        DropDownMenuGenere(
-                            singUpViewModel,
-                            email,
-                            userName,
-                            age,
-                            password1,
-                            password2,
-                            favoriteGenere
-                        )
-                    }
-                }
+
+            Column(
+                verticalArrangement = Arrangement.spacedBy(20.dp),
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .padding(bottom = 80.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Nombre(
+                    userName,
+                    age,
+                    email,
+                    favoriteGenere,
+                    password1,
+                    password2,
+                    singUpViewModel
+                )
+                Edad(
+                    userName,
+                    age,
+                    email,
+                    favoriteGenere,
+                    password1,
+                    password2,
+                    singUpViewModel
+                )
+                Email(
+                    userName,
+                    age,
+                    email,
+                    favoriteGenere,
+                    password1,
+                    password2,
+                    singUpViewModel
+                )
+                Password1(
+                    userName,
+                    age,
+                    email,
+                    favoriteGenere,
+                    password1,
+                    password2,
+                    singUpViewModel,
+                    passwordVisibility,
+                    setPasswordVisibility = { passwordVisibility = it }
+                )
+                Password2(
+                    userName,
+                    age,
+                    email,
+                    favoriteGenere,
+                    password1,
+                    password2,
+                    singUpViewModel,
+                    passwordVisibility,
+                    setPasswordVisibility = { passwordVisibility = it }
+                )
+                DropDownMenuGenere(
+                    singUpViewModel,
+                    email,
+                    userName,
+                    age,
+                    password1,
+                    password2,
+                    favoriteGenere
+                )
             }
         }
     }
 }
-
 
 
 

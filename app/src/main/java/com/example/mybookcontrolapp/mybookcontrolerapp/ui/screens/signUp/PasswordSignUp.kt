@@ -1,4 +1,4 @@
-package com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.signUp.components
+package com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.signUp
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons

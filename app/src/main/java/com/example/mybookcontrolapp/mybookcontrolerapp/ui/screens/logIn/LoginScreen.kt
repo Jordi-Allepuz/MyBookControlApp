@@ -54,6 +54,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -80,19 +81,70 @@ fun LoginScreen(
                 CircularProgressIndicator()
             }
         } else {
-            Header()
             Body(
                 loginViewModel,
                 navigationController
             )
-            Footer( navigationController)
         }
     }
 }
 
 
-/*HEADER*/
 
+
+
+
+/*BODY*/
+@Composable
+fun Body(
+    loginViewModel: LoginViewModel,
+    navigationController: NavHostController
+) {
+    val email: String by loginViewModel.email.observeAsState(initial = "")
+    val password: String by loginViewModel.password.observeAsState(initial = "")
+    val isLoginEnable: Boolean by loginViewModel.isLoginEnable.observeAsState(initial = false)
+
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .verticalScroll(rememberScrollState())) {
+        Header()
+        Spacer(modifier = Modifier.size(100.dp))
+        ImageLogo(Modifier.align(Alignment.CenterHorizontally))
+        Spacer(modifier = Modifier.size(50.dp))
+        Email(email) {
+            loginViewModel.onLoginChange(email = it, password = password)
+        }
+        Spacer(modifier = Modifier.size(10.dp))
+        Password(password) {
+            loginViewModel.onLoginChange(email = email, password = it)
+        }
+        Spacer(modifier = Modifier.size(8.dp))
+        Text(modifier = Modifier.fillMaxWidth(),
+            text = "Olvidaste contraseña?",
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.Blue,
+            textAlign = TextAlign.End
+        )
+        Spacer(modifier = Modifier.size(30.dp))
+        LoginButton(
+            isLoginEnable,
+            loginViewModel,
+            navigationController,
+            email,
+            password
+        )
+        Spacer(modifier = Modifier.size(20.dp))
+        LoginDivider()
+        Spacer(modifier = Modifier.size(20.dp))
+        SignUpBottom(navigationController)
+    }
+}
+
+
+
+
+/*HEADER*/
 @Composable
 fun Header() {
     val activity = LocalContext.current as Activity
@@ -106,44 +158,9 @@ fun Header() {
 }
 
 
-/*BODY*/
 
-@Composable
-fun Body(
-    loginViewModel: LoginViewModel,
-    navigationController: NavHostController
-) {
-    val email: String by loginViewModel.email.observeAsState(initial = "")
-    val password: String by loginViewModel.password.observeAsState(initial = "")
-    val isLoginEnable: Boolean by loginViewModel.isLoginEnable.observeAsState(initial = false)
 
-    Column(modifier = Modifier
-        .fillMaxWidth()
-        .verticalScroll(rememberScrollState())) {
-        ImageLogo(Modifier.align(Alignment.CenterHorizontally))
-        Spacer(modifier = Modifier.size(50.dp))
-        Email(email) {
-            loginViewModel.onLoginChange(email = it, password = password)
-        }
-        Spacer(modifier = Modifier.size(4.dp))
-        Password(password) {
-            loginViewModel.onLoginChange(email = email, password = it)
-        }
-        Spacer(modifier = Modifier.size(8.dp))
-        ForgotPassword(Modifier.align(Alignment.End))
-        Spacer(modifier = Modifier.size(16.dp))
-        LoginButton(
-            isLoginEnable,
-            loginViewModel,
-            navigationController,
-            email,
-            password
-        )
-        Spacer(modifier = Modifier.size(20.dp))
-        LoginDivider()
-    }
-}
-
+/*LOGO*/
 @Composable
 fun ImageLogo(modifier: Modifier) {
     var show by remember { mutableStateOf(false) }
@@ -166,6 +183,10 @@ fun ImageLogo(modifier: Modifier) {
     )
 }
 
+
+
+
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Email(email: String, onTextChanged: (String) -> Unit) {
@@ -185,6 +206,10 @@ fun Email(email: String, onTextChanged: (String) -> Unit) {
         )
     )
 }
+
+
+
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -223,17 +248,6 @@ fun Password(password: String, onTextChanged: (String) -> Unit) {
     )
 }
 
-
-@Composable
-fun ForgotPassword(modifier: Modifier) {
-    Text(
-        text = "Olvidaste contraseña?",
-        fontSize = 12.sp,
-        fontWeight = FontWeight.Bold,
-        color = Color.Blue,
-        modifier = modifier
-    )
-}
 
 
 @Composable
@@ -293,23 +307,13 @@ fun LoginDivider() {
 }
 
 
-/*FOOTER*/
+
 
 @Composable
-fun Footer(
+fun SignUpBottom(
     navigationController: NavHostController
 ) {
-    Column(modifier = Modifier.fillMaxWidth()) {
-        SingUp(navigationController)
-        Spacer(modifier = Modifier.size(60.dp))
-    }
-
-}
-
-@Composable
-fun SingUp(navigationController: NavHostController) {
-
-    Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
         Text(text = "No tienes una cuenta?", fontSize = 12.sp, color = Color.Blue, fontWeight = FontWeight.Bold)
         Button(
             onClick = {
@@ -323,8 +327,10 @@ fun SingUp(navigationController: NavHostController) {
         ) {
             Text(text = "Regístrate")
         }
-
+        Spacer(modifier = Modifier.size(60.dp))
     }
+
 }
+
 
 
