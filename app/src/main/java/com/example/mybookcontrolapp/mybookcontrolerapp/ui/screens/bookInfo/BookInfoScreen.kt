@@ -38,6 +38,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.annotation.ExperimentalCoilApi
@@ -138,37 +140,43 @@ fun BookInfo(book: Book) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(300.dp).padding(horizontal = 10.dp)
+            .height(300.dp)
+            .padding(horizontal = 10.dp)
             .clip(RoundedCornerShape(8.dp))
             .border(5.dp, Color.LightGray, RoundedCornerShape(8.dp)),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Column(
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "Titulo Libro: ${book.titulo}",
+                text = book.titulo,
                 style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.onSurface
+                fontWeight = FontWeight.Bold, textAlign = TextAlign.Center
             )
-            Spacer(modifier = Modifier.height(8.dp))
-
+            Spacer(modifier = Modifier.height(20.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column(
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
+                    Text(text = "${book.autor}" ,
+                        fontWeight = FontWeight.Bold, style = MaterialTheme.typography.bodyLarge)
                     Text(
-                        text = "Editorial: ${book.editorial}",
+                        text = "${book.genero}",
                         style = MaterialTheme.typography.bodyLarge
                     )
                     Text(
-                        text = "Género: ${book.genero}",
+                        text = "${book.editorial}",
                         style = MaterialTheme.typography.bodyLarge
                     )
-                    Text(text = "Autor: ${book.autor}", style = MaterialTheme.typography.bodyLarge)
                     Text(text = "Isbn: ${book.isbn}", style = MaterialTheme.typography.bodyLarge)
                 }
 
@@ -176,8 +184,8 @@ fun BookInfo(book: Book) {
                     painter = rememberImagePainter(data = book.portada),
                     contentDescription = "portada",
                     modifier = Modifier
-                        .size(120.dp)
-                        .clip(RoundedCornerShape(8.dp))
+                        .size(200.dp)
+                        .weight(1f)
                 )
             }
         }

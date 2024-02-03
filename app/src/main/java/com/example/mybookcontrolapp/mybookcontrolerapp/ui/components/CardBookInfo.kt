@@ -2,6 +2,7 @@ package com.example.mybookcontrolapp.mybookcontrolerapp.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,8 +13,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.annotation.ExperimentalCoilApi
@@ -32,8 +35,8 @@ fun CardBookInfo(
 ) {
     Card(
         modifier = Modifier
-            .fillMaxWidth()
-            .height(400.dp)
+            .width(300.dp)
+            .height(350.dp)
             .padding(vertical = 16.dp, horizontal = 20.dp)
             .clickable {
                 userInfoViewModel.addBookUser(
@@ -46,30 +49,13 @@ fun CardBookInfo(
                 }
             }, shape = RoundedCornerShape(8.dp)
     ) {
-        Column(modifier = Modifier.fillMaxWidth()) {
-            Text(text = book.titulo)
-            Row{
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(2f)
-                ) {
-
-                    Text(text = book.editorial)
-                }
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(2f)
-                ) {
-                    Image(
-                        painter = rememberImagePainter(data = book.portada),
-                        contentDescription = null,
-                        modifier = Modifier.width(200.dp), contentScale = ContentScale.Crop,
-                    )
-                }
-
-            }
+        Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(text = book.titulo, textAlign = TextAlign.Center, modifier = Modifier.padding(vertical = 8.dp))
+            Image(
+                painter = rememberImagePainter(data = book.portada),
+                contentDescription = null,
+                modifier = Modifier.width(150.dp), contentScale = ContentScale.Crop,
+            )
         }
 
     }

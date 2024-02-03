@@ -172,7 +172,7 @@ fun ImageLogo(modifier: Modifier) {
         animationSpec = tween(durationMillis = 1000, easing = LinearOutSlowInEasing)
     )
     Image(
-        painter = painterResource(id = R.drawable.logo),
+        painter = painterResource(id = R.drawable.logo2),
         contentDescription = "logo", modifier = modifier
             .size(150.dp)
             .graphicsLayer {
