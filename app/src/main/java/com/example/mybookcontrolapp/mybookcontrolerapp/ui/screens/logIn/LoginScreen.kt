@@ -292,7 +292,7 @@ fun LoginDivider() {
                 .weight(1f)
         )
         Text(
-            text = "OR",
+            text = "",
             modifier = Modifier.padding(horizontal = 18.dp),
             fontSize = 12.sp,
             fontWeight = FontWeight.Bold, color = Color.Blue
