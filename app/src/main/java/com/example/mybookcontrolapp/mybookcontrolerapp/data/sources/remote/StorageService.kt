@@ -27,6 +27,13 @@ class StorageService @Inject constructor(private val firebaseStorage: FirebaseFi
             .add(bookMap).isComplete
     }
 
+    //modificar usuario
+    suspend fun updateUser(user: User, id: String): Boolean {
+        val userMap = userToMap(user)
+        return firebaseStorage.collection("usuarios").document(id).set(userMap).isComplete
+    }
+
+
 
     // Elimina un libro de la colección de libros favoritos de un usuario
     suspend fun deleteBookUser(bookName: String, id: String):Boolean{
@@ -133,6 +140,9 @@ class StorageService @Inject constructor(private val firebaseStorage: FirebaseFi
         }
         return photos
     }
+
+
+
 
 
 }
