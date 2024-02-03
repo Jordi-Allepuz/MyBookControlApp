@@ -34,12 +34,13 @@ private val DarkColorScheme = darkColorScheme(
     tertiary = verde3,
 
     background = verde4,
-    surface = verde4,
+    surface = verde3,
     onPrimary = Color.White,
     onSecondary = Color.White,
     onTertiary = Color.White,
     onBackground = verde2,
     onSurface = verde1,
+    primaryContainer = verde10
 )
 
 private val LightColorScheme = lightColorScheme(
@@ -58,14 +59,14 @@ private val LightColorScheme = lightColorScheme(
     primary = verde1,
     secondary = verde2,
     tertiary = verde3,
-
     background = verde4,
-    surface = verde4,
+    surface = verde3,
     onPrimary = Color.White,
     onSecondary = Color.White,
     onTertiary = Color.White,
     onBackground = verde2,
     onSurface = verde1,
+    primaryContainer = verde10
 
 )
 

@@ -50,6 +50,9 @@ import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.ModalDrawer
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.TopBar
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.UserInfoViewModel
+import com.example.mybookcontrolapp.ui.theme.caveat
+import com.example.mybookcontrolapp.ui.theme.greatvibes
+import com.example.mybookcontrolapp.ui.theme.yellowtail
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -140,11 +143,11 @@ fun UserInfoContent(
 @OptIn(ExperimentalCoilApi::class)
 @Composable
 fun UserInfo(user: User) {
-    Column(Modifier.fillMaxWidth().border(2.dp, Color.Black, RoundedCornerShape(4.dp)).padding(6.dp), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(Modifier.fillMaxWidth().border(2.dp, Color.Black, RoundedCornerShape(4.dp)).padding(9.dp), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
         Image(painter = rememberImagePainter(data = user.foto), contentDescription = null, modifier = Modifier.size(120.dp) )
-        Text(text = "Nombre: ${user.name}", color = Color.Black)
-        Text(text = "Edad: ${user.age} años", color = Color.Black)
-        Text(text = "Genero de lectura favorito: ${user.genero_favorito}", color = Color.Black)
+        Text(text = "Nombre: ${user.name}", color = Color.Black,fontWeight = FontWeight.ExtraBold)
+        Text(text = "Edad: ${user.age} años", color = Color.Black,fontWeight = FontWeight.ExtraBold)
+        Text(text = "Genero de lectura favorito: ${user.genero_favorito}", color = Color.Black,fontWeight = FontWeight.ExtraBold)
     }
 }
 
@@ -160,7 +163,7 @@ fun ReadBooks(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "LIBROS FAVORITOS DE ${userName.uppercase()}", color = Color.Black,fontWeight = FontWeight.ExtraBold)
+        Text(text = "LIBROS FAVORITOS DE ${userName.uppercase()}", color = Color.Black,fontWeight = FontWeight.ExtraBold, fontFamily = yellowtail)
         Spacer(
             modifier = Modifier
                 .fillMaxWidth()
