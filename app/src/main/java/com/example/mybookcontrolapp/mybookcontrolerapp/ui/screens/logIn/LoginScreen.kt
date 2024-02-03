@@ -172,7 +172,7 @@ fun ImageLogo(modifier: Modifier) {
         animationSpec = tween(durationMillis = 1000, easing = LinearOutSlowInEasing)
     )
     Image(
-        painter = painterResource(id = R.drawable.logo2),
+        painter = painterResource(id = R.drawable.logo3),
         contentDescription = "logo", modifier = modifier
             .size(150.dp)
             .graphicsLayer {
@@ -202,7 +202,7 @@ fun Email(email: String, onTextChanged: (String) -> Unit) {
             textColor = Color.Black,
             containerColor = Color(0xFFEBD8BC),
             focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Red
+            unfocusedIndicatorColor =Color(0xFF0e3958)
         )
     )
 }
@@ -228,7 +228,7 @@ fun Password(password: String, onTextChanged: (String) -> Unit) {
             textColor = Color.Black,
             containerColor = Color(0xFFEBD8BC),
             focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Red
+            unfocusedIndicatorColor = Color(0xFF0e3958)
         ),
         trailingIcon = {
             val passwordImagen = if (passwordVisibility) {
