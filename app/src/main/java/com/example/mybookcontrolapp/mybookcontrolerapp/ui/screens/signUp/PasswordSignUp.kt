@@ -9,8 +9,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
@@ -42,7 +44,7 @@ fun Password1(
                 favoriteGenere
             )
         },
-        label = { Text(text = "Contraseña") },
+        label = { Text(text = "Contraseña", color = Color.White) },
         trailingIcon = {
             val passwordImagen = if (passwordVisibility) {
                 Icons.Filled.VisibilityOff
@@ -63,7 +65,8 @@ fun Password1(
         } else {
             VisualTransformation.None
         },
-        supportingText = { Text(text = "Introduce contraseña") },
+        supportingText = { Text(text = "Introduce contraseña", color = Color.White) },
+        colors = TextFieldDefaults.outlinedTextFieldColors(textColor = Color.White),
         singleLine = true
     )
 }
@@ -96,7 +99,7 @@ fun Password2(
                 favoriteGenere
             )
         },
-        label = { Text(text = "Contraseña") },
+        label = { Text(text = "Contraseña", color = Color.White) },
         trailingIcon = {
             val passwordImagen = if (passwordVisibility) {
                 Icons.Filled.VisibilityOff
@@ -117,7 +120,8 @@ fun Password2(
         } else {
             VisualTransformation.None
         },
-        supportingText = { Text(text = "Confirmar contraseña") },
+        supportingText = { Text(text = "Confirmar contraseña", color = Color.White) },
+        colors = TextFieldDefaults.outlinedTextFieldColors(textColor = Color.White),
         singleLine = true
     )
 }

@@ -38,7 +38,7 @@ fun TopBar(
     var menuOpen by rememberSaveable { mutableStateOf(false) }
 
     TopAppBar(
-        title = { Text(text = titulo) },
+        title = { Text(text = titulo, color = Color.White) },
         navigationIcon = {
             // Ícono para abrir o cerrar el drawer lateral.
             IconButton(onClick = {

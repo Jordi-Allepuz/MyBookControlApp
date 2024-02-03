@@ -122,7 +122,7 @@ fun FabNewUser(
                     Toast.LENGTH_LONG
                 ).show()
             }
-        }, contentColor = Color.Black, containerColor = Color(0xFFE66A94)
+        }, contentColor = Color.Black, containerColor = Color(0xFFe4bc7f)
     ) {
         Icon(imageVector = Icons.Rounded.Add, contentDescription = "check")
     }

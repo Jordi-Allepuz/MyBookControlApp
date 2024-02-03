@@ -120,10 +120,10 @@ fun Body(
         }
         Spacer(modifier = Modifier.size(8.dp))
         Text(modifier = Modifier.fillMaxWidth(),
-            text = "Olvidaste contraseña?",
+            text = "¿Olvidaste contraseña?",
             fontSize = 12.sp,
             fontWeight = FontWeight.Bold,
-            color = Color.Blue,
+            color = Color.Black,
             textAlign = TextAlign.End
         )
         Spacer(modifier = Modifier.size(30.dp))
@@ -172,7 +172,7 @@ fun ImageLogo(modifier: Modifier) {
         animationSpec = tween(durationMillis = 1000, easing = LinearOutSlowInEasing)
     )
     Image(
-        painter = painterResource(id = R.drawable.logoapp),
+        painter = painterResource(id = R.drawable.logo),
         contentDescription = "logo", modifier = modifier
             .size(150.dp)
             .graphicsLayer {
@@ -199,8 +199,8 @@ fun Email(email: String, onTextChanged: (String) -> Unit) {
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
         colors = TextFieldDefaults.textFieldColors(
-            textColor = Color(0xFFE91E63),
-            containerColor = Color(0xFFF8C07F),
+            textColor = Color.Black,
+            containerColor = Color(0xFFEBD8BC),
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Red
         )
@@ -225,8 +225,8 @@ fun Password(password: String, onTextChanged: (String) -> Unit) {
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         colors = TextFieldDefaults.textFieldColors(
-            textColor = Color(0xFFE91E63),
-            containerColor = Color(0xFFF8C07F),
+            textColor = Color.Black,
+            containerColor = Color(0xFFEBD8BC),
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Red
         ),
@@ -270,8 +270,8 @@ fun LoginButton(
         enabled = loginEnable,
         modifier = Modifier.fillMaxWidth(),
         colors = ButtonDefaults.buttonColors(
-            containerColor = Color(0xFF036392),
-            disabledContainerColor = Color(0xCC8AC7FF),
+            containerColor = Color(0xFFe4bc7f),
+            disabledContainerColor = Color(0xFFEBD8BC),
             contentColor = Color.White,
             disabledContentColor = Color.White
         )
@@ -314,14 +314,14 @@ fun SignUpBottom(
     navigationController: NavHostController
 ) {
     Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = "No tienes una cuenta?", fontSize = 12.sp, color = Color.Blue, fontWeight = FontWeight.Bold)
+        Text(text = "¿No tienes una cuenta?", fontSize = 12.sp, color = Color.Black, fontWeight = FontWeight.Bold)
         Button(
             onClick = {
                 navigationController.navigate(Routes.SignUpScreen.route)
             },
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF036392),
+                containerColor = Color(0xFFe4bc7f),
                 contentColor = Color.White,
             )
         ) {

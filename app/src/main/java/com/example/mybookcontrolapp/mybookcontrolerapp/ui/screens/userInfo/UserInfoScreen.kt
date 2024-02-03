@@ -52,6 +52,7 @@ import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewMo
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.UserInfoViewModel
 import com.example.mybookcontrolapp.ui.theme.caveat
 import com.example.mybookcontrolapp.ui.theme.greatvibes
+import com.example.mybookcontrolapp.ui.theme.kaushanscript
 import com.example.mybookcontrolapp.ui.theme.yellowtail
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -103,7 +104,7 @@ fun UserInfoContent(
     navigationController: NavHostController,
     paddingValues: PaddingValues
 ) {
-    val brush = Brush.linearGradient(listOf(MaterialTheme.colorScheme.background, Color(0xFFD53706)))
+    val brush = Brush.linearGradient(listOf(MaterialTheme.colorScheme.background, Color(0xFFEBB25B)))
 
     val user: User? by userInfoViewModel.user.observeAsState()
     val books: List<Book>? by userInfoViewModel.userBooks.observeAsState()
@@ -163,7 +164,7 @@ fun ReadBooks(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "LIBROS FAVORITOS DE ${userName.uppercase()}", color = Color.Black,fontWeight = FontWeight.ExtraBold, fontFamily = yellowtail)
+        Text(text = "LIBROS FAVORITOS DE ${userName.uppercase()}", color = Color.Black,fontWeight = FontWeight.ExtraBold, fontFamily = kaushanscript)
         Spacer(
             modifier = Modifier
                 .fillMaxWidth()

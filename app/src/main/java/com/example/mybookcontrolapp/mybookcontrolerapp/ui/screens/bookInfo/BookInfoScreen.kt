@@ -2,6 +2,7 @@ package com.example.mybookcontrolapp.mybookcontrolerapp.ui.screens.bookInfo
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -35,6 +36,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -57,30 +59,45 @@ fun BookInfoScreen(
 ) {
     val book: Book? by userInfoViewModel.book.observeAsState() // Observa cambios en el libro seleccionado.
 
-    val coroutina = rememberCoroutineScope() // Crea un scope de corutina para lanzar tareas asíncronas.
+    val coroutina =
+        rememberCoroutineScope() // Crea un scope de corutina para lanzar tareas asíncronas.
     val estadoDrawer = rememberDrawerState(initialValue = DrawerValue.Closed)
 
     ModalNavigationDrawer(
-        drawerContent = { ModalDrawer(estadoDrawer = estadoDrawer, coroutina = coroutina, userInfoViewModel, navigationController) },
+        drawerContent = {
+            ModalDrawer(
+                estadoDrawer = estadoDrawer,
+                coroutina = coroutina,
+                userInfoViewModel,
+                navigationController
+            )
+        },
         gesturesEnabled = false, // Deshabilita gestos para abrir/cerrar el drawer.
         drawerState = estadoDrawer
     ) {
         Scaffold(
-            topBar = { TopBar("BOOK INFO", estadoDrawer, coroutina, loginViewModel,userInfoViewModel, navigationController, badgedOn = true) },
+            topBar = {
+                TopBar(
+                    "BOOK INFO",
+                    estadoDrawer,
+                    coroutina,
+                    loginViewModel,
+                    userInfoViewModel,
+                    navigationController,
+                    badgedOn = true
+                )
+            },
             content = { paddingValues ->
                 BookInfoContent(
                     paddingValues,
                     book!!
                 )
             },
-            bottomBar = { BottomBar(navigationController, loginViewModel)}
+            bottomBar = { BottomBar(navigationController, loginViewModel) }
         )
     }
 
 }
-
-
-
 
 
 @Composable
@@ -88,6 +105,10 @@ fun BookInfoContent(
     paddingValues: PaddingValues,
     book: Book
 ) {
+
+    val brush =
+        Brush.linearGradient(listOf(MaterialTheme.colorScheme.background, Color(0xFFEBB25B)))
+
     if (book == null) {
         Box(
             modifier = Modifier
@@ -98,9 +119,12 @@ fun BookInfoContent(
     } else {
         Column(
             modifier = Modifier
-                .fillMaxSize().verticalScroll(rememberScrollState())
+                .fillMaxSize()
+                .background(brush)
+                .verticalScroll(rememberScrollState())
                 .padding(paddingValues),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
             BookInfo(book)
         }
@@ -111,53 +135,50 @@ fun BookInfoContent(
 @OptIn(ExperimentalCoilApi::class)
 @Composable
 fun BookInfo(book: Book) {
-    Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(300.dp).padding(horizontal = 10.dp)
+            .clip(RoundedCornerShape(8.dp))
+            .border(5.dp, Color.LightGray, RoundedCornerShape(8.dp)),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+    ) {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier.padding(16.dp)
         ) {
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth().height(300.dp)
-                    .clip(RoundedCornerShape(8.dp))
-                    .border(5.dp, Color.LightGray, RoundedCornerShape(8.dp)),
-                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+            Text(
+                text = "Titulo Libro: ${book.titulo}",
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Column(
-                    modifier = Modifier.padding(16.dp)
+                    modifier = Modifier.weight(1f)
                 ) {
                     Text(
-                        text = "Titulo Libro: ${book.titulo}",
-                        style = MaterialTheme.typography.titleLarge,
-                        color = MaterialTheme.colorScheme.onSurface
+                        text = "Editorial: ${book.editorial}",
+                        style = MaterialTheme.typography.bodyLarge
                     )
-                    Spacer(modifier = Modifier.height(8.dp))
-
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Column(
-                            modifier = Modifier.weight(1f)
-                        ) {
-                            Text(text = "Editorial: ${book.editorial}", style = MaterialTheme.typography.bodyLarge)
-                            Text(text = "Género: ${book.genero}", style = MaterialTheme.typography.bodyLarge)
-                            Text(text = "Autor: ${book.autor}", style = MaterialTheme.typography.bodyLarge)
-                            Text(text = "Isbn: ${book.isbn}", style = MaterialTheme.typography.bodyLarge)
-                        }
-
-                        Image(
-                            painter = rememberImagePainter(data = book.portada),
-                            contentDescription = "portada",
-                            modifier = Modifier
-                                .size(120.dp)
-                                .clip(RoundedCornerShape(8.dp))
-                        )
-                    }
+                    Text(
+                        text = "Género: ${book.genero}",
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                    Text(text = "Autor: ${book.autor}", style = MaterialTheme.typography.bodyLarge)
+                    Text(text = "Isbn: ${book.isbn}", style = MaterialTheme.typography.bodyLarge)
                 }
+
+                Image(
+                    painter = rememberImagePainter(data = book.portada),
+                    contentDescription = "portada",
+                    modifier = Modifier
+                        .size(120.dp)
+                        .clip(RoundedCornerShape(8.dp))
+                )
             }
         }
     }

@@ -4,6 +4,7 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import com.example.mybookcontrolapp.Routes
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
@@ -30,7 +31,7 @@ fun OverFlowMenu(
                 navigationController.navigate(Routes.LoginScreen.route)
             }
         },
-            text = { Text(text = "LOG OUT") }
+            text = { Text(text = "LOG OUT", color = Color.White) }
         )
     }
 }

@@ -13,12 +13,14 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.data.EnumGenere
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.SignUpViewModel
@@ -54,7 +56,7 @@ fun DropDownMenuGenere(
                     it
                 )
             },
-            label = { Text(text = "Selecciona una genero") },
+            label = { Text(text = "Selecciona una genero", color = Color.White) },
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Rounded.SwipeDown,
@@ -66,7 +68,8 @@ fun DropDownMenuGenere(
             modifier = Modifier
                 .size(300.dp, 60.dp)
                 .clickable { expanded = true },
-            singleLine = true
+            singleLine = true,
+            colors = TextFieldDefaults.outlinedTextFieldColors(unfocusedBorderColor = Color.Black)
         )
         DropdownMenu(
             expanded = expanded,
