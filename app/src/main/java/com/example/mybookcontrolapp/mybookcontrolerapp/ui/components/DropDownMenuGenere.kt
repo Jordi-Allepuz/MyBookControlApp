@@ -1,5 +1,6 @@
 package com.example.mybookcontrolapp.mybookcontrolerapp.ui.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,6 +12,9 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MenuDefaults
+import androidx.compose.material3.MenuItemColors
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
@@ -40,12 +44,14 @@ fun DropDownMenuGenere(
 
     // Estado para controlar si el menú desplegable está expandido o no.
     var expanded by remember { mutableStateOf(false) }
+    var enable by remember { mutableStateOf(false) }
     // Lista de géneros literarios disponibles para seleccionar.
     val generes = EnumGenere.values()
 
     Column(verticalArrangement = Arrangement.SpaceBetween) {
         OutlinedTextField(
             value = favoriteGenere,
+            enabled = enable,
             onValueChange = {
                 singUpViewModel.onLoginChange(
                     email,
@@ -64,19 +70,25 @@ fun DropDownMenuGenere(
                 )
             },
             readOnly = true,
-            enabled = false,
             modifier = Modifier
                 .size(300.dp, 60.dp)
-                .clickable { expanded = true },
+                .clickable {
+                    enable = false
+                    expanded = true
+                },
             singleLine = true,
-            colors = TextFieldDefaults.outlinedTextFieldColors(unfocusedBorderColor = Color.Black)
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                disabledTextColor = Color.White,
+                disabledBorderColor = MaterialTheme.colorScheme.outline,
+                disabledLeadingIconColor = MaterialTheme.colorScheme.outline
+            )
         )
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
             modifier = Modifier
                 .size(300.dp)
-                .fillMaxHeight()
+                .fillMaxHeight().background(Color(0xFFEBD8BC))
         ) {
             generes.forEach { genere ->
                 DropdownMenuItem(onClick = {
@@ -90,9 +102,8 @@ fun DropDownMenuGenere(
                     )
                     expanded = false
                 }, text = {
-                        Text(text = genere.toString())
-                    }
-                )
+                    Text(text = genere.toString())
+                }, colors = MenuDefaults.itemColors(textColor = Color.White))
 
             }
         }
