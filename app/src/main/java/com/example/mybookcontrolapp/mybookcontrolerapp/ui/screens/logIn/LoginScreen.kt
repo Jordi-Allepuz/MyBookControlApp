@@ -60,6 +60,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.mybookcontrolapp.R
 import com.example.mybookcontrolapp.Routes
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.ProgressIndicatorLogo
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
 
 @Composable
@@ -76,9 +77,9 @@ fun LoginScreen(
         if (isLoading) {
             Box(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .fillMaxSize(), contentAlignment = Alignment.Center
             ) {
-                CircularProgressIndicator()
+                ProgressIndicatorLogo()
             }
         } else {
             Body(

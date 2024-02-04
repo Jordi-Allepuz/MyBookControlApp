@@ -47,6 +47,7 @@ import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.BottomBar
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.CardAddBook
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.CardBook
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.ModalDrawer
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.ProgressIndicatorLogo
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.TopBar
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.UserInfoViewModel
@@ -116,9 +117,9 @@ fun UserInfoContent(
     if (user == null || books == null) {
         Box(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxSize(), contentAlignment = Alignment.Center
         ) {
-            CircularProgressIndicator()
+            ProgressIndicatorLogo()
         }
     } else {
         Column(

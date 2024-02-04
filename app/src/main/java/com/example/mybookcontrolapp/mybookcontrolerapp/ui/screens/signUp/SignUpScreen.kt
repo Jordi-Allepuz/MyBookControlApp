@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.mybookcontrolapp.Routes
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.DropDownMenuGenere
+import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.ProgressIndicatorLogo
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.SignUpViewModel
 
 
@@ -153,9 +154,9 @@ fun ContentNewUSer(
     if (isLoading) {
         Box(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxSize(), contentAlignment = Alignment.Center
         ) {
-            CircularProgressIndicator()
+            ProgressIndicatorLogo()
         }
     } else {
         Box(
