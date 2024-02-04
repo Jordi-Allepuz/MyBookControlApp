@@ -137,7 +137,7 @@ fun CollectionBookContent(
                 items(books!!) { book ->
                     CardBookInfo(book, userInfoViewModel, navigationController)
                 }
-            })
+            }, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center)
         }
     }
 }
