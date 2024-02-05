@@ -1,7 +1,7 @@
 # MyBookController
 
 <p align="center">
- <img src="https://firebasestorage.googleapis.com/v0/b/mybookcontrollerapp.appspot.com/o/capturas_readme%2Flogo3.png?alt=media&token=0255f61b-06bb-467a-b659-ae9f1a6581b9"style="width:250px; height:auto;">
+ <img src="https://firebasestorage.googleapis.com/v0/b/mybookcontrollerapp.appspot.com/o/capturas_readme%2Flogoredondeado.png?alt=media&token=23302cd0-40ad-4c37-abdf-9366c14999b9"style="width:250px; height:auto;">
 </p>
  
 **Autor:** Jordi Allepuz Janoher  
