@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -50,11 +51,11 @@ fun CardBookInfo(
             }, shape = RoundedCornerShape(8.dp)
     ) {
         Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(text = book.titulo, textAlign = TextAlign.Center, modifier = Modifier.padding(vertical = 8.dp))
+            Text(text = book.titulo, textAlign = TextAlign.Center, fontWeight = FontWeight.Bold, modifier = Modifier.padding(vertical = 8.dp))
             Image(
                 painter = rememberImagePainter(data = book.portada),
                 contentDescription = null,
-                modifier = Modifier.width(150.dp), contentScale = ContentScale.Crop,
+                modifier = Modifier.width(150.dp).height(230.dp), contentScale = ContentScale.Crop,
             )
         }
 
