@@ -1,6 +1,7 @@
 package com.example.mybookcontrolapp.mybookcontrolerapp.ui.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,10 +12,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -48,14 +52,16 @@ fun CardBookInfo(
                         Routes.UserInfoScreen.route
                     )
                 }
-            }, shape = RoundedCornerShape(8.dp)
+            }, shape = RoundedCornerShape(8.dp), colors = CardDefaults.cardColors(containerColor = Color(0xFF358F80))
     ) {
         Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
             Text(text = book.titulo, textAlign = TextAlign.Center, fontWeight = FontWeight.Bold, modifier = Modifier.padding(vertical = 8.dp))
             Image(
                 painter = rememberImagePainter(data = book.portada),
                 contentDescription = null,
-                modifier = Modifier.width(150.dp).height(230.dp), contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .width(150.dp)
+                    .height(230.dp), contentScale = ContentScale.Crop,
             )
         }
 
