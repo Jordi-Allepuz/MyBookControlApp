@@ -11,7 +11,15 @@
 ## Objetivo del Proyecto
 Aplicación para controlar los libros favoritos y leidos de cada usuario. 
 
-## Capturas de pantalla
+
+
+##Lenguajes y herramientas
+Android Studio
+Kotlin
+Firebase
+Jetpack Compose
+
+##Capturas de pantalla
 
 <p>
   <img src="https://firebasestorage.googleapis.com/v0/b/mybookcontrollerapp.appspot.com/o/capturas_readme%2Fimage.png?alt=media&token=6d0de700-c7c9-43ab-b6c0-7387615ea88e"style="width:300px; height:auto;">
