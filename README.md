@@ -9,7 +9,7 @@
 **Instituto:** I.E.S El Caminas
 
 ## Objetivo del Proyecto
-Aplicación para controlar los libros favoritos y leidos de cada usuario. 
+MyBookController es una plataforma diseñada para que los amantes de la lectura gestionen y organicen su biblioteca virtual, permitiendo almacenar información de libros leídos o favoritos en un perfil personal. 
 
 
 
