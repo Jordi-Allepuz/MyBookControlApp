@@ -13,13 +13,18 @@ Aplicación para controlar los libros favoritos y leidos de cada usuario.
 
 
 
-##Lenguajes y herramientas
-Android Studio
-Kotlin
-Firebase
-Jetpack Compose
+## Lenguajes y herramientas
+  
+<div>
+ <img src="https://github.com/devicons/devicon/blob/master/icons/androidstudio/androidstudio-original.svg" alt="android" width="60" height="60"/>
+  <img src="https://github.com/devicons/devicon/blob/master/icons/kotlin/kotlin-original-wordmark.svg" title="kotlin" alt="kotlin" width="60" height="60"/>
+ <img src="https://github.com/devicons/devicon/blob/master/icons/firebase/firebase-plain-wordmark.svg" alt="firebase" width="60" height="60"/>
+</div>
 
-##Capturas de pantalla
+
+
+
+## Capturas de pantalla
 
 <p>
   <img src="https://firebasestorage.googleapis.com/v0/b/mybookcontrollerapp.appspot.com/o/capturas_readme%2Fimage.png?alt=media&token=6d0de700-c7c9-43ab-b6c0-7387615ea88e"style="width:300px; height:auto;">
