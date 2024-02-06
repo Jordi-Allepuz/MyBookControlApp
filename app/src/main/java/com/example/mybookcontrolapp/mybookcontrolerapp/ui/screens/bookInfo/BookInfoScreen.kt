@@ -20,13 +20,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
@@ -168,14 +166,14 @@ fun BookInfo(book: Book) {
                     modifier = Modifier.weight(1f),
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    Text(text = "${book.autor}" ,
+                    Text(text = book.autor,
                         fontWeight = FontWeight.Bold, style = MaterialTheme.typography.bodyLarge)
                     Text(
-                        text = "${book.genero}",
+                        text = book.genero,
                         style = MaterialTheme.typography.bodyLarge
                     )
                     Text(
-                        text = "${book.editorial}",
+                        text = book.editorial,
                         style = MaterialTheme.typography.bodyLarge
                     )
                     Text(text = "Isbn: ${book.isbn}", style = MaterialTheme.typography.bodyLarge)

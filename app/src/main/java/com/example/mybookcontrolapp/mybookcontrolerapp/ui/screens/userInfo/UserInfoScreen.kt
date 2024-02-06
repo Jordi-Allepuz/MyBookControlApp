@@ -19,7 +19,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -51,10 +50,8 @@ import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.ProgressInd
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.components.TopBar
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.LoginViewModel
 import com.example.mybookcontrolapp.mybookcontrolerapp.ui.viewmodels.UserInfoViewModel
-import com.example.mybookcontrolapp.ui.theme.caveat
-import com.example.mybookcontrolapp.ui.theme.greatvibes
 import com.example.mybookcontrolapp.ui.theme.kaushanscript
-import com.example.mybookcontrolapp.ui.theme.yellowtail
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
