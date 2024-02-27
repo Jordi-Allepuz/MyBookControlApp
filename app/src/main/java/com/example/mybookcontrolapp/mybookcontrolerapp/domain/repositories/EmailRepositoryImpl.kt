@@ -1,4 +1,4 @@
-package com.example.mybookcontrolapp.mybookcontrolerapp.data.repositories
+package com.example.mybookcontrolapp.mybookcontrolerapp.domain.repositories
 
 import com.example.mybookcontrolapp.mybookcontrolerapp.data.sources.local.LocalDataSource
 import com.example.mybookcontrolapp.mybookcontrolerapp.domain.repositories.EmailRepository
